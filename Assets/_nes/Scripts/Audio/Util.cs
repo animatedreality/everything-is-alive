@@ -10,6 +10,13 @@ namespace Audio
 
         static string[] noteNames = new string[] { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
 
+
+        public static float GetSampleRate()
+        {
+            return AudioSettings.outputSampleRate;
+        }
+
+
         public static string GetNoteName_FromMidiNum(int midiNum)
         {
 
@@ -75,8 +82,9 @@ namespace Audio
             return FFT.CalculateFFT(complexSlice, false); //<-- only use half the array!!!!! important.. but im not going to resize it here for the sake of speed
         }
 
-        public static List<float> GetLoudestFrequencies(float[] data, int numFreq, float sampleRate)
+        public static List<float> GetLoudestFrequencies(float[] data, int numFreq)
         {
+            float sampleRate = GetSampleRate();
             List<float> loudestFreqs = new List<float>();
             Complex[] fft = FFT_GetFreqArr(data);
             //get first half of fft
@@ -121,10 +129,27 @@ namespace Audio
             return loudestFreq;
         }
 
-        public static float GetFundamentalFromData(float[] data, float sampleRate)
+        public static float GetFundamentalFromData(float[] data)
         {
-            List<float> loudestFreqs = GetLoudestFrequencies(data, 8, sampleRate);
+            List<float> loudestFreqs = GetLoudestFrequencies(data, 8);
             return GetFundamentalFreqFromLoudestFrequencies(data, loudestFreqs);
+        }
+
+        public static float GetFundamentalFromClip(AudioClip clip)
+        {
+            float[] data = new float[clip.samples * clip.channels];
+            clip.GetData(data, 0);
+            return GetFundamentalFromData(data);
+        }
+
+        public static string AutoID(int length = -1)
+        {
+            string s = System.Guid.NewGuid().ToString();
+            if (length > 0)
+            {
+                s = s.Substring(0, length);
+            }
+            return s;
         }
 
 

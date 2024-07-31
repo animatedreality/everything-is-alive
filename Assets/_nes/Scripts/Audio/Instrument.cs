@@ -7,7 +7,7 @@ namespace Audio
 {
     public class Instrument : MonoBehaviour
     {
-        public string instrumentName;
+        public string instrumentName, id;
         public List<AudioSource> sources = new List<AudioSource>();
 
         public AudioClip clip;
@@ -18,18 +18,31 @@ namespace Audio
 
         float pitch, pan, volume;
 
+        private float ogClipFundamentalFreq;
+
         List<int> sequence = new List<int>();
 
-        public Instrument(string name, Note note)
+        public Instrument(string name, Note note, AudioClip clip)
         {
             this.instrumentName = name;
             this.note = note;
+            this.clip = clip;
+            this.id = Util.AutoID();
+            this.ogClipFundamentalFreq = Util.GetFundamentalFromClip(clip);
         }
 
         public void Play()
         {
             AudioSource source = GetAvailableSource();
             source.Play();
+        }
+
+        public void Stop()
+        {
+            foreach (AudioSource source in sources)
+            {
+                source.Stop();
+            }
         }
 
         public AudioSource GetAvailableSource()
@@ -70,6 +83,13 @@ namespace Audio
             }
         }
 
+        public void SetNote(Note note)
+        {
+            this.note = note;
+            float ratio = note.frequency / ogClipFundamentalFreq;
+            SetPitch(ratio);
+        }
+
         public void SetPitch(float pitch)
         {
             this.pitch = pitch;
@@ -85,14 +105,6 @@ namespace Audio
             foreach (AudioSource source in sources)
             {
                 source.volume = volume;
-            }
-        }
-
-        public void Stop()
-        {
-            foreach (AudioSource source in sources)
-            {
-                source.Stop();
             }
         }
 

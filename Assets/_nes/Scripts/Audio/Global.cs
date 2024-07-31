@@ -17,11 +17,9 @@ namespace Audio
 
         private bool globalPlay = false;
 
+        public List<InstGroup> instGroups = new List<InstGroup>();
 
-        public float GetSampleRate()
-        {
-            return AudioSettings.outputSampleRate;
-        }
+        public int beatIndex = 0;
 
         private void Awake()
         {
@@ -38,6 +36,7 @@ namespace Audio
 
         private void Start()
         {
+            globalPlay = true;
             nextEventTime = AudioSettings.dspTime + 0.4;
         }
 
@@ -49,9 +48,27 @@ namespace Audio
             {
                 if (time + sixteenthNote > nextEventTime)
                 {
-
+                    foreach (InstGroup instGroup in instGroups)
+                    {
+                        instGroup.Schedule(beatIndex, nextEventTime);
+                    }
+                    nextEventTime += sixteenthNote;
+                    beatIndex++;
                 }
             }
+        }
+
+        public void Play()
+        {
+            beatIndex = -1;
+
+            nextEventTime = AudioSettings.dspTime;
+            globalPlay = true;
+        }
+
+        public void Stop()
+        {
+            globalPlay = false;
         }
     }
 }
