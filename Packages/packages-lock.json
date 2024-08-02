@@ -53,24 +53,22 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.interaction": {
-      "version": "66.0.0",
-      "depth": 1,
-      "source": "registry",
+      "version": "file:com.meta.xr.sdk.interaction@66.0.0",
+      "depth": 0,
+      "source": "embedded",
       "dependencies": {
         "com.unity.textmeshpro": "3.0.6",
         "com.unity.ugui": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
+      }
     },
     "com.meta.xr.sdk.interaction.ovr": {
-      "version": "66.0.0",
-      "depth": 1,
-      "source": "registry",
+      "version": "file:com.meta.xr.sdk.interaction.ovr@66.0.0",
+      "depth": 0,
+      "source": "embedded",
       "dependencies": {
         "com.meta.xr.sdk.interaction": "66.0.0",
         "com.meta.xr.sdk.core": "66.0.0"
-      },
-      "url": "https://packages.unity.com"
+      }
     },
     "com.meta.xr.sdk.platform": {
       "version": "66.0.0",
