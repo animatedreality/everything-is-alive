@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.Events;
 
 namespace Audio
 {
@@ -20,12 +20,28 @@ namespace Audio
 
         public RectTransform playHeadHandle, playHeadArea, canvasRect;
 
+        public Transform pointerSurfaceTransform;
+
+        public Transform instrumentsParent;
+
+        public UnityEvent<int> OnEveryStep;
+
         public Canvas canvas;
 
         void Start()
         {
             this.id = Util.AutoID();
             AdjustPlayHead();
+            AdjustPointerSurface();
+            Global.instance.OnEveryStepEvent += EveryStep;
+        }
+
+        private void Reset()
+        {
+            if (OnEveryStep == null)
+            {
+                OnEveryStep = new UnityEvent<int>();
+            }
         }
 
         private void AdjustPlayHead()
@@ -40,6 +56,12 @@ namespace Audio
             playHeadArea.offsetMax = new Vector2(-padding, playHeadArea.offsetMax.y);
         }
 
+        private void AdjustPointerSurface()
+        {
+            //set the scale of the pointer surface to match the canvas dimensions times the canvasRect scale
+            pointerSurfaceTransform.localScale = new Vector3(canvasRect.rect.width * canvasRect.localScale.x, canvasRect.rect.height * canvasRect.localScale.y, 0.01f);
+        }
+
         public void SetLoopLength(int loopLength)
         {
             this.loopLength = loopLength;
@@ -50,15 +72,18 @@ namespace Audio
             AdjustPlayHead();
         }
 
-        public void EveryStepAction(int globalBeatIndex)
+        public void EveryStep(int globalBeatIndex)
         {
-            playHeadSlider.value = globalBeatIndex % loopLength;
+            int localBeatIndex = globalBeatIndex % loopLength;
+            playHeadSlider.value = localBeatIndex;
+            OnEveryStep?.Invoke(localBeatIndex);
         }
 
         public void AddInstrument(Instrument instrument)
         {
             instrument.SetLoopLength(loopLength);
             instruments.Add(instrument);
+            instrument.transform.SetParent(instrumentsParent);
             ResizeCanvas();
         }
 
@@ -68,9 +93,15 @@ namespace Audio
             ResizeCanvas();
         }
 
+        void OnDestroy()
+        {
+            Global.instance.OnEveryStepEvent -= EveryStep;
+        }
+
         void ResizeCanvas()
         {
             canvasRect.sizeDelta = new Vector2(canvasRect.sizeDelta.x, instruments.Count * 64);
+            AdjustPointerSurface();
         }
 
         public void Schedule(int globalBeatIndex, double nextEventTime)

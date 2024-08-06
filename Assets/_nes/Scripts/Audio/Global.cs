@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace Audio
@@ -17,10 +18,17 @@ namespace Audio
 
         private bool globalPlay = false;
 
+        public UnityEvent<int> OnEveryStep;
+
         List<InstGroup> instGroups = new List<InstGroup>();
 
         [HideInInspector]
         public int beatIndex = 0;
+
+        public delegate void OnEveryStepDelegate(int x);
+
+        public event OnEveryStepDelegate OnEveryStepEvent;
+
 
         private void Awake()
         {
@@ -46,6 +54,14 @@ namespace Audio
 
             globalPlay = true;
             nextEventTime = AudioSettings.dspTime + 0.4;
+        }
+
+        private void Reset()
+        {
+            if (OnEveryStep == null)
+            {
+                OnEveryStep = new UnityEvent<int>();
+            }
         }
 
         public void Update()
@@ -94,10 +110,8 @@ namespace Audio
             {
                 return;
             }
-            foreach (InstGroup instGroup in instGroups)
-            {
-                instGroup.EveryStepAction(x);
-            }
+            OnEveryStep?.Invoke(x);
+            OnEveryStepEvent?.Invoke(x);
         }
 
         public void Play()
