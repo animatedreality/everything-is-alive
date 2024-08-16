@@ -6,9 +6,12 @@ public class PrefabManager : MonoBehaviour
 {
     //create static instance
     public static PrefabManager instance;
-
     public GameObject instGroupPrefab;
     public GameObject creatureGroupPrefab;
+
+    public GameObject buttonCreaturePrefab;
+
+    public GameObject instrumentPrefab;
 
     private void Awake()
     {

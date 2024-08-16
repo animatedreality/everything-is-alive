@@ -35,14 +35,12 @@ namespace Audio
 
         InstGroup instGroup;
 
+        InstGroup firstInstGroup;
+
         void Start()
         {
             this.id = Util.AutoID();
-            InstGroup instGroup = GetComponentInParent<InstGroup>();
-            if (instGroup != null)
-            {
-                SetInstGroup(instGroup);
-            }
+            ResetInstGroup();
         }
 
         private void Reset()
@@ -53,8 +51,42 @@ namespace Audio
             }
         }
 
+        public void ResetInstGroup()
+        {
+            instGroup = GetComponentInParent<InstGroup>();
+            if (instGroup != null)
+            {
+                SetInstGroup(instGroup);
+            }
+        }
+
+        public void FindOriginalInstGroup()
+        {
+            if (firstInstGroup != null)
+            {
+                SetInstGroup(firstInstGroup);
+            }
+            else
+            {
+                Debug.LogError("No firstInstGroup found for instrument " + instrumentName);
+            }
+        }
+
         public void SetInstGroup(InstGroup instGroup)
         {
+            if (instGroup == null)
+            {
+                Debug.LogError("instGroup is null");
+                return;
+            }
+            if (this.instGroup != null)
+            {
+                this.instGroup.RemoveInstrument(this);
+            }
+            if (firstInstGroup == null)
+            {
+                firstInstGroup = instGroup;
+            }
             this.instGroup = instGroup;
             instGroup.AddInstrument(this);
         }
@@ -133,7 +165,6 @@ namespace Audio
         {
             foreach (AudioSource source in sources)
             {
-                Debug.Log("source.isPlaying: " + source.isPlaying);
                 if (!source.isPlaying)
                 {
                     SyncSourceVariables(source);
@@ -153,9 +184,11 @@ namespace Audio
 
         public AudioSource CreateNewSource()
         {
-            AudioSource source = gameObject.AddComponent<AudioSource>();
+            AudioSource source = firstInstGroup.gameObject.AddComponent<AudioSource>(); //just going to add the audio sources here so they stay localized to the creature (so the sound will emit from the creatures direction)
             source.playOnAwake = false;
             source.loop = false;
+            source.volume = 0.75f; //we'll set this a bit lower than 1 for now to avoid clipping when instruments overlap, eventually we could have smart mixing set up like beat dj
+            source.spatialBlend = 1f;
             SyncSourceVariables(source);
             sources.Add(source);
             return source;

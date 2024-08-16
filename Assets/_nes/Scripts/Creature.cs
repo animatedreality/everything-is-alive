@@ -9,8 +9,12 @@ public class Creature : MonoBehaviour
     InstGroup instGroup;
     public AudioClip clip;
 
-    private CreatureGroup group;
-    private float unifyDistance = 2.0f;
+    private CreatureGroup creatureGroup;
+
+    [HideInInspector]
+    public bool availableToMerge = false;
+
+    Coroutine availableToMergeCoroutine;
 
     void Start()
     {
@@ -24,27 +28,43 @@ public class Creature : MonoBehaviour
             instGroup = GetComponentInChildren<InstGroup>();
         }
         Global.instance.OnEveryStepEvent += EveryStep;
+        Global.instance.AddCreature(this);
+        //set availableToMergeCoroutine
+        availableToMergeCoroutine = StartCoroutine(SetAvailableToMergeTrueWithDelay());
+    }
+
+    public void MakeAvailable()
+    {
+        StopCoroutine(availableToMergeCoroutine);
+        availableToMergeCoroutine = StartCoroutine(SetAvailableToMergeTrueWithDelay());
+    }
+
+    IEnumerator SetAvailableToMergeTrueWithDelay()
+    {
+        //give it some time between groups
+        yield return new WaitForSeconds(2f);
+        availableToMerge = true;
     }
 
     public void Delete()
     {
-        if (group != null)
+        if (creatureGroup != null)
         {
-            group.RemoveCreature(this);
+            creatureGroup.RemoveCreature(this);
         }
+        Global.instance.RemoveCreature(this);
         Destroy(gameObject);
     }
 
     public CreatureGroup GetGroup()
     {
-        return group;
+        return creatureGroup;
     }
 
     public void SetGroup(CreatureGroup group)
     {
-        this.group = group;
+        this.creatureGroup = group;
     }
-
 
 
     void OnDestroy()
@@ -79,11 +99,13 @@ public class Creature : MonoBehaviour
 
     void CheckProximityToCreateGroup()
     {
-        if (group == null)
+        if (!availableToMerge) return;
+        if (creatureGroup == null)
         {
-            foreach (var otherCreature in FindObjectsOfType<Creature>())
+            foreach (var otherCreature in Global.instance.GetCreatures())
             {
-                if (otherCreature != this && otherCreature.group == null && Vector3.Distance(transform.position, otherCreature.transform.position) <= unifyDistance)
+                if (!otherCreature.availableToMerge) continue;
+                if (otherCreature != this && otherCreature.creatureGroup == null && Vector3.Distance(transform.position, otherCreature.transform.position) <= Global.instance.creatureUnifyDistance)
                 {
                     CreateNewGroup(this, otherCreature);
                     break;
@@ -94,16 +116,22 @@ public class Creature : MonoBehaviour
 
     void CreateNewGroup(Creature creature1, Creature creature2)
     {
+        if (!availableToMerge) return;
         GameObject go = PrefabManager.instance.creatureGroupPrefab;
         Vector3 newPos = (creature1.transform.position + creature2.transform.position) / 2;
+        //the instgroup prefab has a default height so it will be slightly above newPos when instantiated, you can adjust that height if you want
         CreatureGroup newGroup = Instantiate(go, newPos, Quaternion.identity).GetComponent<CreatureGroup>();
         newGroup.AddCreature(creature1);
         newGroup.AddCreature(creature2);
     }
 
+
     public void RemovedFromGroup()
     {
-        group = null;
+        availableToMerge = false;
+        creatureGroup = null;
+        instrument.FindOriginalInstGroup();
+        MakeAvailable();
     }
 
 

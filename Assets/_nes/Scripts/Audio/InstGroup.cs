@@ -28,12 +28,27 @@ namespace Audio
 
         public Canvas canvas;
 
+        bool isActive = true;
+
         void Start()
         {
             this.id = Util.AutoID();
             AdjustPlayHead();
             AdjustPointerSurface();
+            Global.instance.AddInstGroup(this);
             Global.instance.OnEveryStepEvent += EveryStep;
+            LookAtPlayer();
+        }
+
+        void LookAtPlayer()
+        {
+            //find object with component AudioListener and lookat it.. point towards the player when instantiated
+            AudioListener audioListener = FindObjectOfType<AudioListener>();
+            if (audioListener != null)
+            {
+                Vector3 directionAway = transform.position - audioListener.transform.position;
+                transform.rotation = Quaternion.LookRotation(directionAway);
+            }
         }
 
         private void Reset()
@@ -46,6 +61,7 @@ namespace Audio
 
         private void AdjustPlayHead()
         {
+            if (!isActive) return;
             playHeadSlider.maxValue = loopLength - 1;
             playHeadSlider.value = 0;
             float newWidth = canvasRect.rect.width / loopLength;
@@ -74,6 +90,7 @@ namespace Audio
 
         public void EveryStep(int globalBeatIndex)
         {
+            if (!isActive) return;
             int localBeatIndex = globalBeatIndex % loopLength;
             playHeadSlider.value = localBeatIndex;
             OnEveryStep?.Invoke(localBeatIndex);
@@ -81,15 +98,61 @@ namespace Audio
 
         public void AddInstrument(Instrument instrument)
         {
-            instrument.SetLoopLength(loopLength);
-            instruments.Add(instrument);
-            instrument.transform.SetParent(instrumentsParent);
-            ResizeCanvas();
+            if (!instruments.Contains(instrument))
+            {
+                instrument.SetLoopLength(loopLength);
+                instruments.Add(instrument);
+                instrument.transform.SetParent(instrumentsParent);
+                //set instruments z position to 0 and scale to 1,1,1 and rotation to 0,0,0
+                instrument.transform.localPosition = new Vector3(0, instrument.transform.localPosition.y, 0);
+                instrument.transform.localScale = new Vector3(1, 1, 1);
+                instrument.transform.localRotation = Quaternion.identity;
+                ResizeCanvas();
+            }
+            //show canvas
+            if (instruments.Count > 0)
+            {
+                SetIsActive(true);
+            }
+        }
+
+        void SetIsActive(bool isActive)
+        {
+            this.isActive = isActive;
+            canvas.gameObject.SetActive(isActive);
+            if (isActive)
+            {
+                LookAtPlayer();
+                Global.instance.OnEveryStepEvent += EveryStep;
+                Global.instance.AddInstGroup(this);
+            }
+            else
+            {
+                Global.instance.OnEveryStepEvent -= EveryStep;
+                Global.instance.RemoveInstGroup(this);
+            }
         }
 
         public void RemoveInstrument(Instrument instrument)
         {
             instruments.Remove(instrument);
+            ResizeCanvas();
+            if (instruments.Count == 0)
+            {
+                //hide canvas
+                SetIsActive(false);
+            }
+        }
+
+        public void DeleteAllInstruments()
+        {
+            //for each sibling of the instrumentsParent, destroy it
+            foreach (Transform child in instrumentsParent)
+            {
+                Destroy(child.gameObject);
+            }
+            instruments.Clear();
+            SetIsActive(false);
             ResizeCanvas();
         }
 
@@ -106,6 +169,7 @@ namespace Audio
 
         public void Schedule(int globalBeatIndex, double nextEventTime)
         {
+            if (!isActive) return;
             foreach (Instrument instrument in instruments)
             {
                 instrument.Schedule(globalBeatIndex, nextEventTime);

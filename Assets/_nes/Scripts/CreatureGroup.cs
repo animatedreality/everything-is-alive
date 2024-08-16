@@ -5,24 +5,18 @@ using Audio;
 public class CreatureGroup : MonoBehaviour
 {
     private List<Creature> creatures = new List<Creature>();
-    private float unifyDistance = 2.0f;
 
-    public GameObject instGroupPrefab;
+    public InstGroup instGroup;
 
+    void Awake()
+    {
+        //delete all instruments since the prefab has one instrument by default
+        instGroup.DeleteAllInstruments();
+        instGroup.name = "Group " + Util.AutoID();
+    }
     void Start()
     {
         Global.instance.OnEveryStepEvent += EveryStep;
-        //create an InstGroup and add it to the creature group as a child
-        GameObject instGroupGO = Instantiate(instGroupPrefab, transform);
-        InstGroup instGroup = instGroupGO.GetComponent<InstGroup>();
-        //set loop length to first creature's loop length
-        instGroup.loopLength = creatures[0].GetLoopLength();
-        instGroup.name = "Group " + Util.AutoID();
-        //for each creature in the group, set the instGroup
-        foreach (var creature in creatures)
-        {
-            creature.SetInstGroup(instGroup);
-        }
     }
 
     void EveryStep(int globalBeatIndex)
@@ -40,47 +34,85 @@ public class CreatureGroup : MonoBehaviour
 
     void CheckProximity()
     {
-        foreach (var creature in FindObjectsOfType<Creature>())
+        List<Creature> creaturesToRemove = new List<Creature>();
+        List<Creature> creaturesToAdd = new List<Creature>();
+
+        foreach (var creature in creatures)
         {
-            if (creature.GetGroup() == null && IsCloseToGroup(creature))
+            if (creature.GetGroup() == this)
             {
-                AddCreature(creature);
+                if (!IsCloseToGroup(creature))
+                {
+                    creaturesToRemove.Add(creature);
+                }
             }
+
+        }
+        foreach (var creature in Global.instance.GetCreatures())
+        {
+            if (creature.availableToMerge)
+            {
+                if (creature.GetGroup() != this && IsCloseToGroup(creature))
+                {
+                    creaturesToAdd.Add(creature);
+                }
+            }
+        }
+
+        // Remove creatures after iterating
+        foreach (var creature in creaturesToRemove)
+        {
+            RemoveCreature(creature);
+        }
+
+        // Add creatures after iterating
+        foreach (var creature in creaturesToAdd)
+        {
+            AddCreature(creature);
         }
     }
 
+
     bool IsCloseToGroup(Creature creature)
     {
-        foreach (var member in creatures)
+        float distance = Vector3.Distance(transform.position, creature.transform.position);
+        if (distance <= Global.instance.creatureUnifyDistance)
         {
-            if (Vector3.Distance(member.transform.position, creature.transform.position) <= unifyDistance)
-            {
-                return true;
-            }
+            return true;
         }
         return false;
     }
 
     public void AddCreature(Creature creature)
     {
+        if (!creature.availableToMerge)
+        {
+            return;
+        }
+        if (creatures.Count == 0)
+        {
+            //set loop length to first creature's loop length
+            instGroup.loopLength = creature.GetLoopLength();
+        }
         if (!creatures.Contains(creature))
         {
-            creatures.Add(creature);
+            creature.availableToMerge = false;
             creature.SetGroup(this);
+            creature.SetInstGroup(instGroup);
+            creatures.Add(creature);
         }
+
     }
 
     public void RemoveCreature(Creature creature)
     {
-        if (creatures.Contains(creature))
+        creatures.Remove(creature);
+        creature.RemovedFromGroup();
+        if (creatures.Count == 1)
         {
-            creatures.Remove(creature);
-            creature.RemovedFromGroup();
-            if (creatures.Count == 1)
-            {
-                creatures[0].RemovedFromGroup();
-                Destroy(gameObject);
-            }
+            creatures[0].RemovedFromGroup();
+            creatures.Clear();
+            Destroy(gameObject);
         }
     }
 }

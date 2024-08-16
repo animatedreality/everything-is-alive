@@ -22,12 +22,16 @@ namespace Audio
 
         List<InstGroup> instGroups = new List<InstGroup>();
 
+        List<Creature> creatures = new List<Creature>();
+
         [HideInInspector]
         public int beatIndex = 0;
 
         public delegate void OnEveryStepDelegate(int x);
 
         public event OnEveryStepDelegate OnEveryStepEvent;
+
+        public float creatureUnifyDistance = 0.2f;
 
 
         private void Awake()
@@ -45,15 +49,52 @@ namespace Audio
 
         private void Start()
         {
-            //find all instGroups
-            InstGroup[] instGroups = FindObjectsOfType<InstGroup>();
-            foreach (InstGroup instGroup in instGroups)
-            {
-                this.instGroups.Add(instGroup);
-            }
+            //find all instGroups, nut not necessary because the InstGroups will add themselves to the list
+            // InstGroup[] instGroups = FindObjectsOfType<InstGroup>();
+            // foreach (InstGroup instGroup in instGroups)
+            // {
+            //     this.instGroups.Add(instGroup);
+            // }
 
             globalPlay = true;
             nextEventTime = AudioSettings.dspTime + 0.4;
+        }
+
+        public void AddInstGroup(InstGroup instGroup)
+        {
+            if (!instGroups.Contains(instGroup))
+            {
+                instGroups.Add(instGroup);
+            }
+        }
+
+        public void RemoveInstGroup(InstGroup instGroup)
+        {
+            if (instGroups.Contains(instGroup))
+            {
+                instGroups.Remove(instGroup);
+            }
+        }
+
+        public void AddCreature(Creature creature)
+        {
+            if (!creatures.Contains(creature))
+            {
+                creatures.Add(creature);
+            }
+        }
+
+        public void RemoveCreature(Creature creature)
+        {
+            if (creatures.Contains(creature))
+            {
+                creatures.Remove(creature);
+            }
+        }
+
+        public List<Creature> GetCreatures()
+        {
+            return creatures;
         }
 
         private void Reset()
