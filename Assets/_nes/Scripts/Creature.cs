@@ -99,6 +99,7 @@ public class Creature : MonoBehaviour
 
     void CheckProximityToCreateGroup()
     {
+        if (!Global.instance.mergeCreatures) return;
         if (!availableToMerge) return;
         if (creatureGroup == null)
         {
