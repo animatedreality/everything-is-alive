@@ -10,6 +10,8 @@ namespace Audio
     {
         public static Global instance;
 
+        [Header("Audio")]
+
         public float bpm = 120f;
 
         private double time;
@@ -25,9 +27,11 @@ namespace Audio
         public float instrumentUIHeight = 108.33f;
         List<Creature> creatures = new List<Creature>();
 
-        //Gameplay Related
-        [Header("Gameplay Related")]
+        [Header("Gameplay")]
         public bool mergeCreatures = false;
+
+        [Header("Objects")]
+        public GameObject moveAnchor;
 
         [HideInInspector]
         public int beatIndex = 0;

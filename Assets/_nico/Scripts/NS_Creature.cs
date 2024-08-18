@@ -13,7 +13,7 @@ public class NS_Creature : MonoBehaviour
     //- toggle MoveAnchor and ToggleButton when raycasted
     void Start()
     {
-        SetUIScale(0, 0);
+        SetAnchorUIScale(0, 0);
         if(!toggleButtonScript){
             toggleButtonScript = toggleButton.GetComponent<NS_ToggleButton>();
         }
@@ -28,13 +28,13 @@ public class NS_Creature : MonoBehaviour
     public void OnHoverStart(){
         Debug.Log("OnHoverStart");
         //tween moveAnchor and toggleButton scale to 1
-        SetUIScale(1, 0.5f);
+        SetAnchorUIScale(1, 0.5f);
     }
 
     //OnHoverEnd is called when other object is selected
     public void OnHoverEnd(){
         Debug.Log("OnHoverEnd");
-        // SetUIScale(0, 0.5f);
+        // SetAnchorUIScale(0, 0.5f);
     }
 
     public void OnClick(){
@@ -43,8 +43,8 @@ public class NS_Creature : MonoBehaviour
         togglePlayScript.TriggerOnClick();
     }
 
-    void SetUIScale(float scale, float duration){
+    void SetAnchorUIScale(float scale, float duration){
         moveAnchor.transform.DOScale(scale, duration);
-        toggleButton.transform.DOScale(scale, duration);
+        //toggleButton.transform.DOScale(scale, duration);
     }
 }

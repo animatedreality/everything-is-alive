@@ -5,14 +5,17 @@ using DG.Tweening;
 
 public class ScaleOnPlay : MonoBehaviour
 {
+    public float originalScale = 1f;
+    public float targetScale = 1.2f;
+    public float duration = 0.2f;
 
     public void ScaleUp()
     {
         //briefly scale up the object
-        transform.DOScale(1.2f, 0.2f).OnComplete(() =>
+        transform.DOScale(targetScale, duration).OnComplete(() =>
         {
             //scale back down
-            transform.DOScale(1f, 0.2f);
+            transform.DOScale(originalScale, duration);
         });
     }
 }

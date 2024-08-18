@@ -267,12 +267,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4015036489252497984}
   - component: {fileID: 7004100139087279461}
-  - component: {fileID: 7850120670508101276}
   - component: {fileID: 8343700398223807942}
   m_Layer: 0
   m_Name: lotusleaf-small (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -284,15 +283,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864554173932655190}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.534769, y: -0, z: -0, w: 0.84499836}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
+  m_LocalPosition: {x: 0, y: 0.0108, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1219164230172931286}
   - {fileID: 3247317511331080738}
   m_Father: {fileID: 1763526439371656432}
-  m_LocalEulerAnglesHint: {x: 64.657, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
 --- !u!54 &7004100139087279461
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -316,31 +315,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!65 &7850120670508101276
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 864554173932655190}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 2.05, y: 3.14, z: 1}
-  m_Center: {x: 0, y: -0.63, z: 0}
 --- !u!114 &8343700398223807942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,7 +645,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instrument: {fileID: 3064765283002642942}
-  clip: {fileID: 8300000, guid: 09f6237453c331f48866be11763d6a80, type: 3}
+  clip: {fileID: 8300000, guid: a07db5f46b6bbf747a205692b1053d7c, type: 3}
+  pokable: 1
   availableToMerge: 0
 --- !u!1 &6794915140588620426
 GameObject:
@@ -823,11 +802,12 @@ GameObject:
   - component: {fileID: 336544028422114439}
   - component: {fileID: 827347128336380201}
   - component: {fileID: 3690641429303651590}
-  - component: {fileID: 3120981889577299079}
   - component: {fileID: 2576792170102313072}
   - component: {fileID: 5930159702651268238}
+  - component: {fileID: 915994328265664245}
+  - component: {fileID: 5810345608288737454}
   m_Layer: 0
-  m_Name: lotusleaf_head
+  m_Name: lotus-leaf-single1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -841,13 +821,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9003500852861601318}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7003171, y: -0.70883435, z: -0.05203101, w: -0.0663523}
-  m_LocalPosition: {x: 0.022924248, y: -0.0165, z: -0.0017}
-  m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
+  m_LocalRotation: {x: -0.6818733, y: 0.6818733, z: -0.18721327, w: -0.18721327}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.026743192, y: 0.026743192, z: 0.026743192}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4015036489252497984}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -210.705, y: 0, z: 90}
 --- !u!33 &336544028422114439
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -855,7 +835,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9003500852861601318}
-  m_Mesh: {fileID: 3830240849752398358, guid: 0f6cc44a534b340c8a1da51efbbbaea4, type: 3}
+  m_Mesh: {fileID: 8161284900571319659, guid: 0f6cc44a534b340c8a1da51efbbbaea4, type: 3}
 --- !u!23 &827347128336380201
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -877,7 +857,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 44ddda1d4fe1ccf49b5428f595ecd89e, type: 2}
-  - {fileID: 3512134718852544995, guid: 0f6cc44a534b340c8a1da51efbbbaea4, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -926,28 +905,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!64 &3120981889577299079
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9003500852861601318}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3830240849752398358, guid: 0f6cc44a534b340c8a1da51efbbbaea4, type: 3}
 --- !u!153 &2576792170102313072
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -988,15 +945,15 @@ ConfigurableJoint:
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
-    spring: 0
+    spring: 1.68
     damper: 0
   m_AngularYLimit:
-    limit: 0
-    bounciness: 0
+    limit: 16.36
+    bounciness: 0.42
     contactDistance: 0
   m_AngularZLimit:
-    limit: 0
-    bounciness: 0
+    limit: 16.94
+    bounciness: 0.96
     contactDistance: 0
   m_TargetPosition: {x: 0, y: 0, z: 0}
   m_TargetVelocity: {x: 0, y: 0, z: 0}
@@ -1023,14 +980,14 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 0
-    positionDamper: 0
+    positionSpring: 10.38
+    positionDamper: 1.08
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 0
-    positionDamper: 0
+    positionSpring: 20.79
+    positionDamper: 1.8
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_SlerpDrive:
@@ -1057,7 +1014,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9003500852861601318}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e53c8dd600a2046d5afdad14b9107910, type: 3}
   m_Name: 
@@ -1066,6 +1023,73 @@ MonoBehaviour:
   addedForceMagnitude: 4
   maxRotationAngle: 45
   alternativeTarget: {fileID: 7004100139087279461}
+--- !u!64 &915994328265664245
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003500852861601318}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8161284900571319659, guid: 0f6cc44a534b340c8a1da51efbbbaea4, type: 3}
+--- !u!114 &5810345608288737454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003500852861601318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1015a3875671c44bf41d3922834a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetStringContains: Hand
+  collisionEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1010428156338534612}
+        m_TargetAssemblyTypeName: Creature, Assembly-CSharp
+        m_MethodName: OnPoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8343700398223807942}
+        m_TargetAssemblyTypeName: ScaleOnPlay, Assembly-CSharp
+        m_MethodName: ScaleUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  collidingObject: {fileID: 0}
+  collisionBuffer: 0.1
 --- !u!1001 &1688661629054094365
 PrefabInstance:
   m_ObjectHideFlags: 0

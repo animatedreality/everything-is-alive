@@ -33,14 +33,15 @@ namespace Audio
 
         public GameObject dotPrefab;
 
-        InstGroup instGroup;
+        public InstGroup instGroup;
 
-        InstGroup firstInstGroup;
+        protected InstGroup firstInstGroup;
 
-        void Start()
+        protected void Start()
         {
             this.id = Util.AutoID();
             ResetInstGroup();
+            Debug.Log("Instrument Start base called");
         }
 
         private void Reset()
@@ -91,7 +92,7 @@ namespace Audio
             instGroup.AddInstrument(this);
         }
 
-        public void SetLoopLength(int length)
+        public virtual void SetLoopLength(int length)
         {
             this.loopLength = length;
             if (loopLength > dots.Count)
@@ -131,7 +132,7 @@ namespace Audio
             this.id = Util.AutoID();
         }
 
-        public void AddToSequence(int index)
+        public virtual void AddToSequence(int index)
         {
             if (!sequence.Contains(index))
             {
@@ -139,7 +140,7 @@ namespace Audio
             }
         }
 
-        public void RemoveFromSequence(int index)
+        public virtual void RemoveFromSequence(int index)
         {
             if (sequence.Contains(index))
             {
@@ -237,7 +238,7 @@ namespace Audio
             }
         }
 
-        public void Schedule(int globalBeatIndex, double nextEventTime)
+        public virtual void Schedule(int globalBeatIndex, double nextEventTime)
         {
             for (int i = 0; i < sequence.Count; i++)
             {

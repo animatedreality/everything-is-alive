@@ -18,7 +18,7 @@ namespace Audio
 
         public Slider playHeadSlider;
 
-        public RectTransform playHeadHandle, playHeadArea, canvasRect;
+        public RectTransform playHeadHandle, playHeadArea, canvasRect, canvasShoulderL, canvasShoulderR;
 
         public Transform pointerSurfaceTransform;
 
@@ -190,6 +190,13 @@ namespace Audio
             {
                 instrument.Stop();
             }
+        }
+
+        public void SetVisuals(bool _show)
+        {
+            canvas.gameObject.SetActive(_show);
+            canvasShoulderL.gameObject.SetActive(_show);
+            canvasShoulderR.gameObject.SetActive(_show);
         }
 
     }

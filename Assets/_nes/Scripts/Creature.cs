@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Audio;
+using DG.Tweening;
 
 public class Creature : MonoBehaviour
 {
+    [Header("Audio")]
     public Instrument instrument;
-    InstGroup instGroup;
+    public InstGroup instGroup;
     public AudioClip clip;
-
+    [Header("Settings")]
+    public bool pokable = false;//only drum-like sequence based instruments can be poked
+    public bool isSelected = false;
+    public bool availableToMerge = false;
     private CreatureGroup creatureGroup;
 
+    [Header("Creature Manipulation")]
+    public GameObject moveAnchor;
+
     [HideInInspector]
-    public bool availableToMerge = false;
+
 
     Coroutine availableToMergeCoroutine;
 
@@ -31,6 +39,17 @@ public class Creature : MonoBehaviour
         Global.instance.AddCreature(this);
         //set availableToMergeCoroutine
         availableToMergeCoroutine = StartCoroutine(SetAvailableToMergeTrueWithDelay());
+
+        //set moveAnchor if hasn't been set
+        if(moveAnchor == null){
+            moveAnchor = Instantiate(Global.instance.moveAnchor, transform.position, Quaternion.identity, transform);
+            moveAnchor.transform.localPosition = Vector3.zero;
+        }
+
+        LookAtPlayer();
+
+        moveAnchor.transform.localScale = Vector3.zero;
+        OnDeselected();
     }
 
     public void MakeAvailable()
@@ -77,10 +96,81 @@ public class Creature : MonoBehaviour
         return instrument.GetLoopLength();
     }
 
+    //--------PUBLIC FUNCTIONS--------
+    //This is called whtn the creature is touched physically
     public void OnPoke()
     {
+        if (!pokable) return;
         instrument.Play();
     }
+
+
+    //----------SELECTION DESELECTION----------
+    private Coroutine deselectCoroutine;
+
+    //Select Creature by hovering hand over, directly or from raycast
+    //This is called when the creature is selected
+    //enables MoveAnchor
+    //enables Sequencer
+    public void OnSelected(){
+        //enable sequencer & moveanchor
+        Debug.Log("OnSelected" + gameObject.name);
+
+        if(instGroup != null){
+            instGroup.SetVisuals(true);
+        }else{
+            Debug.LogError("Weird, instGroup is null");
+        }
+        moveAnchor.SetActive(true);
+        moveAnchor.transform.DOScale(1, 0.5f);
+
+        //start animation
+
+        //interrupt deselectCoroutine
+        if(deselectCoroutine != null){
+            StopCoroutine(deselectCoroutine);
+            deselectCoroutine = null;
+        }
+        isSelected = true;
+    }
+
+    //when Creature is deselected, trigger Deselect with a timeout, if OnSelected was called during that timeout, cancel timeout
+    public void OnDeselectTriggered(){
+        if(deselectCoroutine != null){
+            StopCoroutine(deselectCoroutine);
+        }
+        deselectCoroutine = StartCoroutine(DeselectWithDelay());
+    }
+
+    //This is called when the creature is deselected
+    //disables MoveAnchor
+    //disables Sequencer
+    public void OnDeselected(){
+        Debug.Log("OnDeselected" + gameObject.name);
+        //disable MoveAnchor
+        moveAnchor.transform.DOScale(0, 0.5f).OnComplete(() => {
+            moveAnchor.SetActive(false);
+        });
+        //disable Sequencer
+        if(instGroup != null){
+            instGroup.SetVisuals(false);
+        }else{
+            Debug.LogError("Weird, instGroup is null");
+        }
+
+        //stop animation
+        isSelected = false;
+    }
+
+    private IEnumerator DeselectWithDelay(){
+        yield return new WaitForSeconds(1f);
+        OnDeselected();
+        deselectCoroutine = null;
+    }
+
+
+
+
 
     public void SetInstGroup(InstGroup instGroup)
     {
@@ -93,6 +183,16 @@ public class Creature : MonoBehaviour
         if (globalBeatIndex % 4 == 0)
         {
             CheckProximityToCreateGroup();
+        }
+    }
+
+    public void LookAtPlayer()
+    {
+        AudioListener audioListener = FindObjectOfType<AudioListener>();
+        if (audioListener != null)
+        {
+            Vector3 directionAway = transform.position - audioListener.transform.position;
+            transform.rotation = Quaternion.LookRotation(directionAway);
         }
     }
 
