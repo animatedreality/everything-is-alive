@@ -20,9 +20,14 @@ namespace Audio
 
         public UnityEvent<int> OnEveryStep;
 
+        //About Instruments
         List<InstGroup> instGroups = new List<InstGroup>();
-
+        public float instrumentUIHeight = 108.33f;
         List<Creature> creatures = new List<Creature>();
+
+        //Gameplay Related
+        [Header("Gameplay Related")]
+        public bool mergeCreatures = false;
 
         [HideInInspector]
         public int beatIndex = 0;

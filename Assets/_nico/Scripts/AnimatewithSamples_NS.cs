@@ -15,11 +15,17 @@ public class AnimatewithSamples_NS : MonoBehaviour
     public float frqHigh = 800f;
 
     public float voiceBandVol = 0f;
+    public float volumeMultiplier = 100f;
+    public float frequencyMultiplier = 0.5f;
+    public float rmsValue = 0f;
+
+    private float[] samples;
 
     [System.Serializable]
     public class FloatEvent : UnityEvent<float> { }
 
     public FloatEvent onVoiceBandVolChange;
+    public FloatEvent onVolumeChange;
 
     void Start()
     {
@@ -29,15 +35,20 @@ public class AnimatewithSamples_NS : MonoBehaviour
         audioSource.Play();
         if (onVoiceBandVolChange == null)
             onVoiceBandVolChange = new FloatEvent();
+        samples = new float[nSamples];
+        if (onVolumeChange == null)
+            onVolumeChange = new FloatEvent();
     }
 
     // Update is called once per frame
     void Update()
     {
         voiceBandVol = BandVol(frqLow, frqHigh) * volume;
+
         //targetObj.transform.localScale = new Vector3(scale, scale, scale);
         //invoke a unity event here passing the voiceBandVol
-        onVoiceBandVolChange.Invoke(voiceBandVol);
+        //onVoiceBandVolChange.Invoke(voiceBandVol);
+        onVoiceBandVolChange.Invoke(GetVolume() * volumeMultiplier + voiceBandVol * frequencyMultiplier);
     }
 
 
@@ -57,5 +68,17 @@ public class AnimatewithSamples_NS : MonoBehaviour
             sum += freqData[i];
         }
         return sum / (n2 - n1 + 1);
+    }
+
+    float GetVolume()
+    {
+        audioSource.GetOutputData(samples, 0);
+        float sum = 0;
+        for (int i = 0; i < nSamples; i++)
+        {
+            sum += samples[i] * samples[i];
+        }
+        rmsValue = Mathf.Sqrt(sum / nSamples);
+        return rmsValue;
     }
 }

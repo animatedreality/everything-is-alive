@@ -163,7 +163,7 @@ namespace Audio
 
         void ResizeCanvas()
         {
-            canvasRect.sizeDelta = new Vector2(canvasRect.sizeDelta.x, instruments.Count * 64);
+            canvasRect.sizeDelta = new Vector2(canvasRect.sizeDelta.x, instruments.Count * Global.instance.instrumentUIHeight);
             AdjustPointerSurface();
         }
 
