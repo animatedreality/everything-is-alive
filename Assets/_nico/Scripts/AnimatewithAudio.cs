@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-public class AnimatewithSamples_NS : MonoBehaviour
+using Audio;
+public class AnimatewithAudio : MonoBehaviour
 {
+    [Header("Only Assign Creature with InstrumentLongSample")]
+    public Creature thisCreature;
+    public AudioSource audioSource;
+    [HideInInspector]
     public AudioClip[] sounds; // Set the array size and the sounds in the Inspector
     private float[] freqData;
     private int nSamples = 256;
     private float fMax = 24000f;
-    public AudioSource audioSource;
+    //public List<AudioSource> audioSources;
 
-    public float volume = 40f;
-    public float frqLow = 200f;
-    public float frqHigh = 800f;
+    private float volume = 40f;
+    private float frqLow = 200f;
+    private float frqHigh = 800f;
 
     public float voiceBandVol = 0f;
     public float volumeMultiplier = 100f;
@@ -29,10 +34,24 @@ public class AnimatewithSamples_NS : MonoBehaviour
 
     void Start()
     {
-        if(audioSource == null)
-            audioSource = GetComponent<AudioSource>(); // Get AudioSource component
+        // if (thisCreature.instrument is InstrumentLongSample instrumentLongSample)
+        // {
+        //     audioSource = instrumentLongSample.longSampleAudioSource;
+        // }
+        // else
+        // {
+        //     Debug.LogError("The creature's instrument is not an InstrumentLongSample");
+        // }
+        // if (!audioSource)
+        // {
+        //     Debug.LogError("No audio source, make sure assign creature with long sample instrument");
+        // }
+
+    }
+
+    public void AssignAudioSource(AudioSource source){
+        audioSource = source;
         freqData = new float[nSamples];
-        audioSource.Play();
         if (onVoiceBandVolChange == null)
             onVoiceBandVolChange = new FloatEvent();
         samples = new float[nSamples];
@@ -43,22 +62,20 @@ public class AnimatewithSamples_NS : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        voiceBandVol = BandVol(frqLow, frqHigh) * volume;
-
         //targetObj.transform.localScale = new Vector3(scale, scale, scale);
         //invoke a unity event here passing the voiceBandVol
         //onVoiceBandVolChange.Invoke(voiceBandVol);
-        onVoiceBandVolChange.Invoke(GetVolume() * volumeMultiplier + voiceBandVol * frequencyMultiplier);
+        onVoiceBandVolChange.Invoke(BandVol(audioSource, frqLow, frqHigh) * volume * frequencyMultiplier + GetVolume(audioSource) * volumeMultiplier);
     }
 
 
 
-    float BandVol(float fLow, float fHigh)
+    float BandVol(AudioSource source, float fLow, float fHigh)
     {
         fLow = Mathf.Clamp(fLow, 20, fMax); // Limit low...
         fHigh = Mathf.Clamp(fHigh, fLow, fMax); // and high frequencies
         // Get spectrum: freqData[n] = vol of frequency n * fMax / nSamples
-        audioSource.GetSpectrumData(freqData, 0, FFTWindow.BlackmanHarris);
+        source.GetSpectrumData(freqData, 0, FFTWindow.BlackmanHarris);
         int n1 = Mathf.FloorToInt(fLow * nSamples / fMax);
         int n2 = Mathf.FloorToInt(fHigh * nSamples / fMax);
         float sum = 0;
@@ -70,9 +87,9 @@ public class AnimatewithSamples_NS : MonoBehaviour
         return sum / (n2 - n1 + 1);
     }
 
-    float GetVolume()
+    float GetVolume(AudioSource source)
     {
-        audioSource.GetOutputData(samples, 0);
+        source.GetOutputData(samples, 0);
         float sum = 0;
         for (int i = 0; i < nSamples; i++)
         {

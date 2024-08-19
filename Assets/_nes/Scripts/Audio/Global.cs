@@ -32,6 +32,7 @@ namespace Audio
 
         [Header("Objects")]
         public GameObject moveAnchor;
+        public Creature currentSelectedCreature;
 
         [HideInInspector]
         public int beatIndex = 0;

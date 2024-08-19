@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using DG.Tweening;
 
 namespace Audio
 {
@@ -27,6 +28,7 @@ namespace Audio
         public UnityEvent<int> OnEveryStep;
 
         public Canvas canvas;
+        private Vector3 originalScale = new Vector3(0.05f, 0.05f, 0.1f);
 
         bool isActive = true;
 
@@ -194,9 +196,13 @@ namespace Audio
 
         public void SetVisuals(bool _show)
         {
-            canvas.gameObject.SetActive(_show);
-            canvasShoulderL.gameObject.SetActive(_show);
-            canvasShoulderR.gameObject.SetActive(_show);
+            Vector3 targetScale = _show ? originalScale : new Vector3(0, 0, 0);
+            transform.DOScale(targetScale, 0.35f);
+            // canvas.gameObject.SetActive(_show);
+            // if(canvasShoulderL != null)
+            // canvasShoulderL.gameObject.SetActive(_show);
+            // if(canvasShoulderR != null)
+            // canvasShoulderR.gameObject.SetActive(_show);
         }
 
     }

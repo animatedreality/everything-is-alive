@@ -162,7 +162,7 @@ namespace Audio
             }
         }
 
-        public AudioSource GetAvailableSource()
+        public virtual AudioSource GetAvailableSource()
         {
             foreach (AudioSource source in sources)
             {
@@ -175,7 +175,7 @@ namespace Audio
             return CreateNewSource();
         }
 
-        private void SyncSourceVariables(AudioSource source)
+        protected void SyncSourceVariables(AudioSource source)
         {
             source.pitch = pitch;
             source.panStereo = pan;
@@ -183,7 +183,7 @@ namespace Audio
             source.clip = clip;
         }
 
-        public AudioSource CreateNewSource()
+        public virtual AudioSource CreateNewSource()
         {
             AudioSource source = firstInstGroup.gameObject.AddComponent<AudioSource>(); //just going to add the audio sources here so they stay localized to the creature (so the sound will emit from the creatures direction)
             source.playOnAwake = false;

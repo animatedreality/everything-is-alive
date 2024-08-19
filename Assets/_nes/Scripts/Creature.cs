@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Audio;
 using DG.Tweening;
+using Oculus.Interaction;
 
 public class Creature : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Creature : MonoBehaviour
 
     [Header("Creature Manipulation")]
     public GameObject moveAnchor;
+    public Transform eventWrapperParent;
+    List<PointableUnityEventWrapper> interactableEventWrappers = new List<PointableUnityEventWrapper>();
 
     [HideInInspector]
 
@@ -47,8 +50,14 @@ public class Creature : MonoBehaviour
         }
 
         LookAtPlayer();
-
         moveAnchor.transform.localScale = Vector3.zero;
+
+        //get all the pointableEventWrappers from all the children of eventWrapperParent
+        interactableEventWrappers = new List<PointableUnityEventWrapper>(eventWrapperParent.GetComponentsInChildren<PointableUnityEventWrapper>());
+        //automatically assign events to all the pointableEventWrappers
+        foreach(PointableUnityEventWrapper eventWrapper in interactableEventWrappers){
+            eventWrapper.WhenSelect.AddListener(OnSelected);
+        }
         OnDeselected();
     }
 
@@ -74,6 +83,14 @@ public class Creature : MonoBehaviour
         Global.instance.RemoveCreature(this);
         Destroy(gameObject);
     }
+
+    private void OnDisable()
+    {
+        foreach (PointableUnityEventWrapper eventWrapper in interactableEventWrappers)
+        {
+            eventWrapper.WhenSelect.RemoveListener(OnSelected);
+        }
+}   
 
     public CreatureGroup GetGroup()
     {
@@ -112,7 +129,12 @@ public class Creature : MonoBehaviour
     //This is called when the creature is selected
     //enables MoveAnchor
     //enables Sequencer
-    public void OnSelected(){
+    public void OnSelected(PointerEvent pointerEvent){
+        if(Global.instance.currentSelectedCreature == this) return;
+        if(Global.instance.currentSelectedCreature != null){
+            Global.instance.currentSelectedCreature.OnDeselected();
+        }
+        
         //enable sequencer & moveanchor
         Debug.Log("OnSelected" + gameObject.name);
 
@@ -131,10 +153,12 @@ public class Creature : MonoBehaviour
             StopCoroutine(deselectCoroutine);
             deselectCoroutine = null;
         }
+        Global.instance.currentSelectedCreature = this;
         isSelected = true;
     }
 
     //when Creature is deselected, trigger Deselect with a timeout, if OnSelected was called during that timeout, cancel timeout
+    //NOT BEING USED
     public void OnDeselectTriggered(){
         if(deselectCoroutine != null){
             StopCoroutine(deselectCoroutine);

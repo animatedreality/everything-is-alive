@@ -132,6 +132,7 @@ MonoBehaviour:
   isSelected: 0
   availableToMerge: 0
   moveAnchor: {fileID: 4921455208684827017}
+  eventWrapperParent: {fileID: 4852880099308304015}
 --- !u!1 &2136436586293938970
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,34 +185,10 @@ MonoBehaviour:
       m_Calls: []
   _whenHover:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8366517229783027844}
-        m_TargetAssemblyTypeName: Creature, Assembly-CSharp
-        m_MethodName: OnSelected
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _whenUnhover:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8366517229783027844}
-        m_TargetAssemblyTypeName: Creature, Assembly-CSharp
-        m_MethodName: OnDeselected
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _whenSelect:
     m_PersistentCalls:
       m_Calls:
@@ -300,34 +277,10 @@ MonoBehaviour:
       m_Calls: []
   _whenHover:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8366517229783027844}
-        m_TargetAssemblyTypeName: Creature, Assembly-CSharp
-        m_MethodName: OnSelected
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _whenUnhover:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8366517229783027844}
-        m_TargetAssemblyTypeName: Creature, Assembly-CSharp
-        m_MethodName: OnDeselected
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _whenSelect:
     m_PersistentCalls:
       m_Calls:
@@ -374,7 +327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4852880099308304015}
   m_Layer: 0
-  m_Name: DistanceGrabAudio
+  m_Name: EventWrapperContainer_Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -463,33 +416,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8366517229783027844}
-        m_TargetAssemblyTypeName: Creature, Assembly-CSharp
-        m_MethodName: OnSelected
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   _whenUnhover:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8366517229783027844}
-        m_TargetAssemblyTypeName: Creature, Assembly-CSharp
-        m_MethodName: OnDeselected
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _whenSelect:
     m_PersistentCalls:
       m_Calls:
@@ -948,9 +877,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2094627784785377348, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094627784785377348, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.46855342
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094627784785377348, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.46855342
+      objectReference: {fileID: 0}
     - target: {fileID: 2152861705238047097, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
       propertyPath: m_Name
       value: InstGroup
+      objectReference: {fileID: 0}
+    - target: {fileID: 2225875374569939777, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2225875374569939777, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.46855342
+      objectReference: {fileID: 0}
+    - target: {fileID: 2225875374569939777, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.46855342
       objectReference: {fileID: 0}
     - target: {fileID: 4417672975954558768, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
       propertyPath: m_IsActive
@@ -983,6 +936,18 @@ PrefabInstance:
     - target: {fileID: 5231707273169205794, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037718594093303764, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037718594093303764, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.46855342
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037718594093303764, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.46855342
       objectReference: {fileID: 0}
     - target: {fileID: 7385819146966070107, guid: e2f0548fcda27234195edfb29bda99f3, type: 3}
       propertyPath: canvasShoulderL

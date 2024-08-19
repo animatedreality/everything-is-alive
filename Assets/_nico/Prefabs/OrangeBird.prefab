@@ -465,13 +465,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1721839820572947682}
-  - component: {fileID: 6510258087608644606}
-  - component: {fileID: 351267936084447553}
-  - component: {fileID: 7999320670659874348}
   - component: {fileID: 2458585954602282542}
-  - component: {fileID: 6395382385131856524}
   - component: {fileID: 6596833475094495633}
   - component: {fileID: 2499835902686816171}
+  - component: {fileID: 5278572090332946892}
   m_Layer: 0
   m_Name: OrangeBird
   m_TagString: Untagged
@@ -489,163 +486,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.39128125, y: -0.58898133, z: -0.58898133, w: -0.39128125}
   m_LocalPosition: {x: -0.96, y: 0.59, z: -4.45}
-  m_LocalScale: {x: 0.725638, y: 0.7256378, z: 0.7256379}
+  m_LocalScale: {x: 0.06559598, y: 0.065595955, z: 0.065595984}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6914557341753292841}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -247.195}
---- !u!82 &6510258087608644606
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1577940058327304005}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6e5d400bdcabe4d079bd9295bb8fd329, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &351267936084447553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1577940058327304005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd1af55a5742c4b688808abb8fceb955, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSources: []
-  onClicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7999320670659874348}
-        m_TargetAssemblyTypeName: PlayAnimations_NS, Assembly-CSharp
-        m_MethodName: ToggleAnimation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6395382385131856524}
-        m_TargetAssemblyTypeName: AnimateBird_NS, Assembly-CSharp
-        m_MethodName: ToggleAnimation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  volumeOn: 0
---- !u!114 &7999320670659874348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1577940058327304005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92caa405c73044dd8aa6fb13416e2a39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animators:
-  - {fileID: 7417479081852228938}
 --- !u!114 &2458585954602282542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,12 +504,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b04c6ae75a9e4105b553bf85fab1ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  thisCreature: {fileID: 0}
   audioSource: {fileID: 0}
+  sounds: []
   volume: 40
   frqLow: 200
   frqHigh: 800
   voiceBandVol: 0
+  volumeMultiplier: 100
+  frequencyMultiplier: 0.5
+  rmsValue: 0
   onVoiceBandVolChange:
     m_PersistentCalls:
       m_Calls:
@@ -679,28 +529,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6395382385131856524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1577940058327304005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1f3af1db801d4f48bb5c551406109aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  neckBone: {fileID: 5699733661795482590}
-  neckRotMin: {x: -46, y: 8, z: 15}
-  neckRotMax: {x: 4, y: -20, z: -15}
-  neckRotSpeedMin: 1
-  neckRotSpeedMax: 2
-  isAnimating: 0
-  eyeOpenMat: {fileID: 2100000, guid: f34ceaf84a09e4c98ac7d809f3c7731e, type: 2}
-  eyeClosedMat: {fileID: 2100000, guid: a800c37b3dc3c4d87be2e6805e6d078d, type: 2}
-  eyeL: {fileID: 4930678066300990951}
-  eyeR: {fileID: 9132314380449333265}
+  onVolumeChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6596833475094495633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,8 +564,23 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.93
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5278572090332946892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577940058327304005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e87ff7508ff104ca5c4466172af3b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 0}
+  animators:
+  - {fileID: 7417479081852228938}
 --- !u!1 &2301199401461845977
 GameObject:
   m_ObjectHideFlags: 0

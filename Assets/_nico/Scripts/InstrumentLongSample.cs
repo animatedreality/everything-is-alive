@@ -1,15 +1,20 @@
 using UnityEngine;
 using Audio;
 
+
 namespace Audio
 {
+    [RequireComponent(typeof(AudioSource))]
     public class InstrumentLongSample : Instrument
     {
         public bool isPlaying = false;
+        public AudioSource longSampleAudioSource;
+        public AnimatewithAudio animatewithAudio;
 
         new void Start()
         {
             base.Start();
+            InitializeAudioSource();
             //ToggleSound();
             PlayLongSample();
         }
@@ -42,6 +47,26 @@ namespace Audio
         {
             base.Stop();
             isPlaying = false;
+        }
+
+        public override AudioSource GetAvailableSource()
+        {
+            SyncSourceVariables(longSampleAudioSource);
+            return longSampleAudioSource;
+        }
+
+        private void InitializeAudioSource()
+        {
+            longSampleAudioSource = GetComponent<AudioSource>();
+            longSampleAudioSource.playOnAwake = false;
+            longSampleAudioSource.loop = true;
+            longSampleAudioSource.volume = 0.75f;
+            longSampleAudioSource.spatialBlend = 1f;
+            SyncSourceVariables(longSampleAudioSource);
+            sources.Add(longSampleAudioSource);
+            if(animatewithAudio != null){
+                animatewithAudio.AssignAudioSource(longSampleAudioSource);
+            }
         }
 
         // Override methods that are not needed for this type of instrument
