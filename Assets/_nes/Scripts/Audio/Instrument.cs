@@ -21,7 +21,7 @@ namespace Audio
 
         public Note note;
 
-        private int loopLength;
+        public int loopLength;
 
         float pitch = 1f, pan = 0f, volume = 1f;
 
@@ -41,7 +41,6 @@ namespace Audio
         {
             this.id = Util.AutoID();
             ResetInstGroup();
-            Debug.Log("Instrument Start base called");
         }
 
         private void Reset()

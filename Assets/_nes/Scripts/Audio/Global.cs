@@ -23,7 +23,7 @@ namespace Audio
         public UnityEvent<int> OnEveryStep;
 
         //About Instruments
-        List<InstGroup> instGroups = new List<InstGroup>();
+        public List<InstGroup> instGroups = new List<InstGroup>();
         public float instrumentUIHeight = 108.33f;
         List<Creature> creatures = new List<Creature>();
 
@@ -55,6 +55,7 @@ namespace Audio
             {
                 Destroy(gameObject);
             }
+            Debug.Log("Global Awake");
         }
 
         private void Start()
@@ -176,6 +177,47 @@ namespace Audio
         public void Stop()
         {
             globalPlay = false;
+        }
+
+        //-----SELECT AND DESELECT CREATURE------
+        // When trigger selected, call a coroutine that deselects last selected Creature
+        // if the trigger selects a new Creature, cancel the coroutine and select the new Creature
+        private Coroutine deselectCoroutine;
+
+        //DeselectCreature is called as an event from S_PlayerInput script
+        public void CallDeselectCoroutineOnTrigger()
+        {
+            Debug.Log("CallDeselectCoroutineOnTrigger");
+            if(currentSelectedCreature != null){
+                deselectCoroutine = StartCoroutine(DeselectCreatureCoroutine());
+            }
+        }
+
+        public void CancelDeselectCoroutine(){
+            //stop deselect coroutine
+            if (deselectCoroutine != null)
+            {
+                StopCoroutine(deselectCoroutine);
+                deselectCoroutine = null;
+            }
+        }
+
+        private IEnumerator DeselectCreatureCoroutine(){
+            yield return new WaitForSeconds(0.5f);
+             if (currentSelectedCreature != null)
+            {
+                currentSelectedCreature.OnDeselected();
+                Debug.Log("DeselectCreatureCoroutine is CALLED");
+            }
+            deselectCoroutine = null;
+        }
+
+        public void SafeUnsubscribeFromEveryStep(OnEveryStepDelegate handler)
+        {
+            if (OnEveryStepEvent != null)
+            {
+                OnEveryStepEvent -= handler;
+            }
         }
     }
 }

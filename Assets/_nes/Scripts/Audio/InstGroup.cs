@@ -130,7 +130,9 @@ namespace Audio
             }
             else
             {
-                Global.instance.OnEveryStepEvent -= EveryStep;
+                Debug.Log("SetIsActive false" + gameObject.name);
+                //null check on OnEveryStepEvent
+                Global.instance.SafeUnsubscribeFromEveryStep(EveryStep);
                 Global.instance.RemoveInstGroup(this);
             }
         }

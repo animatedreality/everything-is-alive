@@ -4,7 +4,7 @@ using Audio;
 
 public class CreatureGroup : MonoBehaviour
 {
-    private List<Creature> creatures = new List<Creature>();
+    public List<Creature> creatures = new List<Creature>();
 
     public InstGroup instGroup;
 
@@ -16,6 +16,7 @@ public class CreatureGroup : MonoBehaviour
     }
     void Start()
     {
+        InitiateDefaultCreatures();
         Global.instance.OnEveryStepEvent += EveryStep;
     }
 
@@ -114,5 +115,15 @@ public class CreatureGroup : MonoBehaviour
             creatures.Clear();
             Destroy(gameObject);
         }
+    }
+    //when the creatures are assigned at start, initialize them
+    private void InitiateDefaultCreatures(){
+        if(creatures.Count == 0) return;
+        foreach (Creature creature in creatures){
+            creature.SetGroup(this);
+            creature.SetInstGroup(instGroup);
+            creature.SetLoopLength(instGroup.loopLength);
+        }
+        
     }
 }

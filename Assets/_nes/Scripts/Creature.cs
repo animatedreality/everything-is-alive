@@ -113,6 +113,11 @@ public class Creature : MonoBehaviour
         return instrument.GetLoopLength();
     }
 
+    public void SetLoopLength(int _loopLength)
+    {
+        instrument.loopLength = _loopLength;
+    }
+
     //--------PUBLIC FUNCTIONS--------
     //This is called whtn the creature is touched physically
     public void OnPoke()
@@ -130,7 +135,11 @@ public class Creature : MonoBehaviour
     //enables MoveAnchor
     //enables Sequencer
     public void OnSelected(PointerEvent pointerEvent){
+        //if there is deselection happening, cancel it
+        Global.instance.CancelDeselectCoroutine();
+
         if(Global.instance.currentSelectedCreature == this) return;
+        //deselect last one
         if(Global.instance.currentSelectedCreature != null){
             Global.instance.currentSelectedCreature.OnDeselected();
         }
@@ -157,18 +166,6 @@ public class Creature : MonoBehaviour
         isSelected = true;
     }
 
-    //when Creature is deselected, trigger Deselect with a timeout, if OnSelected was called during that timeout, cancel timeout
-    //NOT BEING USED
-    public void OnDeselectTriggered(){
-        if(deselectCoroutine != null){
-            StopCoroutine(deselectCoroutine);
-        }
-        deselectCoroutine = StartCoroutine(DeselectWithDelay());
-    }
-
-    //This is called when the creature is deselected
-    //disables MoveAnchor
-    //disables Sequencer
     public void OnDeselected(){
         Debug.Log("OnDeselected" + gameObject.name);
         //disable MoveAnchor
@@ -182,19 +179,10 @@ public class Creature : MonoBehaviour
             Debug.LogError("Weird, instGroup is null");
         }
 
+        Global.instance.currentSelectedCreature = null;
         //stop animation
         isSelected = false;
     }
-
-    private IEnumerator DeselectWithDelay(){
-        yield return new WaitForSeconds(1f);
-        OnDeselected();
-        deselectCoroutine = null;
-    }
-
-
-
-
 
     public void SetInstGroup(InstGroup instGroup)
     {
