@@ -299,6 +299,8 @@ MonoBehaviour:
   playHeadHandle: {fileID: 5231707273169205794}
   playHeadArea: {fileID: 9003697980842701448}
   canvasRect: {fileID: 7464841383482743973}
+  canvasShoulderL: {fileID: 0}
+  canvasShoulderR: {fileID: 0}
   pointerSurfaceTransform: {fileID: 5984082879836119857}
   instrumentsParent: {fileID: 4984762405677330225}
   OnEveryStep:
@@ -960,7 +962,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 3
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1

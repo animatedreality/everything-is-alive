@@ -10,7 +10,7 @@ public class Creature : MonoBehaviour
     [Header("Audio")]
     public Instrument instrument;
     public InstGroup instGroup;
-    public AudioClip clip;
+
     [Header("Settings")]
     public bool pokable = false;//only drum-like sequence based instruments can be poked
     public bool isSelected = false;
@@ -33,7 +33,7 @@ public class Creature : MonoBehaviour
         {
             instrument = GetComponentInChildren<Instrument>();
         }
-        instrument.SetClip(clip);
+        //instrument.SetClip(clip);
         if (instGroup == null)
         {
             instGroup = GetComponentInChildren<InstGroup>();
@@ -56,7 +56,7 @@ public class Creature : MonoBehaviour
         interactableEventWrappers = new List<PointableUnityEventWrapper>(eventWrapperParent.GetComponentsInChildren<PointableUnityEventWrapper>());
         //automatically assign events to all the pointableEventWrappers
         foreach(PointableUnityEventWrapper eventWrapper in interactableEventWrappers){
-            eventWrapper.WhenSelect.AddListener(OnSelected);
+            eventWrapper.WhenSelect.AddListener(OnSelectedPointerEvent);
         }
         OnDeselected();
     }
@@ -88,7 +88,7 @@ public class Creature : MonoBehaviour
     {
         foreach (PointableUnityEventWrapper eventWrapper in interactableEventWrappers)
         {
-            eventWrapper.WhenSelect.RemoveListener(OnSelected);
+            eventWrapper.WhenSelect.RemoveListener(OnSelectedPointerEvent);
         }
 }   
 
@@ -134,7 +134,11 @@ public class Creature : MonoBehaviour
     //This is called when the creature is selected
     //enables MoveAnchor
     //enables Sequencer
-    public void OnSelected(PointerEvent pointerEvent){
+    public void OnSelectedPointerEvent(PointerEvent pointerEvent){
+        OnSelected();
+    }
+
+    public void OnSelected(){
         //if there is deselection happening, cancel it
         Global.instance.CancelDeselectCoroutine();
 
@@ -145,7 +149,7 @@ public class Creature : MonoBehaviour
         }
         
         //enable sequencer & moveanchor
-        Debug.Log("OnSelected" + gameObject.name);
+        Debug.Log("OnSelectedPointerEvent" + gameObject.name);
 
         if(instGroup != null){
             instGroup.SetVisuals(true);

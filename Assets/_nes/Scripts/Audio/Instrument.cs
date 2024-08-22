@@ -7,11 +7,10 @@ namespace Audio
 {
     public class Instrument : MonoBehaviour
     {
+        public List<AudioSource> sources = new List<AudioSource>();
+        public AudioClip clip;
         [HideInInspector]
         public string instrumentName, id;
-        public List<AudioSource> sources = new List<AudioSource>();
-
-        public AudioClip clip;
 
         public delegate void OnPlayDelegate(int x);
 
@@ -184,13 +183,17 @@ namespace Audio
 
         public virtual AudioSource CreateNewSource()
         {
+            Debug.Log("creating audio source from " + gameObject.name);
+            Debug.Log("Creating audio source on " + firstInstGroup.gameObject.name);
             AudioSource source = firstInstGroup.gameObject.AddComponent<AudioSource>(); //just going to add the audio sources here so they stay localized to the creature (so the sound will emit from the creatures direction)
+            source.clip = clip;
             source.playOnAwake = false;
             source.loop = false;
             source.volume = 0.75f; //we'll set this a bit lower than 1 for now to avoid clipping when instruments overlap, eventually we could have smart mixing set up like beat dj
             source.spatialBlend = 1f;
             SyncSourceVariables(source);
             sources.Add(source);
+            
             return source;
         }
 
@@ -228,9 +231,8 @@ namespace Audio
             }
         }
 
-        public void SetClip(AudioClip clip)
+        public void SetClip()
         {
-            this.clip = clip;
             foreach (AudioSource source in sources)
             {
                 source.clip = clip;

@@ -9,7 +9,6 @@ namespace Audio
 {
     public class InstGroup : MonoBehaviour
     {
-        [HideInInspector]
         public List<Instrument> instruments = new List<Instrument>();
 
         [HideInInspector]
@@ -18,6 +17,7 @@ namespace Audio
         public int loopLength;
 
         public Slider playHeadSlider;
+        private float sliderHeight;
 
         public RectTransform playHeadHandle, playHeadArea, canvasRect, canvasShoulderL, canvasShoulderR;
 
@@ -168,6 +168,12 @@ namespace Audio
         void ResizeCanvas()
         {
             canvasRect.sizeDelta = new Vector2(canvasRect.sizeDelta.x, instruments.Count * Global.instance.instrumentUIHeight);
+            sliderHeight = 1 + (instruments.Count-1) * 2f;
+            playHeadSlider.transform.localScale = new Vector3(
+                playHeadSlider.transform.localScale.x,
+                sliderHeight,
+                playHeadSlider.transform.localScale.z
+            );
             AdjustPointerSurface();
         }
 

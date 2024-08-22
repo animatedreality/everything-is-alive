@@ -29,6 +29,7 @@ namespace Audio
             }
         }
 
+        [ContextMenu("Toggle")]
         public void Toggle()
         {
             SetState(!isOn);
