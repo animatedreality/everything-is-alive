@@ -1507,6 +1507,38 @@ MonoBehaviour:
   _headPoseRelativeOffsetRotation: {x: 0, y: 0, z: 0}
   _headPoseRelativeOffsetTranslation: {x: 0, y: 0, z: 0}
   profilerTcpPort: 32419
+  expandMixedRealityCapturePropertySheet: 0
+  enableMixedReality: 0
+  compositionMethod: 0
+  extraHiddenLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  extraVisibleLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  dynamicCullingMask: 1
+  externalCompositionBackdropColorRift: {r: 0, g: 1, b: 0, a: 1}
+  externalCompositionBackdropColorQuest: {r: 0, g: 0, b: 0, a: 0}
+  capturingCameraDevice: 0
+  flipCameraFrameHorizontally: 0
+  flipCameraFrameVertically: 0
+  handPoseStateLatency: 0
+  sandwichCompositionRenderLatency: 0
+  sandwichCompositionBufferedFrames: 8
+  chromaKeyColor: {r: 0, g: 1, b: 0, a: 1}
+  chromaKeySimilarity: 0.6
+  chromaKeySmoothRange: 0.03
+  chromaKeySpillRange: 0.06
+  useDynamicLighting: 0
+  depthQuality: 1
+  dynamicLightingSmoothFactor: 8
+  dynamicLightingDepthVariationClampingValue: 0.001
+  virtualGreenScreenType: 0
+  virtualGreenScreenTopY: 10
+  virtualGreenScreenBottomY: -10
+  virtualGreenScreenApplyDepthCulling: 0
+  virtualGreenScreenDepthTolerance: 0.2
+  mrcActivationMode: 0
   launchSimultaneousHandsControllersOnStartup: 0
   isInsightPassthroughEnabled: 1
   shouldBoundaryVisibilityBeSuppressed: 0
@@ -1756,10 +1788,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79273155a06660146b3741a9422803e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instrumentName: 
-  id: 
   sources: []
   clip: {fileID: 8300000, guid: c51c34b9b404f72408b24cf7e9a415ce, type: 3}
+  instrumentName: 
+  id: 
   OnPlay:
     m_PersistentCalls:
       m_Calls: []
@@ -1873,10 +1905,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79273155a06660146b3741a9422803e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instrumentName: 
-  id: 
   sources: []
   clip: {fileID: 8300000, guid: b6add9821c8f8ad4aaad36adf1487d66, type: 3}
+  instrumentName: 
+  id: 
   OnPlay:
     m_PersistentCalls:
       m_Calls: []
@@ -2027,7 +2059,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1368183904}
   m_HandleRect: {fileID: 1368183903}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3207,10 +3239,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79273155a06660146b3741a9422803e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instrumentName: 
-  id: 
   sources: []
   clip: {fileID: 0}
+  instrumentName: 
+  id: 
   OnPlay:
     m_PersistentCalls:
       m_Calls: []
@@ -3538,10 +3570,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79273155a06660146b3741a9422803e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instrumentName: 
-  id: 
   sources: []
   clip: {fileID: 0}
+  instrumentName: 
+  id: 
   OnPlay:
     m_PersistentCalls:
       m_Calls: []
@@ -6132,7 +6164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instrument: {fileID: 1516266523870246307}
   instGroup: {fileID: 8452094808896549036}
-  clip: {fileID: 8300000, guid: a07db5f46b6bbf747a205692b1053d7c, type: 3}
   pokable: 1
   isSelected: 0
   availableToMerge: 0
@@ -6152,7 +6183,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instrument: {fileID: 1481865033}
   instGroup: {fileID: 8452094808896549036}
-  clip: {fileID: 8300000, guid: a07db5f46b6bbf747a205692b1053d7c, type: 3}
   pokable: 1
   isSelected: 0
   availableToMerge: 0
@@ -6172,7 +6202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instrument: {fileID: 1576035818}
   instGroup: {fileID: 8452094808896549036}
-  clip: {fileID: 8300000, guid: a07db5f46b6bbf747a205692b1053d7c, type: 3}
   pokable: 1
   isSelected: 0
   availableToMerge: 0
@@ -7153,10 +7182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79273155a06660146b3741a9422803e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instrumentName: 
-  id: 
   sources: []
   clip: {fileID: 0}
+  instrumentName: 
+  id: 
   OnPlay:
     m_PersistentCalls:
       m_Calls: []
