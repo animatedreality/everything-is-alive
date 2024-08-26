@@ -97,6 +97,131 @@ MonoBehaviour:
   loopLength: 0
   dotPrefab: {fileID: 3226094341542853420, guid: 9ae556e0c49740144ad51c94fcba9a36, type: 3}
   instGroup: {fileID: 0}
+<<<<<<< HEAD:Assets/Resources/Creatures/LotusLeaves_Crash.prefab
+=======
+--- !u!1 &168554064583548888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6128617480356643857}
+  - component: {fileID: 2022807689655874853}
+  - component: {fileID: 7072063082809723774}
+  - component: {fileID: 557843727846499045}
+  - component: {fileID: 8937505571190656498}
+  m_Layer: 0
+  m_Name: lotus-leaf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6128617480356643857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168554064583548888}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.05675049, y: -0.85835356, z: -0.4898914, w: 0.141474}
+  m_LocalPosition: {x: -0.044312634, y: -0.0163, z: -0.048134964}
+  m_LocalScale: {x: 0.049544, y: 0.07095262, z: 0.04887061}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5161607601710187244}
+  m_LocalEulerAnglesHint: {x: -55.583, y: 211.875, z: 335.316}
+--- !u!33 &2022807689655874853
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168554064583548888}
+  m_Mesh: {fileID: -7420731338498709635, guid: 4a2562e408b2849d7b936b9fe475fc3f, type: 3}
+--- !u!23 &7072063082809723774
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168554064583548888}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 509138096feec4b1287ab9d7bc6d8f69, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &557843727846499045
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168554064583548888}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7420731338498709635, guid: 4a2562e408b2849d7b936b9fe475fc3f, type: 3}
+--- !u!114 &8937505571190656498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168554064583548888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805863e5ed6dbe7469abf23ab40fc1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalScale: 0.04
+  targetScale: 0.06
+  duration: 0.2
+>>>>>>> f531d702da6b7e7c06c57d6bd9291c67a5e4a6b5:Assets/Resources/Creatures/LotusGroup.prefab
 --- !u!1 &282632971056690521
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,6 +625,131 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _position: {x: 0, y: 0, z: 0}
   _size: {x: 1, y: 1, z: 1}
+<<<<<<< HEAD:Assets/Resources/Creatures/LotusLeaves_Crash.prefab
+=======
+--- !u!1 &2733470634820832285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8029342199899238258}
+  - component: {fileID: 6473781088156813146}
+  - component: {fileID: 2447190972499883978}
+  - component: {fileID: 2863288029278712496}
+  - component: {fileID: 4789125426792824848}
+  m_Layer: 0
+  m_Name: lotus-leaf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8029342199899238258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733470634820832285}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.027846185, y: -0.851292, z: -0.5140564, w: 0.101354405}
+  m_LocalPosition: {x: 0.03468763, y: -0.007850251, z: -0.051855408}
+  m_LocalScale: {x: 0.055637334, y: 0.077879936, z: 0.053641994}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5161607601710187244}
+  m_LocalEulerAnglesHint: {x: -61.747, y: 197.702, z: 353.109}
+--- !u!33 &6473781088156813146
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733470634820832285}
+  m_Mesh: {fileID: -7420731338498709635, guid: 4a2562e408b2849d7b936b9fe475fc3f, type: 3}
+--- !u!23 &2447190972499883978
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733470634820832285}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 509138096feec4b1287ab9d7bc6d8f69, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2863288029278712496
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733470634820832285}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7420731338498709635, guid: 4a2562e408b2849d7b936b9fe475fc3f, type: 3}
+--- !u!114 &4789125426792824848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733470634820832285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805863e5ed6dbe7469abf23ab40fc1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalScale: 0.05
+  targetScale: 0.07
+  duration: 0.2
+>>>>>>> f531d702da6b7e7c06c57d6bd9291c67a5e4a6b5:Assets/Resources/Creatures/LotusGroup.prefab
 --- !u!1 &2781130434294835602
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +786,131 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -40}
   m_Pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD:Assets/Resources/Creatures/LotusLeaves_Crash.prefab
+=======
+--- !u!1 &2803919711758881153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8414719790130124870}
+  - component: {fileID: 942487915079429497}
+  - component: {fileID: 3160287874489225670}
+  - component: {fileID: 6648436901087040374}
+  - component: {fileID: 1080967783306991615}
+  m_Layer: 0
+  m_Name: lotus-leaf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8414719790130124870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2803919711758881153}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.16783927, y: -0.7407295, z: -0.55106145, w: 0.34566036}
+  m_LocalPosition: {x: -0.107559845, y: -0.0038241546, z: 0.001}
+  m_LocalScale: {x: 0.04, y: 0.05728453, z: 0.039456327}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5161607601710187244}
+  m_LocalEulerAnglesHint: {x: -68.813, y: 244.832, z: 338.525}
+--- !u!33 &942487915079429497
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2803919711758881153}
+  m_Mesh: {fileID: -7420731338498709635, guid: 4a2562e408b2849d7b936b9fe475fc3f, type: 3}
+--- !u!23 &3160287874489225670
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2803919711758881153}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 509138096feec4b1287ab9d7bc6d8f69, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6648436901087040374
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2803919711758881153}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7420731338498709635, guid: 4a2562e408b2849d7b936b9fe475fc3f, type: 3}
+--- !u!114 &1080967783306991615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2803919711758881153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805863e5ed6dbe7469abf23ab40fc1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalScale: 0.04
+  targetScale: 0.06
+  duration: 0.2
+>>>>>>> f531d702da6b7e7c06c57d6bd9291c67a5e4a6b5:Assets/Resources/Creatures/LotusGroup.prefab
 --- !u!1 &2954128518691583040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,6 +3130,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7833169753109885431}
   serializedVersion: 2
+<<<<<<< HEAD:Assets/Resources/Creatures/LotusLeaves_Crash.prefab
   m_LocalRotation: {x: 0.48277205, y: -0.22624455, z: -0.21273607, w: -0.8188333}
   m_LocalPosition: {x: 0.048802, y: -0.012507, z: 0.045782}
   m_LocalScale: {x: 0.07894758, y: 0.07894758, z: 0.07894758}
@@ -2762,6 +3138,15 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5161607601710187244}
   m_LocalEulerAnglesHint: {x: -62.484, y: 20.939, z: 376.335}
+=======
+  m_LocalRotation: {x: 0.113373935, y: -0.8612907, z: -0.47374573, w: -0.14453234}
+  m_LocalPosition: {x: 0.097262464, y: -0.008647442, z: -0.010640942}
+  m_LocalScale: {x: 0.045770355, y: 0.064068355, z: 0.044128876}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5161607601710187244}
+  m_LocalEulerAnglesHint: {x: -58.085, y: 164.469, z: 353.663}
+>>>>>>> f531d702da6b7e7c06c57d6bd9291c67a5e4a6b5:Assets/Resources/Creatures/LotusGroup.prefab
 --- !u!33 &5972262617056285655
 MeshFilter:
   m_ObjectHideFlags: 0

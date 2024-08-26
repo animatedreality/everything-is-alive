@@ -56,7 +56,7 @@ public class Creature : MonoBehaviour
         interactableEventWrappers = new List<PointableUnityEventWrapper>(eventWrapperParent.GetComponentsInChildren<PointableUnityEventWrapper>());
         //automatically assign events to all the pointableEventWrappers
         foreach(PointableUnityEventWrapper eventWrapper in interactableEventWrappers){
-            eventWrapper.WhenSelect.AddListener(OnSelectedPointerEvent);
+            eventWrapper.WhenSelect.AddListener(OnSelected);
         }
         OnDeselected();
     }
@@ -88,7 +88,7 @@ public class Creature : MonoBehaviour
     {
         foreach (PointableUnityEventWrapper eventWrapper in interactableEventWrappers)
         {
-            eventWrapper.WhenSelect.RemoveListener(OnSelectedPointerEvent);
+            eventWrapper.WhenSelect.RemoveListener(OnSelected);
         }
 }   
 
@@ -134,11 +134,7 @@ public class Creature : MonoBehaviour
     //This is called when the creature is selected
     //enables MoveAnchor
     //enables Sequencer
-    public void OnSelectedPointerEvent(PointerEvent pointerEvent){
-        OnSelected();
-    }
-
-    public void OnSelected(){
+    public void OnSelected(PointerEvent pointerEvent){
         //if there is deselection happening, cancel it
         Global.instance.CancelDeselectCoroutine();
 
@@ -149,7 +145,7 @@ public class Creature : MonoBehaviour
         }
         
         //enable sequencer & moveanchor
-        Debug.Log("OnSelectedPointerEvent" + gameObject.name);
+        Debug.Log("OnSelected" + gameObject.name);
 
         if(instGroup != null){
             instGroup.SetVisuals(true);
@@ -169,6 +165,7 @@ public class Creature : MonoBehaviour
         Global.instance.currentSelectedCreature = this;
         isSelected = true;
     }
+
 
     public void OnDeselected(){
         Debug.Log("OnDeselected" + gameObject.name);
