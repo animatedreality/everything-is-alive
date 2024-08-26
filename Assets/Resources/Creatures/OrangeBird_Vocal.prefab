@@ -566,13 +566,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0450ed58f31e459468e09b6d8c7ef1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sources: []
+  clip: {fileID: 8300000, guid: 6e5d400bdcabe4d079bd9295bb8fd329, type: 3}
   instrumentName: 
   id: 
-  sources: []
-  clip: {fileID: 0}
   OnPlay:
     m_PersistentCalls:
       m_Calls: []
+  loopLength: 0
   dotPrefab: {fileID: 0}
   instGroup: {fileID: 0}
   isPlaying: 0
@@ -1199,7 +1200,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instrument: {fileID: 8573388270194140020}
   instGroup: {fileID: 0}
-  clip: {fileID: 8300000, guid: 6e5d400bdcabe4d079bd9295bb8fd329, type: 3}
   pokable: 1
   isSelected: 0
   availableToMerge: 0
