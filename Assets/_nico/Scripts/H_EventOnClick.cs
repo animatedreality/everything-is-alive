@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class H_EventOnClick : MonoBehaviour
 {
-    public Collider collider;
     public UnityEvent OnClick;
 
     // Start is called before the first frame update
@@ -20,12 +19,9 @@ public class H_EventOnClick : MonoBehaviour
         
     }
 
-
+    [ContextMenu("ONCLICK")]
     private void OnMouseDown()
     {
-        if (collider != null && collider.enabled)
-        {
-            OnClick?.Invoke();
-        }
+        OnClick?.Invoke();
     }
 }

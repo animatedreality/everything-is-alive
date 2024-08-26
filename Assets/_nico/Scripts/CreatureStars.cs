@@ -74,7 +74,7 @@ public class CreatureStars : MonoBehaviour
             // Create connector
             GameObject connector = Instantiate(starConnectorPrefab, star1.transform.position, Quaternion.identity);
             connector.transform.SetParent(starConnectorContainer); // Set parent to keep scene organized
-            StarConnector starConnector = new StarConnector(connector, star1.transform, star2.transform);
+            StarConnector starConnector = new StarConnector(connector, star1.transform, star2.transform, transform.localScale.x);
             starConnectors.Add(starConnector);
         }
     }
@@ -92,17 +92,19 @@ public class StarConnector
     public GameObject connectorObject;
     public Transform star1;
     public Transform star2;
+    public float scaleMultipler;
 
-    public StarConnector(GameObject connector, Transform s1, Transform s2)
+    public StarConnector(GameObject connector, Transform s1, Transform s2, float s)
     {
         connectorObject = connector;
         star1 = s1;
         star2 = s2;
+        scaleMultipler = s;
     }
 
     public void UpdatePosition(){
         Vector3 direction = star2.transform.position - star1.transform.position;
-        float distance = direction.magnitude;
+        float distance = direction.magnitude / scaleMultipler;
         connectorObject.transform.position = star1.transform.position;
         connectorObject.transform.LookAt(star2.transform);
         connectorObject.transform.Rotate(-90, 0, 0); // Adjust rotation to point along local Y-axis
