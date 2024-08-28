@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
+using Oculus.Interaction.Samples;
 using UnityEngine;
 
 public class MenuLeftHand : MonoBehaviour
@@ -67,13 +69,15 @@ public class MenuLeftHand : MonoBehaviour
     {
         bool rightControllerBButton = OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch);
         bool leftControllerXButton = OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch);
+        bool rightTriggerPress = OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch);
+        bool rightGripPress = OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch);
 
         if (rightControllerBButton)
         {
             try
             {
-                GameObject creature = Instantiate(Resources.Load("Creatures/" + selectedCreatureName)) as GameObject;
-                creature.transform.position = creatureSpawnPoint.position;
+                Global.instance.SpawnCreature(selectedCreatureName, creatureSpawnPoint.position);
+                Tutorial.instance.DisableRightInstantiateHint();
             }
             catch (System.Exception e)
             {
@@ -82,7 +86,32 @@ public class MenuLeftHand : MonoBehaviour
         }
         if (leftControllerXButton)
         {
-            canvasGameObject.SetActive(!canvasGameObject.activeSelf);
+            try{    
+                canvasGameObject.SetActive(!canvasGameObject.activeSelf);
+                Tutorial.instance.DisableLeftMenuHint();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log("Error showing menu: " + e.Message);
+            }
+        }
+        if(rightTriggerPress){
+            try{
+                Tutorial.instance.DisableRightSelectHint();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log("Error showing menu: " + e.Message);
+            }
+        }
+        if(rightGripPress){
+            try{
+                Tutorial.instance.DisableRightMoveHint();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log("Error showing menu: " + e.Message);
+            }
         }
 
     }

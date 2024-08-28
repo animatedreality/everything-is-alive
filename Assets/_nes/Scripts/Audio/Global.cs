@@ -71,6 +71,11 @@ namespace Audio
             nextEventTime = AudioSettings.dspTime + 0.4;
         }
 
+        public void SpawnCreature(string _creatureName, Vector3 _position){
+            GameObject creature = Instantiate(Resources.Load("Creatures/" + _creatureName)) as GameObject;
+            creature.transform.position = _position;
+        }
+
         public void AddInstGroup(InstGroup instGroup)
         {
             if (!instGroups.Contains(instGroup))
