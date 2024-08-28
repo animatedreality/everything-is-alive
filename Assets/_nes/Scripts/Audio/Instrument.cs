@@ -181,6 +181,7 @@ namespace Audio
             source.clip = clip;
         }
 
+        //NOT called in InstrumentSample
         public virtual AudioSource CreateNewSource()
         {
             Debug.Log("creating audio source from " + gameObject.name);

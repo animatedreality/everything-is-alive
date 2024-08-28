@@ -577,7 +577,7 @@ MonoBehaviour:
   dotPrefab: {fileID: 0}
   instGroup: {fileID: 0}
   isPlaying: 0
-  longSampleAudioSource: {fileID: 0}
+  sampleAudioSource: {fileID: 41044775149437488}
   animatewithAudio: {fileID: 4894304267031937040}
 --- !u!82 &41044775149437488
 AudioSource:
@@ -1087,6 +1087,7 @@ GameObject:
   - component: {fileID: 2598518211838068909}
   - component: {fileID: 3342039880343794198}
   - component: {fileID: 3392747280444254274}
+  - component: {fileID: 2467320341482762823}
   m_Layer: 0
   m_Name: OrangeBird_Vocal
   m_TagString: Untagged
@@ -1205,6 +1206,33 @@ MonoBehaviour:
   availableToMerge: 0
   moveAnchor: {fileID: 0}
   eventWrapperParent: {fileID: 7522880550022232717}
+--- !u!114 &2467320341482762823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2771040649565261646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0002eae3c89cb4bf3997a4b069b37f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3392747280444254274}
+        m_TargetAssemblyTypeName: Creature, Assembly-CSharp
+        m_MethodName: OnSelectedDebug
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4462223809242398333
 GameObject:
   m_ObjectHideFlags: 0
@@ -2994,7 +3022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 467b1074f8024584ca1231f7fcee0016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instrumentType: 1
   instruments: []
+  instrumentSampleScript: {fileID: 8573388270194140020}
   name: 
   id: 
   loopLength: 12

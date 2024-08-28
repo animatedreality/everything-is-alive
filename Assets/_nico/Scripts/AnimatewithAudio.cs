@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using Audio;
 public class AnimatewithAudio : MonoBehaviour
 {
-    [Header("Only Assign Creature with InstrumentLongSample")]
+    [Header("Only Assign Creature with InstrumentSample")]
     public Creature thisCreature;
     public AudioSource audioSource;
     [HideInInspector]
@@ -34,18 +34,6 @@ public class AnimatewithAudio : MonoBehaviour
 
     void Start()
     {
-        // if (thisCreature.instrument is InstrumentLongSample instrumentLongSample)
-        // {
-        //     audioSource = instrumentLongSample.longSampleAudioSource;
-        // }
-        // else
-        // {
-        //     Debug.LogError("The creature's instrument is not an InstrumentLongSample");
-        // }
-        // if (!audioSource)
-        // {
-        //     Debug.LogError("No audio source, make sure assign creature with long sample instrument");
-        // }
 
     }
 

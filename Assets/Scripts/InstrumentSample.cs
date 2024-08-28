@@ -5,10 +5,11 @@ using Audio;
 namespace Audio
 {
     [RequireComponent(typeof(AudioSource))]
-    public class InstrumentLongSample : Instrument
+    public class InstrumentSample : Instrument
     {
+        [Header("Assign clip and sampleAudioSource in inspector please")]
         public bool isPlaying = false;
-        public AudioSource longSampleAudioSource;
+        public AudioSource sampleAudioSource;
         public AnimatewithAudio animatewithAudio;
 
         new void Start()
@@ -16,7 +17,7 @@ namespace Audio
             base.Start();
             InitializeAudioSource();
             //ToggleSound();
-            PlayLongSample();
+            PlaySample();
         }
 
         public void ToggleSound()
@@ -29,12 +30,12 @@ namespace Audio
             }
             else
             {
-                PlayLongSample();
+                PlaySample();
             }
             
         }
 
-        private void PlayLongSample()
+        private void PlaySample()
         {
             Debug.Log("instrumentGroup is " + instGroup);
             Debug.Log("first instrumentGroup is " + firstInstGroup);
@@ -51,22 +52,30 @@ namespace Audio
 
         public override AudioSource GetAvailableSource()
         {
-            SyncSourceVariables(longSampleAudioSource);
-            return longSampleAudioSource;
+            SyncSourceVariables(sampleAudioSource);
+            return sampleAudioSource;
         }
 
         private void InitializeAudioSource()
         {
-            longSampleAudioSource = GetComponent<AudioSource>();
-            longSampleAudioSource.playOnAwake = false;
-            longSampleAudioSource.loop = true;
-            longSampleAudioSource.volume = 0.75f;
-            longSampleAudioSource.spatialBlend = 1f;
-            SyncSourceVariables(longSampleAudioSource);
-            sources.Add(longSampleAudioSource);
+            //sampleAudioSource = GetComponent<AudioSource>();
+            sampleAudioSource.playOnAwake = false;
+            sampleAudioSource.loop = true;
+            sampleAudioSource.volume = 0.75f;
+            sampleAudioSource.spatialBlend = 1f;
+            SyncSourceVariables(sampleAudioSource);
+            sources.Add(sampleAudioSource);
             if(animatewithAudio != null){
-                animatewithAudio.AssignAudioSource(longSampleAudioSource);
+                animatewithAudio.AssignAudioSource(sampleAudioSource);
             }
+        }
+
+        public float GetSamplePlayTime(){
+            if(sampleAudioSource == null) return 0;
+            if(sampleAudioSource.clip == null) return 0;
+            Debug.Log("sampleAudioSource.time: " + sampleAudioSource.time);
+            Debug.Log("sampleAudioSource.clip.length: " + sampleAudioSource.clip.length);
+            return (float) sampleAudioSource.time / (float) sampleAudioSource.clip.length;
         }
 
         // Override methods that are not needed for this type of instrument

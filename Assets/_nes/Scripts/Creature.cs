@@ -166,6 +166,38 @@ public class Creature : MonoBehaviour
         isSelected = true;
     }
 
+    public void OnSelectedDebug(){
+        //if there is deselection happening, cancel it
+        Global.instance.CancelDeselectCoroutine();
+
+        if(Global.instance.currentSelectedCreature == this) return;
+        //deselect last one
+        if(Global.instance.currentSelectedCreature != null){
+            Global.instance.currentSelectedCreature.OnDeselected();
+        }
+        
+        //enable sequencer & moveanchor
+        Debug.Log("OnSelected" + gameObject.name);
+
+        if(instGroup != null){
+            instGroup.SetVisuals(true);
+        }else{
+            Debug.LogError("Weird, instGroup is null" + gameObject.name);
+        }
+        moveAnchor.SetActive(true);
+        moveAnchor.transform.DOScale(1, 0.5f);
+
+        //start animation
+
+        //interrupt deselectCoroutine
+        if(deselectCoroutine != null){
+            StopCoroutine(deselectCoroutine);
+            deselectCoroutine = null;
+        }
+        Global.instance.currentSelectedCreature = this;
+        isSelected = true;
+    }
+
 
     public void OnDeselected(){
         Debug.Log("OnDeselected" + gameObject.name);

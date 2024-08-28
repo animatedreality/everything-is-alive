@@ -7,12 +7,18 @@ using DG.Tweening;
 
 namespace Audio
 {
+    public enum InstrumentType{
+        SEQUENCER,
+        SAMPLE
+    }
     public class InstGroup : MonoBehaviour
     {
+        public InstrumentType instrumentType = InstrumentType.SEQUENCER;
         public List<Instrument> instruments = new List<Instrument>();
-
+        public InstrumentSample instrumentSampleScript;
         [HideInInspector]
         public string name, id;
+        bool playRuleInitialized = false;//to avoid initializing play rule twice
 
         public int loopLength;
 
@@ -31,6 +37,8 @@ namespace Audio
         private Vector3 originalScale = new Vector3(0.05f, 0.05f, 0.1f);
 
         bool isActive = true;
+        //if instrumentType is SAMPLE
+
 
         void Start()
         {
@@ -38,7 +46,7 @@ namespace Audio
             AdjustPlayHead();
             AdjustPointerSurface();
             Global.instance.AddInstGroup(this);
-            Global.instance.OnEveryStepEvent += EveryStep;
+            //SetPlayRule(true);
             LookAtPlayer();
         }
 
@@ -64,14 +72,20 @@ namespace Audio
         private void AdjustPlayHead()
         {
             if (!isActive) return;
-            playHeadSlider.maxValue = loopLength - 1;
-            playHeadSlider.value = 0;
+            if(instrumentType == InstrumentType.SEQUENCER){
+                playHeadSlider.maxValue = loopLength - 1;
+                playHeadSlider.value = 0;
+            }else if(instrumentType == InstrumentType.SAMPLE){
+                playHeadSlider.maxValue = 100f;
+                playHeadSlider.value = 0;
+            }
             float newWidth = canvasRect.rect.width / loopLength;
             playHeadHandle.sizeDelta = new Vector2(newWidth, playHeadHandle.sizeDelta.y);
             //set the playhead area left and right padding to be half
             float padding = newWidth / 2;
             playHeadArea.offsetMin = new Vector2(padding, playHeadArea.offsetMin.y);
             playHeadArea.offsetMax = new Vector2(-padding, playHeadArea.offsetMax.y);
+            Debug.Log("AdjustPlayHead: " + playHeadSlider.maxValue);
         }
 
         private void AdjustPointerSurface()
@@ -117,23 +131,54 @@ namespace Audio
                 SetIsActive(true);
             }
         }
-
+        //is called in Instrument > ResetInstGroup > AddInstrument
         void SetIsActive(bool isActive)
         {
+            Debug.Log("set is active: " + name + " " + isActive);
             this.isActive = isActive;
             canvas.gameObject.SetActive(isActive);
             if (isActive)
             {
                 LookAtPlayer();
-                Global.instance.OnEveryStepEvent += EveryStep;
+                SetPlayRule(true);
                 Global.instance.AddInstGroup(this);
+
             }
             else
             {
-                Debug.Log("SetIsActive false" + gameObject.name);
-                //null check on OnEveryStepEvent
-                Global.instance.SafeUnsubscribeFromEveryStep(EveryStep);
+                SetPlayRule(false);
                 Global.instance.RemoveInstGroup(this);
+            }
+        }
+
+        private void SetPlayRule(bool _start){
+            Debug.Log("set play rule start: " + " " + playRuleInitialized);
+            if(_start && !playRuleInitialized){
+                if(instrumentType == InstrumentType.SEQUENCER){
+                    Global.instance.OnEveryStepEvent += EveryStep;
+                }else if(instrumentType == InstrumentType.SAMPLE){
+                    StartCoroutine(SetPlayHeadSliderwithSample());
+                }
+                playRuleInitialized = true;
+            }
+            if(!_start && playRuleInitialized){
+                if(instrumentType == InstrumentType.SEQUENCER){
+                    Global.instance.SafeUnsubscribeFromEveryStep(EveryStep);
+                }else if (instrumentType == InstrumentType.SAMPLE){
+                    StopCoroutine(SetPlayHeadSliderwithSample());
+                }
+                playRuleInitialized = false;
+            }
+            Debug.Log("set play rule done: " + " " + playRuleInitialized);
+        }
+
+        IEnumerator SetPlayHeadSliderwithSample(){
+            while(true){
+                float samplePlayTime = instrumentSampleScript.GetSamplePlayTime();
+                Debug.Log("playing coroutine: " + samplePlayTime);
+                // Convert the samplePlayTime (0 to 1) to the slider's range (0 to loopLength - 1)
+                playHeadSlider.value = samplePlayTime * 100f;
+                yield return new WaitForSeconds(0.2f);
             }
         }
 
@@ -162,7 +207,7 @@ namespace Audio
 
         void OnDestroy()
         {
-            Global.instance.OnEveryStepEvent -= EveryStep;
+            SetPlayRule(false);
         }
 
         void ResizeCanvas()
