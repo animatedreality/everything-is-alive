@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CreatureStars : MonoBehaviour
 {
+    [Header("Objects")]
+    public List<CreatureStars_Note> starNotes = new List<CreatureStars_Note>();
     public Transform starContainer;
     public GameObject starConnectorPrefab;
     public Transform starConnectorContainer;
-    List<GameObject> stars = new List<GameObject>();
     List<StarConnector> starConnectors = new List<StarConnector>();
     public GameObject slider;
     public float sliderTravelSpeed = 1f;
@@ -15,61 +17,52 @@ public class CreatureStars : MonoBehaviour
 
     public int currentIndex = 0;
     Vector3 targetPosition = Vector3.zero;
+    [Header("Audio Clips from low to high")]
+    public AudioClip[] clips;
+    public Color[] colors;//make sure colors are the same length as clips
+    public float pitchChangeAreaHeight = 0.4f;//height of area where pitches are the same
+
     // Start is called before the first frame update
     void Start()
     {
-        //add all childobjects from starContainer to stars List
-        foreach (Transform child in starContainer)
-            if (child.gameObject.activeSelf) stars.Add(child.gameObject);
-
         GenerateConnectors();
-
-        AnimateSlider();
+        foreach(CreatureStars_Note note in starNotes)
+            note.OnInitialize(this);
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateConnectors();
+        AnimateSlider();
     }
 
     void PlaySound(int _idx){
-        stars[_idx].GetComponent<AudioSource>().Play();
-        if(stars[_idx].GetComponent<ScaleOnPlay>()){
-            stars[_idx].GetComponent<ScaleOnPlay>().ScaleUp();
-        }
+        starNotes[_idx].OnPlay();
     }
 
     void AnimateSlider(){
-        if(stars.Count < 2) return;
-        targetPosition = stars[currentIndex].transform.position;
-        StartCoroutine(MoveSlider());
-    }
-
-    IEnumerator MoveSlider(){
-        while(true)
+        if(starNotes.Count < 2) return;
+        targetPosition = starNotes[currentIndex].transform.position;
+        slider.transform.position = Vector3.MoveTowards(slider.transform.position, targetPosition, sliderTravelSpeed * Time.deltaTime);
+                // Check if we've reached the target
+        if (Vector3.Distance(slider.transform.position, targetPosition) < 0.01f)
         {
-            slider.transform.position = Vector3.MoveTowards(slider.transform.position, targetPosition, sliderTravelSpeed * Time.deltaTime);
-            // Check if we've reached the target
-            if (Vector3.Distance(slider.transform.position, targetPosition) < 0.01f)
-            {
-                PlaySound(currentIndex);
-                // Move to the next star
-                currentIndex = (currentIndex + 1) % stars.Count;
-                targetPosition = stars[currentIndex].transform.position;
-            }
-            yield return null;
+            PlaySound(currentIndex);
+            // Move to the next star
+            currentIndex = (currentIndex + 1) % starNotes.Count;
+            targetPosition = starNotes[currentIndex].transform.position;
         }
     }
 
     void GenerateConnectors()
     {
-        for (int i = 0; i < stars.Count; i++)
+        for (int i = 0; i < starNotes.Count; i++)
         {
-            if((i+1) == stars.Count) return;//if it's last star, ignore
+            if((i+1) == starNotes.Count) return;//if it's last star, ignore
 
-            GameObject star1 = stars[i];
-            GameObject star2 = stars[(i + 1)];
+            GameObject star1 = starNotes[i].gameObject;
+            GameObject star2 = starNotes[(i + 1)].gameObject;
 
             // Create connector
             GameObject connector = Instantiate(starConnectorPrefab, star1.transform.position, Quaternion.identity);

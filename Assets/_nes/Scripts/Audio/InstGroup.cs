@@ -9,7 +9,8 @@ namespace Audio
 {
     public enum InstrumentType{
         SEQUENCER,
-        SAMPLE
+        SAMPLE,
+        STAR
     }
     public class InstGroup : MonoBehaviour
     {

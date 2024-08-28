@@ -149,9 +149,10 @@ public class Creature : MonoBehaviour
 
         if(instGroup != null){
             instGroup.SetVisuals(true);
-        }else{
-            Debug.LogError("Weird, instGroup is null" + gameObject.name);
         }
+        // else{
+        //     //Debug.LogError("Weird, instGroup is null" + gameObject.name);
+        // }
         moveAnchor.SetActive(true);
         moveAnchor.transform.DOScale(1, 0.5f);
 
@@ -181,9 +182,10 @@ public class Creature : MonoBehaviour
 
         if(instGroup != null){
             instGroup.SetVisuals(true);
-        }else{
-            Debug.LogError("Weird, instGroup is null" + gameObject.name);
         }
+        // }else{
+        //     Debug.LogError("Weird, instGroup is null" + gameObject.name);
+        // }
         moveAnchor.SetActive(true);
         moveAnchor.transform.DOScale(1, 0.5f);
 
@@ -208,9 +210,10 @@ public class Creature : MonoBehaviour
         //disable Sequencer
         if(instGroup != null){
             instGroup.SetVisuals(false);
-        }else{
-            Debug.LogError("Weird, instGroup is null");
         }
+        // else{
+        //     Debug.LogError("Weird, instGroup is null");
+        // }
 
         Global.instance.currentSelectedCreature = null;
         //stop animation
