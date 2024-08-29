@@ -49,16 +49,16 @@ public class Creature : MonoBehaviour
             moveAnchor.transform.localPosition = Vector3.zero;
         }
 
-        LookAtPlayer();
+        
         moveAnchor.transform.localScale = Vector3.zero;
-
         //get all the pointableEventWrappers from all the children of eventWrapperParent
         interactableEventWrappers = new List<PointableUnityEventWrapper>(eventWrapperParent.GetComponentsInChildren<PointableUnityEventWrapper>());
         //automatically assign events to all the pointableEventWrappers
         foreach(PointableUnityEventWrapper eventWrapper in interactableEventWrappers){
             eventWrapper.WhenSelect.AddListener(OnSelected);
         }
-        OnDeselected();
+        LookAtPlayer();
+        //OnDeselected();
     }
 
     public void MakeAvailable()
@@ -239,8 +239,13 @@ public class Creature : MonoBehaviour
         AudioListener audioListener = FindObjectOfType<AudioListener>();
         if (audioListener != null)
         {
-            Vector3 directionAway = transform.position - audioListener.transform.position;
-            transform.rotation = Quaternion.LookRotation(directionAway);
+            Vector3 dirToListener = audioListener.transform.position - transform.position;
+            Vector3 horizontalDirection = Vector3.ProjectOnPlane(dirToListener, Vector3.up);
+            Quaternion rotation = Quaternion.LookRotation(horizontalDirection);
+            rotation *= Quaternion.Euler(0, 180, 0);
+            transform.rotation = rotation;
+            // Vector3 directionAway = transform.position - audioListener.transform.position;
+            // transform.rotation = Quaternion.LookRotation(directionAway);
         }
     }
 

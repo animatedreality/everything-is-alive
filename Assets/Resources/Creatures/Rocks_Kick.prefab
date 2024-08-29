@@ -2436,7 +2436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 467b1074f8024584ca1231f7fcee0016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instrumentType: 0
   instruments: []
+  instrumentSampleScript: {fileID: 0}
   name: 
   id: 
   loopLength: 16
@@ -2628,6 +2630,7 @@ GameObject:
   - component: {fileID: 5974455611326030987}
   - component: {fileID: 3417051476952119905}
   - component: {fileID: 6394822613996898281}
+  - component: {fileID: 5859287317269377984}
   m_Layer: 0
   m_Name: Rocks_Kick
   m_TagString: Untagged
@@ -2643,7 +2646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6089175746004356011}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9998012, z: 0, w: 0.01993921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.892, y: 1.35, z: -11.517}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
@@ -2654,7 +2657,7 @@ Transform:
   - {fileID: 6386530689971568077}
   - {fileID: 6880925670684156296}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 177.715, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &6459700063192244407
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2774,6 +2777,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5859287317269377984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089175746004356011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c15bb16e57f8974e9655c314d2f1092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrabInteractable: {fileID: 3557263181647547453}
+  _smoothTime: 0.1
 --- !u!1 &6153026888173659612
 GameObject:
   m_ObjectHideFlags: 0

@@ -757,6 +757,7 @@ GameObject:
   - component: {fileID: 8893816645738752456}
   - component: {fileID: 4878922730214221268}
   - component: {fileID: 1042790617095990308}
+  - component: {fileID: 8262518131965170341}
   m_Layer: 0
   m_Name: Stars_Key
   m_TagString: Untagged
@@ -901,6 +902,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8262518131965170341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3257037020112444000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c15bb16e57f8974e9655c314d2f1092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrabInteractable: {fileID: 820325485860544995}
+  _smoothTime: 0.1
 --- !u!1 &3827124867020346290
 GameObject:
   m_ObjectHideFlags: 0

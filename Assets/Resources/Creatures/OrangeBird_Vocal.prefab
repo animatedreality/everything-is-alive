@@ -1088,6 +1088,7 @@ GameObject:
   - component: {fileID: 3342039880343794198}
   - component: {fileID: 3392747280444254274}
   - component: {fileID: 2467320341482762823}
+  - component: {fileID: 5781583063619418594}
   m_Layer: 0
   m_Name: OrangeBird_Vocal
   m_TagString: Untagged
@@ -1233,6 +1234,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5781583063619418594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2771040649565261646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c15bb16e57f8974e9655c314d2f1092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrabInteractable: {fileID: 1985438534713846698}
+  _smoothTime: 0.1
 --- !u!1 &4462223809242398333
 GameObject:
   m_ObjectHideFlags: 0

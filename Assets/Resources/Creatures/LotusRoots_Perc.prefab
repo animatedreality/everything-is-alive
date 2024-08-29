@@ -789,7 +789,6 @@ GameObject:
   - component: {fileID: 6028796125381494359}
   - component: {fileID: 1356956639802132763}
   - component: {fileID: 6674070627072644389}
-  - component: {fileID: 5867983001071338260}
   m_Layer: 0
   m_Name: HandGrabInteractable
   m_TagString: Untagged
@@ -850,7 +849,7 @@ MonoBehaviour:
     _ringRequirement: 2
     _pinkyRequirement: 1
     _unselectMode: 0
-  _movementProvider: {fileID: 0}
+  _movementProvider: {fileID: 5902164367664215605}
   _handAligment: 1
   _handGrabPoses: []
 --- !u!114 &6028796125381494359
@@ -889,7 +888,7 @@ MonoBehaviour:
     _ringRequirement: 2
     _pinkyRequirement: 1
     _unselectMode: 0
-  _movementProvider: {fileID: 5867983001071338260}
+  _movementProvider: {fileID: 5902164367664215605}
   _handAligment: 0
   _handGrabPoses: []
 --- !u!114 &1356956639802132763
@@ -928,19 +927,7 @@ MonoBehaviour:
   _grabSource: {fileID: 0}
   _resetGrabOnGrabsUpdated: 1
   _physicsGrabbable: {fileID: 0}
-  _movementProvider: {fileID: 5867983001071338260}
---- !u!114 &5867983001071338260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1913504398498298917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 953054d108799b942815afb3405983ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _movementProvider: {fileID: 5902164367664215605}
 --- !u!1 &2272966724597888918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,6 +1793,7 @@ GameObject:
   - component: {fileID: 6745853421628398777}
   - component: {fileID: 3820808027316086395}
   - component: {fileID: 7655656370429224258}
+  - component: {fileID: 5902164367664215605}
   m_Layer: 0
   m_Name: LotusRoots_Perc
   m_TagString: Untagged
@@ -1951,6 +1939,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5902164367664215605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4304417938794385119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e26841f993cbdf45bfd8c6fb03cdaf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _smoothTime: 0.1
 --- !u!1 &4361052649639094015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,7 +2243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 467b1074f8024584ca1231f7fcee0016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instrumentType: 0
   instruments: []
+  instrumentSampleScript: {fileID: 0}
   name: 
   id: 
   loopLength: 16

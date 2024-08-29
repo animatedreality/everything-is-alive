@@ -48,19 +48,19 @@ namespace Audio
             AdjustPointerSurface();
             Global.instance.AddInstGroup(this);
             //SetPlayRule(true);
-            LookAtPlayer();
+            //LookAtPlayer();
         }
 
-        void LookAtPlayer()
-        {
-            //find object with component AudioListener and lookat it.. point towards the player when instantiated
-            AudioListener audioListener = FindObjectOfType<AudioListener>();
-            if (audioListener != null)
-            {
-                Vector3 directionAway = transform.position - audioListener.transform.position;
-                transform.rotation = Quaternion.LookRotation(directionAway);
-            }
-        }
+        // void LookAtPlayer()
+        // {
+        //     //find object with component AudioListener and lookat it.. point towards the player when instantiated
+        //     AudioListener audioListener = FindObjectOfType<AudioListener>();
+        //     if (audioListener != null)
+        //     {
+        //         Vector3 directionAway = transform.position - audioListener.transform.position;
+        //         transform.rotation = Quaternion.LookRotation(directionAway);
+        //     }
+        // }
 
         private void Reset()
         {
@@ -140,7 +140,7 @@ namespace Audio
             canvas.gameObject.SetActive(isActive);
             if (isActive)
             {
-                LookAtPlayer();
+                //LookAtPlayer();
                 SetPlayRule(true);
                 Global.instance.AddInstGroup(this);
 

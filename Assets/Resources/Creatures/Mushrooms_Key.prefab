@@ -1582,6 +1582,7 @@ GameObject:
   - component: {fileID: 7200775259334313969}
   - component: {fileID: 1713972661104025512}
   - component: {fileID: 8250138197911324107}
+  - component: {fileID: 5351993475885444098}
   m_Layer: 0
   m_Name: Mushrooms_Key
   m_TagString: Untagged
@@ -1729,6 +1730,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5351993475885444098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2180035822099541007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c15bb16e57f8974e9655c314d2f1092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrabInteractable: {fileID: 1146634473595783682}
+  _smoothTime: 0.1
 --- !u!1 &2221393183723873351
 GameObject:
   m_ObjectHideFlags: 0
