@@ -51,6 +51,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 86fd8f220a7634c29a555664d573b38e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _PNG:
         m_Texture: {fileID: 2800000, guid: dfc0f5e2513c143a59bbde1b11664144, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -85,8 +89,8 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _Float: 0.02
-    - _FresnelPower: 3
-    - _FresnelStrength: 0.309
+    - _FresnelPower: 1.15
+    - _FresnelStrength: 1
     - _GlossinessSource: 0
     - _GradientPower: 0.048
     - _Metalic: 0.313

@@ -224,11 +224,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instrument: {fileID: 1254507183672158827}
   instGroup: {fileID: 0}
+  currentVolume: 0
   pokable: 1
   isSelected: 0
   availableToMerge: 1
-  moveAnchor: {fileID: 0}
   eventWrapperParent: {fileID: 994795704295617719}
+  moveAnchor: {fileID: 0}
 --- !u!114 &4150044726655237935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1409,7 +1410,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6d25ecce51b4641888de596bb6ebd90f, type: 2}
+  - {fileID: 2100000, guid: 5683cdac5ca84a34986e42bd83aeedd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1615,7 +1616,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6d25ecce51b4641888de596bb6ebd90f, type: 2}
+  - {fileID: 2100000, guid: 5683cdac5ca84a34986e42bd83aeedd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

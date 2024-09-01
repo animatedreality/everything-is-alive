@@ -37,22 +37,24 @@ public class Creature : MonoBehaviour
         if (instGroup == null)
         {
             instGroup = GetComponentInChildren<InstGroup>();
+            instGroup.creature = this;
         }
         Global.instance.OnEveryStepEvent += EveryStep;
         Global.instance.AddCreature(this);
+        SetVolume(1);
         //set availableToMergeCoroutine
         availableToMergeCoroutine = StartCoroutine(SetAvailableToMergeTrueWithDelay());
 
         //set moveAnchor if hasn't been set
-        // if(moveAnchor == null){
-        //     moveAnchor = Instantiate(Global.instance.moveAnchor, transform.position, Quaternion.identity, transform);
-        //     moveAnchor.transform.localPosition = Vector3.zero;
-        //     if(moveAnchor.GetComponent<MoveAnchor>() == null){
-        //         moveAnchor.AddComponent<MoveAnchor>();
-        //     }
-        //     moveAnchor.GetComponent<MoveAnchor>().onValueChanged.AddListener(OnMoveAnchorValueChanged);
-        // }
-        // moveAnchor.transform.localScale = Vector3.zero;
+        if(moveAnchor == null){
+            moveAnchor = Instantiate(Global.instance.moveAnchor, transform.position, Quaternion.identity, transform);
+            moveAnchor.transform.localPosition = Vector3.zero;
+            // if(moveAnchor.GetComponent<MoveAnchor>() == null){
+            //     moveAnchor.AddComponent<MoveAnchor>();
+            // }
+            //moveAnchor.GetComponent<MoveAnchor>().onValueChanged.AddListener(OnMoveAnchorValueChanged);
+        }
+        moveAnchor.transform.localScale = Vector3.zero;
 
         //get all the pointableEventWrappers from all the children of eventWrapperParent
         interactableEventWrappers = new List<PointableUnityEventWrapper>(eventWrapperParent.GetComponentsInChildren<PointableUnityEventWrapper>());
@@ -187,7 +189,7 @@ public class Creature : MonoBehaviour
             deselectCoroutine = null;
         }
         Global.instance.currentSelectedCreature = this;
-        MenuLeftHand.instance.ToggleVolumeUI(true, currentVolume);
+        MenuManager.instance.ToggleVolumeUI(true, currentVolume);
         isSelected = true;
     }
 
@@ -221,7 +223,7 @@ public class Creature : MonoBehaviour
             deselectCoroutine = null;
         }
         Global.instance.currentSelectedCreature = this;
-        MenuLeftHand.instance.ToggleVolumeUI(true, currentVolume);
+        MenuManager.instance.ToggleVolumeUI(true, currentVolume);
         isSelected = true;
     }
 
@@ -241,7 +243,7 @@ public class Creature : MonoBehaviour
         // }
 
         Global.instance.currentSelectedCreature = null;
-        MenuLeftHand.instance.ToggleVolumeUI(false, currentVolume);
+        MenuManager.instance.ToggleVolumeUI(false, currentVolume);
         isSelected = false;
     }
 

@@ -2744,11 +2744,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instrument: {fileID: 492170266752648445}
   instGroup: {fileID: 0}
+  currentVolume: 0
   pokable: 1
   isSelected: 0
   availableToMerge: 1
-  moveAnchor: {fileID: 0}
   eventWrapperParent: {fileID: 7587317626487179175}
+  moveAnchor: {fileID: 0}
 --- !u!114 &6394822613996898281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3330,7 +3331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1096131014440533168
 Transform:
   m_ObjectHideFlags: 0

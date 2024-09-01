@@ -14,6 +14,7 @@ namespace Audio
     }
     public class InstGroup : MonoBehaviour
     {
+        public Creature creature;
         public InstrumentType instrumentType = InstrumentType.SEQUENCER;
         public List<Instrument> instruments = new List<Instrument>();
         public InstrumentSample instrumentSampleScript;

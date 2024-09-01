@@ -266,8 +266,11 @@ namespace Audio
         IEnumerator OnPlayCoroutine(double time, int localBeatIndex)
         {
             yield return new WaitForSeconds((float)(time - AudioSettings.dspTime));
-            OnPlay?.Invoke(localBeatIndex);
-            OnPlayEvent?.Invoke(localBeatIndex);
+            if(instGroup.creature.currentVolume != 0){
+                OnPlay?.Invoke(localBeatIndex);
+                OnPlayEvent?.Invoke(localBeatIndex);
+            }
+            
         }
 
     }

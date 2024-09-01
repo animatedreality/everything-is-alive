@@ -52,7 +52,8 @@ public class CreatureStars_Note : MonoBehaviour
         Debug.Log("Setting material color to " + _color);
         //change alpha of this color to 0.2f or 0.2 * 255 whichever is correct
         _color.a = 0.2f;
-        GetComponent<Renderer>().material.color = _color;
+        GetComponent<Renderer>().material.SetColor("_C1", _color);
+        GetComponent<Renderer>().material.SetColor("C2", _color);
     }
 
     private void UpdateStar(){

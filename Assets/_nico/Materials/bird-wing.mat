@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DeactivationPNG:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 43782b5e96cbdcb46a1af7ef9e709536, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -103,15 +103,15 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _Deactivate: 0
-    - _DeactivationAmount: 0
+    - _DeactivationAmount: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Float: 0.001
-    - _FresnelPower: 0
-    - _FresnelStrength: 0
+    - _FresnelPower: 1.69
+    - _FresnelStrength: 0.879
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -141,6 +141,7 @@ Material:
     - _DeactivateFresnelColor: {r: 0.07335851, g: 0, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Tiling: {r: 30, g: 30, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8832688530479089485
 MonoBehaviour:

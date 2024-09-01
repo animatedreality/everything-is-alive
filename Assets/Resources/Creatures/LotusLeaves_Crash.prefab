@@ -406,7 +406,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 509138096feec4b1287ab9d7bc6d8f69, type: 2}
+  - {fileID: 2100000, guid: 5f9f6396cd11729478624dafefc05c01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1920,11 +1920,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instrument: {fileID: 5892590608509909877}
   instGroup: {fileID: 0}
+  currentVolume: 0
   pokable: 1
   isSelected: 0
   availableToMerge: 1
-  moveAnchor: {fileID: 0}
   eventWrapperParent: {fileID: 8162161552279382565}
+  moveAnchor: {fileID: 0}
 --- !u!114 &5431867305851475171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3267,7 +3268,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cedcce97906774b448c877ff27305875, type: 2}
+  - {fileID: 2100000, guid: 2a85b4a6c2592de468023e85ca68bb2a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

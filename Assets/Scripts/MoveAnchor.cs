@@ -11,7 +11,7 @@ public class MoveAnchor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        volumeSlider.onValueChanged.AddListener (ValueChangeCheck);
+        //volumeSlider.onValueChanged.AddListener (ValueChangeCheck);
     }
 
     // Update is called once per frame
@@ -22,6 +22,6 @@ public class MoveAnchor : MonoBehaviour
 
     public void ValueChangeCheck(float value)
 	{
-        onValueChanged.Invoke(value);
+        //onValueChanged.Invoke(value);
 	}
 }
