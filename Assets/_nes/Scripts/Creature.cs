@@ -10,6 +10,7 @@ public class Creature : MonoBehaviour
     [Header("Audio")]
     public Instrument instrument;
     public InstGroup instGroup;
+    public float currentVolume;
 
     [Header("Settings")]
     public bool pokable = false;//only drum-like sequence based instruments can be poked
@@ -43,17 +44,16 @@ public class Creature : MonoBehaviour
         availableToMergeCoroutine = StartCoroutine(SetAvailableToMergeTrueWithDelay());
 
         //set moveAnchor if hasn't been set
-        if(moveAnchor == null){
-            moveAnchor = Instantiate(Global.instance.moveAnchor, transform.position, Quaternion.identity, transform);
-            moveAnchor.transform.localPosition = Vector3.zero;
-            if(moveAnchor.GetComponent<MoveAnchor>() == null){
-                moveAnchor.AddComponent<MoveAnchor>();
-            }
-            moveAnchor.GetComponent<MoveAnchor>().onValueChanged.AddListener(OnMoveAnchorValueChanged);
-        }
+        // if(moveAnchor == null){
+        //     moveAnchor = Instantiate(Global.instance.moveAnchor, transform.position, Quaternion.identity, transform);
+        //     moveAnchor.transform.localPosition = Vector3.zero;
+        //     if(moveAnchor.GetComponent<MoveAnchor>() == null){
+        //         moveAnchor.AddComponent<MoveAnchor>();
+        //     }
+        //     moveAnchor.GetComponent<MoveAnchor>().onValueChanged.AddListener(OnMoveAnchorValueChanged);
+        // }
+        // moveAnchor.transform.localScale = Vector3.zero;
 
-        
-        moveAnchor.transform.localScale = Vector3.zero;
         //get all the pointableEventWrappers from all the children of eventWrapperParent
         interactableEventWrappers = new List<PointableUnityEventWrapper>(eventWrapperParent.GetComponentsInChildren<PointableUnityEventWrapper>());
         //automatically assign events to all the pointableEventWrappers
@@ -129,13 +129,14 @@ public class Creature : MonoBehaviour
         instrument.Play();
     }
 
-    public void OnMoveAnchorValueChanged(float value){
+    public void SetVolume(float value){
         if(instGroup == null) return;
         foreach(Instrument instrument in instGroup.instruments){
             instrument.SetVolume(value);
             Debug.Log("SetVolume of Instrument" + value);
         }
         SetMaterialEffect(value == 0);
+        currentVolume = value;
     }
 
     public void SetMaterialEffect(bool _Deactivate){
@@ -186,6 +187,7 @@ public class Creature : MonoBehaviour
             deselectCoroutine = null;
         }
         Global.instance.currentSelectedCreature = this;
+        MenuLeftHand.instance.ToggleVolumeUI(true, currentVolume);
         isSelected = true;
     }
 
@@ -219,6 +221,7 @@ public class Creature : MonoBehaviour
             deselectCoroutine = null;
         }
         Global.instance.currentSelectedCreature = this;
+        MenuLeftHand.instance.ToggleVolumeUI(true, currentVolume);
         isSelected = true;
     }
 
@@ -238,7 +241,7 @@ public class Creature : MonoBehaviour
         // }
 
         Global.instance.currentSelectedCreature = null;
-        //stop animation
+        MenuLeftHand.instance.ToggleVolumeUI(false, currentVolume);
         isSelected = false;
     }
 

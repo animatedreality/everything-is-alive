@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Audio;
 using Oculus.Interaction.Samples;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuLeftHand : MonoBehaviour
 {
@@ -14,6 +15,14 @@ public class MenuLeftHand : MonoBehaviour
     string selectedCreatureName = "";
 
     public Transform creatureSpawnPoint;
+
+    //Buttons
+    bool rightControllerBButton, leftControllerXButton, rightTriggerPress, rightGripPress;
+
+    //Volume
+    public GameObject volumeUI;
+    float rightJoystickVertical;
+    float volume;
 
     private void Awake()
     {
@@ -67,10 +76,14 @@ public class MenuLeftHand : MonoBehaviour
 
     void Update()
     {
-        bool rightControllerBButton = OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch);
-        bool leftControllerXButton = OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch);
-        bool rightTriggerPress = OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch);
-        bool rightGripPress = OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch);
+        rightControllerBButton = OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch);
+        leftControllerXButton = OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch);
+        rightTriggerPress = OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch);
+        rightGripPress = OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch);
+        rightJoystickVertical = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch).y;
+        volume += rightJoystickVertical * Time.deltaTime;
+        volume = Mathf.Clamp01(volume);
+        Global.instance.currentSelectedCreature.SetVolume(volume);
 
         if (rightControllerBButton)
         {
@@ -114,5 +127,16 @@ public class MenuLeftHand : MonoBehaviour
             }
         }
 
+    }
+
+    public void ToggleVolumeUI(bool _toggle, float _volume){
+        volumeUI.SetActive(_toggle);
+        if(_toggle){
+            Slider volSlider = volumeUI.GetComponentInChildren<Slider>();
+            if(volSlider != null){
+                volSlider.value = _volume;
+                volume = _volume;
+            }
+        }
     }
 }
