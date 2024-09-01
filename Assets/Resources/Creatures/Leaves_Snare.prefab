@@ -111,7 +111,6 @@ GameObject:
   - component: {fileID: 1315514848363667298}
   - component: {fileID: 8357313992752325969}
   - component: {fileID: 4150044726655237935}
-  - component: {fileID: 2872074771474793522}
   m_Layer: 0
   m_Name: Leaves_Snare
   m_TagString: Untagged
@@ -257,20 +256,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2872074771474793522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2800314016175855586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e26841f993cbdf45bfd8c6fb03cdaf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _smoothTime: 0.1
-  _originalProvider: {fileID: 0}
 --- !u!1 &2930597233592840793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,6 +1273,7 @@ GameObject:
   - component: {fileID: 884232251494028810}
   - component: {fileID: 4709665845139343933}
   - component: {fileID: 2021530510131450451}
+  - component: {fileID: 3148984071843749863}
   m_Layer: 0
   m_Name: HandGrabInteractable
   m_TagString: Untagged
@@ -1346,7 +1332,19 @@ MonoBehaviour:
   _grabSource: {fileID: 0}
   _resetGrabOnGrabsUpdated: 1
   _physicsGrabbable: {fileID: 0}
-  _movementProvider: {fileID: 2872074771474793522}
+  _movementProvider: {fileID: 3148984071843749863}
+--- !u!114 &3148984071843749863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4385276751385025353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953054d108799b942815afb3405983ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4712023088245514954
 GameObject:
   m_ObjectHideFlags: 0

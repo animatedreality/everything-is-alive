@@ -18,14 +18,13 @@ public class Creature : MonoBehaviour
     private CreatureGroup creatureGroup;
 
     [Header("Creature Manipulation")]
-    public GameObject moveAnchor;
     public Transform eventWrapperParent;
     List<PointableUnityEventWrapper> interactableEventWrappers = new List<PointableUnityEventWrapper>();
 
     [HideInInspector]
-
-
+    public GameObject moveAnchor;
     Coroutine availableToMergeCoroutine;
+
 
     void Start()
     {
@@ -47,6 +46,10 @@ public class Creature : MonoBehaviour
         if(moveAnchor == null){
             moveAnchor = Instantiate(Global.instance.moveAnchor, transform.position, Quaternion.identity, transform);
             moveAnchor.transform.localPosition = Vector3.zero;
+            if(moveAnchor.GetComponent<MoveAnchor>() == null){
+                moveAnchor.AddComponent<MoveAnchor>();
+            }
+            moveAnchor.GetComponent<MoveAnchor>().onValueChanged.AddListener(OnMoveAnchorValueChanged);
         }
 
         
@@ -124,6 +127,25 @@ public class Creature : MonoBehaviour
     {
         if (!pokable) return;
         instrument.Play();
+    }
+
+    public void OnMoveAnchorValueChanged(float value){
+        if(instGroup == null) return;
+        foreach(Instrument instrument in instGroup.instruments){
+            instrument.SetVolume(value);
+            Debug.Log("SetVolume of Instrument" + value);
+        }
+        SetMaterialEffect(value == 0);
+    }
+
+    public void SetMaterialEffect(bool _Deactivate){
+        Debug.Log("Deactivate");
+        //Find all Materials in Children
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach(Renderer renderer in renderers){
+            renderer.material.SetInt("_Deactivate", _Deactivate ? 1 : 0);
+        }
+
     }
 
 

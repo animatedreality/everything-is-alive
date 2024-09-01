@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: stem1
-  m_Shader: {fileID: -6465566751694194690, guid: 62567a58dfe2840e49fe87ad6fecbd9b, type: 3}
+  m_Name: mushroom_stem
+  m_Shader: {fileID: -6465566751694194690, guid: c76bb0613b4e7f24e83406330922d0ff, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -23,12 +23,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _DeactivationPNG:
+        m_Texture: {fileID: 2800000, guid: 18c8c06931a3534468f3ab2e1d4cb407, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Gradient:
         m_Texture: {fileID: 2800000, guid: 49f8a1f3d5a89458c9da490e1af54f5c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PNG:
-        m_Texture: {fileID: 2800000, guid: d2869d96426bf491a8cc311ef16da695, type: 3}
+        m_Texture: {fileID: 2800000, guid: 91dc4b78a546d2642b8049186648364e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -45,15 +49,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Deactivate: 0
+    - _DeactivationAmount: 1
     - _Float: 0.05
-    - _GradientPower: 0.038
-    - _Metalic: 0.27
+    - _FresnelPower: 2.14
+    - _FresnelStrength: 1
+    - _GradientPower: 0.073
+    - _Metalic: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Roughness: 0.56
+    - _Roughness: 0.071
     m_Colors:
-    - _C1: {r: 1, g: 0.9157988, b: 0.4198113, a: 1}
-    - _C2: {r: 1, g: 0.60950416, b: 0.25, a: 1}
+    - _ActivateFresnelColor: {r: 1, g: 0.3679244, b: 0.8089193, a: 1}
+    - _C1: {r: 1, g: 0.9647501, b: 0.75157225, a: 1}
+    - _C2: {r: 1, g: 0.7444587, b: 0.51257855, a: 1}
+    - _DeactivateFresnelColor: {r: 0.30992547, g: 0.3036865, b: 0.52201253, a: 1}
+    - _FresnelColor: {r: 0, g: 0.4957261, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1753716123644137073
 MonoBehaviour:
