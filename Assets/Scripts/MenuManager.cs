@@ -25,6 +25,9 @@ public class MenuManager : MonoBehaviour
     public float currentCreatureVolume;
     bool changeVolumeStart;
     public Slider volSlider;
+    [SerializeField]
+    public Dictionary<string, int> generatedCreatures = new Dictionary<string, int>();
+    int maxGeneratedAmount = 3;
 
     private void Awake()
     {
@@ -51,6 +54,7 @@ public class MenuManager : MonoBehaviour
             button.name = image.name;
             button.GetComponent<UnityEngine.UI.Image>().sprite = (Sprite)image;
             button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnCreatureButtonPressed(image.name));
+            generatedCreatures.Add(image.name, 0);
         }
         OnCreatureButtonPressed(images[0].name);
         //button dimensions are 64x64, so set the scrollviewContent height to the number of buttons times 64
@@ -62,6 +66,7 @@ public class MenuManager : MonoBehaviour
 
     public void OnCreatureButtonPressed(string creatureName)
     {
+        //Generate creature from here
         selectedCreatureName = creatureName;
         //highlight the selected button and un-highlight the others
         foreach (Transform child in scrollviewContent)
@@ -73,6 +78,28 @@ public class MenuManager : MonoBehaviour
             else
             {
                 child.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 0.5f);
+            }
+        }
+    }
+
+    public void SpawnCreature(){
+        if(generatedCreatures[selectedCreatureName] < maxGeneratedAmount){
+            Debug.Log("Creature Name is " + selectedCreatureName);
+            if(generatedCreatures.ContainsKey(selectedCreatureName)){
+                generatedCreatures[selectedCreatureName]++;
+                Debug.Log("Generated Creatures Number" + generatedCreatures[selectedCreatureName]);
+            }
+
+            Global.instance.SpawnCreature(selectedCreatureName, creatureSpawnPoint.position);
+            if(generatedCreatures[selectedCreatureName] == maxGeneratedAmount){
+                foreach (Transform child in scrollviewContent)
+                {
+                    if (child.name == selectedCreatureName)
+                    {
+                        Destroy(child.gameObject);
+                        break;
+                    }
+                }
             }
         }
     }
@@ -100,7 +127,7 @@ public class MenuManager : MonoBehaviour
         {
             try
             {
-                Global.instance.SpawnCreature(selectedCreatureName, creatureSpawnPoint.position);
+                SpawnCreature();
                 Tutorial.instance.DisableRightInstantiateHint();
             }
             catch (System.Exception e)
