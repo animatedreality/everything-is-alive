@@ -18,6 +18,8 @@ namespace Audio
         public InstrumentType instrumentType = InstrumentType.SEQUENCER;
         public List<Instrument> instruments = new List<Instrument>();
         public InstrumentSample instrumentSampleScript;
+        [Header("Star")]
+        public CreatureStars creatureStars;
         [HideInInspector]
         public string name, id;
         bool playRuleInitialized = false;//to avoid initializing play rule twice
@@ -45,6 +47,10 @@ namespace Audio
         void Start()
         {
             this.id = Util.AutoID();
+
+            if(instrumentType == InstrumentType.STAR){
+                ToggleSequencerCanvas(false);
+            }
             AdjustPlayHead();
             AdjustPointerSurface();
             Global.instance.AddInstGroup(this);
@@ -258,6 +264,11 @@ namespace Audio
             // canvasShoulderL.gameObject.SetActive(_show);
             // if(canvasShoulderR != null)
             // canvasShoulderR.gameObject.SetActive(_show);
+        }
+
+        void ToggleSequencerCanvas(bool _show){
+            canvas.gameObject.SetActive(_show);
+            pointerSurfaceTransform.gameObject.SetActive(_show);
         }
 
     }

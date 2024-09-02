@@ -423,7 +423,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
@@ -566,6 +566,7 @@ GameObject:
   - component: {fileID: 3240455065969606810}
   - component: {fileID: 2678615576866529448}
   - component: {fileID: 3686018555582343094}
+  - component: {fileID: 5783893070184162268}
   m_Layer: 0
   m_Name: mushroom-1-cap
   m_TagString: Untagged
@@ -687,25 +688,25 @@ ConfigurableJoint:
   m_AngularYMotion: 1
   m_AngularZMotion: 1
   m_LinearLimitSpring:
-    spring: 300
-    damper: 300
+    spring: 10
+    damper: 1
   m_LinearLimit:
-    limit: 0.001
-    bounciness: 0.1
-    contactDistance: 0.0005
+    limit: 0.01
+    bounciness: 1
+    contactDistance: 0
   m_AngularXLimitSpring:
-    spring: 0
-    damper: 0
+    spring: 10
+    damper: 5
   m_LowAngularXLimit:
-    limit: 0
-    bounciness: 0
+    limit: 10
+    bounciness: 1
     contactDistance: 0
   m_HighAngularXLimit:
     limit: 10
     bounciness: 1
     contactDistance: 1
   m_AngularYZLimitSpring:
-    spring: 0
+    spring: 5
     damper: 30
   m_AngularYLimit:
     limit: 10
@@ -719,21 +720,21 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionDamper: 5
+    maximumForce: 40
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
@@ -752,13 +753,13 @@ ConfigurableJoint:
     useAcceleration: 0
   m_SlerpDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
-  m_ProjectionDistance: 0.1
-  m_ProjectionAngle: 180
+  m_ProjectionDistance: 0
+  m_ProjectionAngle: 0
   m_ConfiguredInWorldSpace: 0
   m_SwapBodies: 0
   m_BreakForce: Infinity
@@ -803,6 +804,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleAmount: 1.2
   duration: 0.2
+--- !u!114 &5783893070184162268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010993558169933841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1015a3875671c44bf41d3922834a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetStringContains: Hand
+  collisionEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7175783247717660361}
+        m_TargetAssemblyTypeName: Audio.Instrument, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  collidingObject: {fileID: 0}
+  collisionBuffer: 0.1
 --- !u!1 &1044853233472683157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,6 +1268,7 @@ GameObject:
   - component: {fileID: 1238054177597646411}
   - component: {fileID: 3222691208031260222}
   - component: {fileID: 2426101187378631533}
+  - component: {fileID: 7669356162215317974}
   m_Layer: 0
   m_Name: mushroom-4-cap
   m_TagString: Untagged
@@ -1355,25 +1390,25 @@ ConfigurableJoint:
   m_AngularYMotion: 1
   m_AngularZMotion: 1
   m_LinearLimitSpring:
-    spring: 300
-    damper: 300
+    spring: 10
+    damper: 1
   m_LinearLimit:
-    limit: 0.001
-    bounciness: 0.1
-    contactDistance: 0.0005
+    limit: 0.01
+    bounciness: 1
+    contactDistance: 0
   m_AngularXLimitSpring:
-    spring: 0
-    damper: 0
+    spring: 10
+    damper: 5
   m_LowAngularXLimit:
-    limit: 0
-    bounciness: 0
+    limit: 10
+    bounciness: 1
     contactDistance: 0
   m_HighAngularXLimit:
     limit: 10
     bounciness: 1
     contactDistance: 1
   m_AngularYZLimitSpring:
-    spring: 0
+    spring: 5
     damper: 30
   m_AngularYLimit:
     limit: 10
@@ -1387,21 +1422,21 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionDamper: 5
+    maximumForce: 40
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
@@ -1420,13 +1455,13 @@ ConfigurableJoint:
     useAcceleration: 0
   m_SlerpDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
-  m_ProjectionDistance: 0.1
-  m_ProjectionAngle: 180
+  m_ProjectionDistance: 0
+  m_ProjectionAngle: 0
   m_ConfiguredInWorldSpace: 0
   m_SwapBodies: 0
   m_BreakForce: Infinity
@@ -1471,6 +1506,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleAmount: 1.2
   duration: 0.2
+--- !u!114 &7669356162215317974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801401123736756873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1015a3875671c44bf41d3922834a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetStringContains: Hand
+  collisionEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7086994793458304961}
+        m_TargetAssemblyTypeName: Audio.Instrument, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  collidingObject: {fileID: 0}
+  collisionBuffer: 0.1
 --- !u!1 &1818573411887561882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,6 +1763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instrument: {fileID: 1910104982929729082}
   instGroup: {fileID: 0}
+  currentVolume: 0
   pokable: 1
   isSelected: 0
   availableToMerge: 1
@@ -1782,9 +1851,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.15575837
-  m_Height: 0.9487426
+  m_Height: 1.0961251
   m_Direction: 1
-  m_Center: {x: 1.7782392e-10, y: 0.47534168, z: 0.022254908}
+  m_Center: {x: -0.000000003490462, y: 0.40165034, z: 0.02225491}
 --- !u!54 &5675519910520421813
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1929,6 +1998,7 @@ GameObject:
   - component: {fileID: 908131323282294612}
   - component: {fileID: 2778327151830696926}
   - component: {fileID: 6075471880723549061}
+  - component: {fileID: 6073645967821251371}
   m_Layer: 0
   m_Name: mushroom-2-cap
   m_TagString: Untagged
@@ -2167,6 +2237,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleAmount: 1.2
   duration: 0.2
+--- !u!114 &6073645967821251371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2294291946029147204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1015a3875671c44bf41d3922834a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetStringContains: Hand
+  collisionEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 957810381819207342}
+        m_TargetAssemblyTypeName: Audio.Instrument, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  collidingObject: {fileID: 0}
+  collisionBuffer: 0.1
 --- !u!1 &2482990350415958434
 GameObject:
   m_ObjectHideFlags: 0
@@ -3113,7 +3216,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
@@ -4236,6 +4339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 467b1074f8024584ca1231f7fcee0016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: 0}
   instrumentType: 0
   instruments: []
   instrumentSampleScript: {fileID: 0}
@@ -5429,9 +5533,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.178847
+  m_Height: 1.8857708
   m_Direction: 1
-  m_Center: {x: -0.0000000054865934, y: 0.5769466, z: 0.0000000019040827}
+  m_Center: {x: -0.0000000021170306, y: 0.22348334, z: 0.00000008900736}
 --- !u!54 &8859115765094453249
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5474,24 +5578,24 @@ ConfigurableJoint:
   m_ConnectedAnchor: {x: -0.00000041909786, y: -0.00000090529306, z: -8.967223e-14}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
-  m_XMotion: 1
-  m_YMotion: 1
-  m_ZMotion: 1
+  m_XMotion: 0
+  m_YMotion: 0
+  m_ZMotion: 0
   m_AngularXMotion: 1
   m_AngularYMotion: 1
   m_AngularZMotion: 1
   m_LinearLimitSpring:
-    spring: 1
+    spring: 6
     damper: 15
   m_LinearLimit:
     limit: 0
     bounciness: 1
     contactDistance: 0
   m_AngularXLimitSpring:
-    spring: 50
+    spring: 5
     damper: 2
   m_LowAngularXLimit:
-    limit: 0
+    limit: 5
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
@@ -5534,15 +5638,15 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 100
+    positionSpring: 50
     positionDamper: 3
-    maximumForce: 3.4028233e+38
+    maximumForce: 100
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 100
+    positionSpring: 50
     positionDamper: 3
-    maximumForce: 3.4028233e+38
+    maximumForce: 100
     useAcceleration: 0
   m_SlerpDrive:
     serializedVersion: 4
@@ -5613,7 +5717,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
@@ -5735,6 +5839,7 @@ GameObject:
   - component: {fileID: 3059756547227823154}
   - component: {fileID: 8650353323232864776}
   - component: {fileID: 938820528146460901}
+  - component: {fileID: 2237083426972831668}
   m_Layer: 0
   m_Name: mushroom-5-cap
   m_TagString: Untagged
@@ -5856,25 +5961,25 @@ ConfigurableJoint:
   m_AngularYMotion: 1
   m_AngularZMotion: 1
   m_LinearLimitSpring:
-    spring: 300
-    damper: 300
+    spring: 10
+    damper: 1
   m_LinearLimit:
-    limit: 0.001
-    bounciness: 0.1
-    contactDistance: 0.0005
+    limit: 0.01
+    bounciness: 1
+    contactDistance: 0
   m_AngularXLimitSpring:
-    spring: 0
-    damper: 0
+    spring: 10
+    damper: 5
   m_LowAngularXLimit:
-    limit: 0
-    bounciness: 0
+    limit: 10
+    bounciness: 1
     contactDistance: 0
   m_HighAngularXLimit:
     limit: 10
     bounciness: 1
     contactDistance: 1
   m_AngularYZLimitSpring:
-    spring: 0
+    spring: 5
     damper: 30
   m_AngularYLimit:
     limit: 10
@@ -5888,21 +5993,21 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionDamper: 5
+    maximumForce: 40
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
@@ -5921,13 +6026,13 @@ ConfigurableJoint:
     useAcceleration: 0
   m_SlerpDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
-  m_ProjectionDistance: 0.1
-  m_ProjectionAngle: 180
+  m_ProjectionDistance: 0
+  m_ProjectionAngle: 0
   m_ConfiguredInWorldSpace: 0
   m_SwapBodies: 0
   m_BreakForce: Infinity
@@ -5972,6 +6077,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleAmount: 1.2
   duration: 0.2
+--- !u!114 &2237083426972831668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8094388158027881580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1015a3875671c44bf41d3922834a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetStringContains: Hand
+  collisionEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1910104982929729082}
+        m_TargetAssemblyTypeName: Audio.Instrument, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  collidingObject: {fileID: 0}
+  collisionBuffer: 0.1
 --- !u!1 &8564748452985110915
 GameObject:
   m_ObjectHideFlags: 0
@@ -6216,6 +6354,7 @@ GameObject:
   - component: {fileID: 242574721025110117}
   - component: {fileID: 6231168807877865219}
   - component: {fileID: 3233151197187935172}
+  - component: {fileID: 8604148023663750008}
   m_Layer: 0
   m_Name: mushroom-3-cap
   m_TagString: Untagged
@@ -6337,25 +6476,25 @@ ConfigurableJoint:
   m_AngularYMotion: 1
   m_AngularZMotion: 1
   m_LinearLimitSpring:
-    spring: 300
-    damper: 300
+    spring: 10
+    damper: 1
   m_LinearLimit:
-    limit: 0.001
-    bounciness: 0.1
-    contactDistance: 0.0005
+    limit: 0.01
+    bounciness: 1
+    contactDistance: 0
   m_AngularXLimitSpring:
-    spring: 0
-    damper: 0
+    spring: 10
+    damper: 5
   m_LowAngularXLimit:
-    limit: 0
-    bounciness: 0
+    limit: 10
+    bounciness: 1
     contactDistance: 0
   m_HighAngularXLimit:
     limit: 10
     bounciness: 1
     contactDistance: 1
   m_AngularYZLimitSpring:
-    spring: 0
+    spring: 5
     damper: 30
   m_AngularYLimit:
     limit: 10
@@ -6369,21 +6508,21 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 100
-    positionDamper: 10
-    maximumForce: 1
+    positionDamper: 5
+    maximumForce: 40
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
@@ -6402,13 +6541,13 @@ ConfigurableJoint:
     useAcceleration: 0
   m_SlerpDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionSpring: 0
+    positionDamper: 0
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
-  m_ProjectionDistance: 0.1
-  m_ProjectionAngle: 180
+  m_ProjectionDistance: 0
+  m_ProjectionAngle: 0
   m_ConfiguredInWorldSpace: 0
   m_SwapBodies: 0
   m_BreakForce: Infinity
@@ -6453,3 +6592,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleAmount: 1.2
   duration: 0.2
+--- !u!114 &8604148023663750008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987397094355744427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1015a3875671c44bf41d3922834a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetStringContains: Hand
+  collisionEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5337891421000684234}
+        m_TargetAssemblyTypeName: Audio.Instrument, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  collidingObject: {fileID: 0}
+  collisionBuffer: 0.1

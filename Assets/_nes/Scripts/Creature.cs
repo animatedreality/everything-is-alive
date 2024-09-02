@@ -133,11 +133,17 @@ public class Creature : MonoBehaviour
 
     public void SetVolume(float value){
         if(instGroup == null) return;
-        foreach(Instrument instrument in instGroup.instruments){
-            instrument.SetVolume(value);
-            Debug.Log("SetVolume of Instrument" + value);
+        if(instGroup.instrumentType == InstrumentType.STAR){
+            instGroup.creatureStars.SetVolume(value);
+        }else{
+            foreach(Instrument instrument in instGroup.instruments){
+                instrument.SetVolume(value);
+                Debug.Log("SetVolume of Instrument" + value);
+            }
         }
+
         SetMaterialEffect(value == 0);
+        SetAnimation(value != 0);
         currentVolume = value;
     }
 
@@ -146,9 +152,19 @@ public class Creature : MonoBehaviour
         //Find all Materials in Children
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach(Renderer renderer in renderers){
-            renderer.material.SetInt("_Deactivate", _Deactivate ? 1 : 0);
+            foreach (Material material in renderer.materials) {
+                material.SetInt("_Deactivate", _Deactivate ? 1 : 0);
+            }
         }
+    }
 
+    void SetAnimation(bool _animate){
+        Debug.Log("SetAnimation" + _animate);
+        //Find all Animators in Children
+        CreatureAnimation creatureAnimation = GetComponentInChildren<CreatureAnimation>();
+        if(creatureAnimation != null){
+            creatureAnimation.SetAnimation(_animate);
+        }
     }
 
 
@@ -160,6 +176,7 @@ public class Creature : MonoBehaviour
     //enables MoveAnchor
     //enables Sequencer
     public void OnSelected(PointerEvent pointerEvent){
+        Debug.Log("OnSelected" + gameObject.name);
         //if there is deselection happening, cancel it
         Global.instance.CancelDeselectCoroutine();
 
@@ -169,8 +186,7 @@ public class Creature : MonoBehaviour
             Global.instance.currentSelectedCreature.OnDeselected();
         }
         
-        //enable sequencer & moveanchor
-        Debug.Log("OnSelected" + gameObject.name);
+
 
         if(instGroup != null){
             instGroup.SetVisuals(true);
@@ -189,6 +205,7 @@ public class Creature : MonoBehaviour
             deselectCoroutine = null;
         }
         Global.instance.currentSelectedCreature = this;
+        Debug.Log("ToggleVolumeUI" + gameObject.name);
         MenuManager.instance.ToggleVolumeUI(true, currentVolume);
         isSelected = true;
     }

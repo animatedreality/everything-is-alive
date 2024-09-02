@@ -52,8 +52,7 @@ public class CreatureStars_Note : MonoBehaviour
         Debug.Log("Setting material color to " + _color);
         //change alpha of this color to 0.2f or 0.2 * 255 whichever is correct
         _color.a = 0.2f;
-        GetComponent<Renderer>().material.SetColor("_C1", _color);
-        GetComponent<Renderer>().material.SetColor("C2", _color);
+        GetComponent<Renderer>().material.SetColor("_Color", _color);
     }
 
     private void UpdateStar(){
@@ -68,5 +67,10 @@ public class CreatureStars_Note : MonoBehaviour
         }
         //Tween the star's transparency to 0 then back to original transparency
         GetComponent<Renderer>().material.DOFade(1, 0.15f).SetEase(Ease.InOutSine).OnComplete(() => GetComponent<Renderer>().material.DOFade(0.2f, 0.4f).SetEase(Ease.InOutSine));
+    }
+
+    public void SetVolume(float _volume){
+        if(audioSource == null) return;
+        audioSource.volume = _volume;
     }
 }

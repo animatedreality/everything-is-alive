@@ -35,4 +35,11 @@ public class CreatureAnimation : MonoBehaviour
         }
         isAnimating = false;
     }
+
+    public void SetAnimation(bool _animate){
+        foreach(Animator animator in animators){
+            animator.SetBool("animate", _animate);
+        }
+        isAnimating = _animate;
+    }
 }

@@ -184,6 +184,7 @@ public class MenuManager : MonoBehaviour
     }
 
     public void ToggleVolumeUI(bool _toggle, float _volume){
+        Debug.Log("MenuManagerToggleVolumeUI" + _toggle);
         volumeUI.SetActive(_toggle);
         if(_toggle){
             currentCreatureVolume = _volume;

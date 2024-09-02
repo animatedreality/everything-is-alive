@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: bird-body
-  m_Shader: {fileID: -6465566751694194690, guid: c76bb0613b4e7f24e83406330922d0ff, type: 3}
+  m_Name: stars-connector
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -16,10 +16,11 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
-  m_LockedProperties: _Deactivate _Metalic
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -32,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DeactivationPNG:
-        m_Texture: {fileID: 2800000, guid: 43782b5e96cbdcb46a1af7ef9e709536, type: 3}
+        m_Texture: {fileID: 2800000, guid: 18c8c06931a3534468f3ab2e1d4cb407, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -59,16 +60,20 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MainTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
+    - _NormalTexture:
+        m_Texture: {fileID: 2800000, guid: 2b5e759fe0dda422fbf196b2a134ce76, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _PNG:
-        m_Texture: {fileID: 2800000, guid: 93bb1516b71bc4a23b9367087aebe2cb, type: 3}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -97,35 +102,41 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _BlendOp: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _ColorBlend: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _Deactivate: 0
-    - _DeactivationAmount: 0.771
+    - _DeactivationAmount: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Float: 0.001
-    - _FresnelPower: 1.74
+    - _FresnelPower: 2.18
     - _FresnelStrength: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
+    - _GlossinessSource: 0
     - _GlossyReflections: 0
-    - _GradientPower: 0.163
-    - _Metalic: 0.067
+    - _GradientPower: 0.01
+    - _Metalic: 0.282
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Roughness: 0.542
+    - _Roughness: 0.753
+    - _SampleGI: 0
+    - _Shininess: 0
     - _Smoothness: 0.5
+    - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
+    - _SpecSource: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
@@ -133,17 +144,19 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _ActivateFresnelColor: {r: 1, g: 0.49441788, b: 0.09748411, a: 0}
+    - _ActivateFresnelColor: {r: 1, g: 0.7483118, b: 0.17295575, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _C1: {r: 1, g: 0.7632155, b: 0.33333337, a: 1}
-    - _C2: {r: 1, g: 0.109803915, b: 0.12911981, a: 1}
+    - _C1: {r: 1, g: 0, b: 0, a: 1}
+    - _C2: {r: 0.95631796, g: 0, b: 0.10980383, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DeactivateFresnelColor: {r: 0.07335851, g: 0, b: 1, a: 0}
+    - _DeactivationTiling: {r: 20, g: 20, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 1, g: 0.79456884, b: 0.26729542, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tiling: {r: 50, g: 50, b: 0, a: 0}
+    - _Tiling: {r: 10, g: 10, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &8832688530479089485
+--- !u!114 &138706431631725833
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

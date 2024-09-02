@@ -67,7 +67,7 @@ public class CreatureStars : MonoBehaviour
             // Create connector
             GameObject connector = Instantiate(starConnectorPrefab, star1.transform.position, Quaternion.identity);
             connector.transform.SetParent(starConnectorContainer); // Set parent to keep scene organized
-            StarConnector starConnector = new StarConnector(connector, star1.transform, star2.transform, transform.localScale.x);
+            StarConnector starConnector = new StarConnector(connector, star1.transform, star2.transform, transform.localScale.x * 1.04f);
             starConnectors.Add(starConnector);
         }
     }
@@ -75,6 +75,12 @@ public class CreatureStars : MonoBehaviour
     void UpdateConnectors(){
         foreach(StarConnector connector in starConnectors){
             connector.UpdatePosition();
+        }
+    }
+
+    public void SetVolume(float _volume){
+        foreach(CreatureStars_Note note in starNotes){
+            note.SetVolume(_volume);
         }
     }
 }

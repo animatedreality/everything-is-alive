@@ -1088,7 +1088,6 @@ GameObject:
   - component: {fileID: 3342039880343794198}
   - component: {fileID: 3392747280444254274}
   - component: {fileID: 2467320341482762823}
-  - component: {fileID: 5781583063619418594}
   m_Layer: 0
   m_Name: OrangeBird_Vocal
   m_TagString: Untagged
@@ -1202,11 +1201,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instrument: {fileID: 8573388270194140020}
   instGroup: {fileID: 0}
+  currentVolume: 0
   pokable: 1
   isSelected: 0
   availableToMerge: 0
-  moveAnchor: {fileID: 0}
   eventWrapperParent: {fileID: 7522880550022232717}
+  moveAnchor: {fileID: 0}
 --- !u!114 &2467320341482762823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1234,20 +1234,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5781583063619418594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2771040649565261646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c15bb16e57f8974e9655c314d2f1092, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GrabInteractable: {fileID: 1985438534713846698}
-  _smoothTime: 0.1
 --- !u!1 &4462223809242398333
 GameObject:
   m_ObjectHideFlags: 0
@@ -3037,6 +3023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 467b1074f8024584ca1231f7fcee0016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: 0}
   instrumentType: 1
   instruments: []
   instrumentSampleScript: {fileID: 8573388270194140020}
@@ -3095,6 +3082,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1554456392659433390}
     m_Modifications:
+    - target: {fileID: 470476046257004961, guid: 3fcee9c7f1aa0423dad915595b8c976f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a0262dabb62803b49a34625312b27728, type: 2}
     - target: {fileID: 1577940058327304005, guid: 3fcee9c7f1aa0423dad915595b8c976f, type: 3}
       propertyPath: m_Name
       value: BirdMesh
@@ -3143,6 +3134,10 @@ PrefabInstance:
       propertyPath: thisCreature
       value: 
       objectReference: {fileID: 3392747280444254274}
+    - target: {fileID: 2499835902686816171, guid: 3fcee9c7f1aa0423dad915595b8c976f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2499835902686816171, guid: 3fcee9c7f1aa0423dad915595b8c976f, type: 3}
       propertyPath: m_Center.y
       value: 0.25
