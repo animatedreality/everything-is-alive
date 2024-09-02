@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
     public Transform creatureSpawnPoint;
 
     //Buttons
-    bool rightControllerBButton, leftControllerXButton, rightTriggerPress, rightGripPress;
+    bool rightControllerBButton, leftControllerXButton, rightTriggerPress, rightGripPress, leftMenuPress;
 
     //Volume
     public GameObject volumeUI;
@@ -56,7 +56,7 @@ public class MenuManager : MonoBehaviour
             button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnCreatureButtonPressed(image.name));
             generatedCreatures.Add(image.name, 0);
         }
-        OnCreatureButtonPressed(images[0].name);
+        //OnCreatureButtonPressed(images[0].name);
         //button dimensions are 64x64, so set the scrollviewContent height to the number of buttons times 64
         scrollviewContent.sizeDelta = new Vector2(scrollviewContent.sizeDelta.x, images.Length * 64);
         canvasGameObject.SetActive(false);
@@ -83,6 +83,10 @@ public class MenuManager : MonoBehaviour
     }
 
     public void SpawnCreature(){
+        if(selectedCreatureName == ""){
+            Debug.Log("No creature selected");
+            return;
+        }
         if(generatedCreatures[selectedCreatureName] < maxGeneratedAmount){
             Debug.Log("Creature Name is " + selectedCreatureName);
             if(generatedCreatures.ContainsKey(selectedCreatureName)){
@@ -110,6 +114,8 @@ public class MenuManager : MonoBehaviour
         leftControllerXButton = OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch);
         rightTriggerPress = OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch);
         rightGripPress = OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch);
+        leftMenuPress = OVRInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.LTouch);
+
         if(changeVolumeStart){
             rightJoystickVertical = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch).y;
             currentCreatureVolume += rightJoystickVertical * Time.deltaTime;
@@ -158,6 +164,16 @@ public class MenuManager : MonoBehaviour
         if(rightGripPress){
             try{
                 Tutorial.instance.DisableRightMoveHint();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log("Error showing menu: " + e.Message);
+            }
+        }
+        if(leftMenuPress){
+            try{
+                Debug.Log("Left Menu Pressed!!");
+                Tutorial.instance.ToggleShowTutorial();
             }
             catch (System.Exception e)
             {

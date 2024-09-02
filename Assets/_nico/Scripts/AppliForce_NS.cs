@@ -20,6 +20,7 @@ public class AppliForce_NS : MonoBehaviour
         // Check for mouse click
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Mouse click");
             // Create a ray from the mouse position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -33,8 +34,10 @@ public class AppliForce_NS : MonoBehaviour
         }
     }
 
-    void SimulateCollision()
+    [ContextMenu("SimulateCollision")]
+    public void SimulateCollision()
     {
+        Debug.Log("SimulateCollision");
         Vector3 forceDirection = Vector3.down;
         // Calculate a random direction for the force to simulate a collision
         Vector3 addedForce = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
