@@ -158,12 +158,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instrument: {fileID: 515190125267387012}
   instGroup: {fileID: 0}
-  clip: {fileID: 8300000, guid: a07db5f46b6bbf747a205692b1053d7c, type: 3}
+  currentVolume: 0
   pokable: 1
   isSelected: 0
   availableToMerge: 0
-  moveAnchor: {fileID: 0}
   eventWrapperParent: {fileID: 1593554153420111011}
+  moveAnchor: {fileID: 0}
 --- !u!1 &4033398341670855028
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +228,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e3c4b9eb3d2644215b28d739dfb9b507, type: 2}
+  - {fileID: 2100000, guid: 442f0804abbbd4419957b231fc1e4bc0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -306,8 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805863e5ed6dbe7469abf23ab40fc1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalScale: 1
-  targetScale: 1.2
+  scaleAmount: 1.2
   duration: 0.2
 --- !u!1 &5311349648409634689
 GameObject:

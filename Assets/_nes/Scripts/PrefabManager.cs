@@ -12,6 +12,7 @@ public class PrefabManager : MonoBehaviour
     public GameObject buttonCreaturePrefab;
 
     public GameObject instrumentPrefab;
+    public GameObject buttonAddPrefab;
 
     private void Awake()
     {
