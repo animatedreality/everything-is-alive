@@ -9,11 +9,16 @@ public class CreatureAnimation : MonoBehaviour
     [Header("All animators should use bool 'animate' to toggle states")]
     public List<Animator> animators = new List<Animator>();
     public bool isAnimating = false;
+    public bool animateOnStart = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartAnimation();
+        if(animateOnStart){
+            StartAnimation();
+        }else{
+            StopAnimation();
+        }
     }
 
     // Update is called once per frame

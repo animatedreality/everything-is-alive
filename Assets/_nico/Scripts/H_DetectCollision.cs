@@ -34,7 +34,7 @@ public class H_DetectCollision : MonoBehaviour
 
         //Debug.Log(gameObject.name + "Colliding with " + collision.gameObject.name);
         if(collision.gameObject.name.Contains(targetStringContains)){
-            Debug.Log("CollisionEnter222");
+            Debug.Log("CollisionEnter");
             collidingObject = collision.gameObject;
             collisionEnterEvent?.Invoke();
             lastCollisionTime = Time.time;

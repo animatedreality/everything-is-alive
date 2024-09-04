@@ -307,11 +307,11 @@ Transform:
   m_GameObject: {fileID: 2800314016175855586}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.018025, y: -2.7687223, z: 7.944679}
+  m_LocalPosition: {x: 21.07556, y: -11.54413, z: 35.238697}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6282302273981864111}
+  - {fileID: 6617960787800731827}
   - {fileID: 884232251494028810}
   - {fileID: 994795704295617719}
   - {fileID: 2503701882403892919}
@@ -1283,6 +1283,7 @@ MonoBehaviour:
   instrumentType: 0
   instruments: []
   instrumentSampleScript: {fileID: 0}
+  creatureStars: {fileID: 0}
   name: 
   id: 
   loopLength: 16
@@ -2167,17 +2168,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5526825419650859845}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.013205545, y: -0.9996728, z: 0.020883143, w: -0.0066194534}
-  m_LocalPosition: {x: -0.029717624, y: -0.018508026, z: 0.03483707}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5445291802041621361}
   - {fileID: 3692321986766964238}
   - {fileID: 1211570401666245132}
   - {fileID: 7387877459867913313}
-  m_Father: {fileID: 4224831262138113195}
-  m_LocalEulerAnglesHint: {x: 2.383, y: -180.791, z: -1.53}
+  m_Father: {fileID: 6617960787800731827}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1 &5809669338131618984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2499,6 +2500,38 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &6885186992408635512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6617960787800731827}
+  m_Layer: 0
+  m_Name: Leaves_Snare
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6617960787800731827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6885186992408635512}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 6282302273981864111}
+  m_Father: {fileID: 4224831262138113195}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6941667605995920827
 GameObject:
   m_ObjectHideFlags: 0

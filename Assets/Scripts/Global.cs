@@ -34,6 +34,9 @@ namespace Audio
         public GameObject moveAnchor;
         public Creature currentSelectedCreature;
 
+        [Header("Visuals")]
+        public Material previewMaterial;
+
         [HideInInspector]
         public int beatIndex = 0;
 
@@ -74,6 +77,12 @@ namespace Audio
         public void SpawnCreature(string _creatureName, Vector3 _position){
             GameObject creature = Instantiate(Resources.Load("Creatures/" + _creatureName)) as GameObject;
             creature.transform.position = _position;
+        }
+
+        public GameObject SpawnCreaturePreview(string _creatureName, Vector3 _position){
+            GameObject creature = Instantiate(Resources.Load("CreaturePreview/" + _creatureName)) as GameObject;
+            creature.transform.position = _position;
+            return creature;
         }
 
         public void AddInstGroup(InstGroup instGroup)

@@ -40,6 +40,9 @@ public class MenuManager : MonoBehaviour
     private GameState previousGameState = GameState.INGAME;
     public GameObject menuWelcome, menuInGame, menuSelectAsset, menuMakeInstrument;
 
+    [Header("Preview Creature")]
+    public GameObject previewCreature;
+
     private void Awake()
     {
         if (instance == null)
@@ -117,6 +120,9 @@ public class MenuManager : MonoBehaviour
         Debug.Log("OnCreatureButtonPressed" + creatureName);
         //Generate creature from here
         selectedCreatureName = creatureName;
+        //spawn a preview
+        SpawnCreaturePreview();
+
         //highlight the selected button and un-highlight the others
         foreach (Transform child in defaultContentContainer)
         {
@@ -124,6 +130,21 @@ public class MenuManager : MonoBehaviour
         }
         foreach(Transform child in monaContentContainer){
             child.GetComponent<UnityEngine.UI.Image>().color = (child.name == creatureName) ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0.5f);
+        }
+    }
+
+    public void SpawnCreaturePreview(){
+        if(previewCreature != null){
+            Destroy(previewCreature);
+        }
+        previewCreature = Global.instance.SpawnCreaturePreview(selectedCreatureName, creatureSpawnPoint.position);
+        previewCreature.transform.parent = creatureSpawnPoint;
+    }
+
+    void DestroyPreviewCreature(){
+        if(previewCreature != null){
+            Destroy(previewCreature);
+            previewCreature = null;
         }
     }
 
@@ -140,7 +161,11 @@ public class MenuManager : MonoBehaviour
                 Debug.Log("Generated Creatures Number" + generatedCreatures[selectedCreatureName]);
             }
 
+            //Destroy preview and create the actual creature
+            DestroyPreviewCreature();
             Global.instance.SpawnCreature(selectedCreatureName, creatureSpawnPoint.position);
+
+
             if(generatedCreatures[selectedCreatureName] == maxGeneratedAmount){
                 foreach (Transform child in defaultContentContainer)
                 {

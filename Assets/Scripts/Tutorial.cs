@@ -23,7 +23,8 @@ public class Tutorial : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetShowTutorial(true);
+        SetShowTutorial(false);
+        tutorialToggleQuestionmark.SetActive(true);
     }
 
     // Update is called once per frame
@@ -32,7 +33,7 @@ public class Tutorial : MonoBehaviour
         //if rightInstantiate is not active, do something
         if(!rightInstantiate.activeSelf && !leftMenu.activeSelf && !rightMove.activeSelf && !rightSelect.activeSelf){
             if(!flipTutorialButton){
-                tutorialToggleQuestionmark.SetActive(true);
+                //tutorialToggleQuestionmark.SetActive(true);
                 flipTutorialButton = true;
             }
         }
@@ -70,7 +71,7 @@ public class Tutorial : MonoBehaviour
     }
 
     void ActivateTutorial(){
-        tutorialToggleQuestionmark.SetActive(!isShowingTutorial);
+        //tutorialToggleQuestionmark.SetActive(!isShowingTutorial);
         leftMenu.SetActive(isShowingTutorial);
         rightMove.SetActive(isShowingTutorial);
         rightSelect.SetActive(isShowingTutorial);
