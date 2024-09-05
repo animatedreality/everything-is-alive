@@ -4,20 +4,14 @@ using UnityEngine;
 
 public class CreaturePreview : MonoBehaviour
 {
-    List<Renderer> renderers = new List<Renderer>();
-    // public List<Material> materials = new List<Material>();
-    Material previewMaterial;
+    public List<Renderer> renderers = new List<Renderer>();
+    public Material previewMaterial;
     // Start is called before the first frame update
     void Start()
     {
         previewMaterial = Audio.Global.instance.previewMaterial;
-        // renderers = new List<Renderer>(GetComponentsInChildren<Renderer>());
-        // foreach(Renderer renderer in renderers){
-        //     foreach(Material material in renderer.materials){
-        //         materials.Add(material);
-        //     }
-        // }
-        // SetMaterialPreview();
+        renderers = new List<Renderer>(GetComponentsInChildren<Renderer>());
+        SetMaterialPreview();
 
     }
 
@@ -41,11 +35,13 @@ public class CreaturePreview : MonoBehaviour
     }
 
     public void SetMaterialPreview(){
-        foreach (Renderer renderer in renderers)
-        {
-            for(int i=0; i<renderer.materials.Length; i++){
-                renderer.materials[i] = previewMaterial;
+        Debug.Log("Setting material preview");
+        foreach(Renderer renderer in renderers){
+            Material[] sharedMats = renderer.sharedMaterials;
+            for (int i = 0; i < sharedMats.Length; i++) {
+                sharedMats[i] = previewMaterial;
             }
+            renderer.sharedMaterials = sharedMats;
         }
     }
 

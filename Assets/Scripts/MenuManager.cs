@@ -8,12 +8,12 @@ using UnityEngine.UI;
 public enum GameState{
     WELCOME,
     INGAME,
-    SELECTASSET,
+    SELECTMODEL,
     MAKEINSTRUMENT
 }
 public class MenuManager : MonoBehaviour
 {
-    public RectTransform defaultContentContainer, monaContentContainer;
+    public RectTransform defaultContentContainer, monaContentContainer, monaModelContentContainer, audioContentContainer;
     public static MenuManager instance;
 
     public GameObject leftMenuContainer;
@@ -38,10 +38,14 @@ public class MenuManager : MonoBehaviour
     [Header("Game State")]
     public GameState currentGameState = GameState.INGAME;
     private GameState previousGameState = GameState.INGAME;
-    public GameObject menuWelcome, menuInGame, menuSelectAsset, menuMakeInstrument;
+    public GameObject menuWelcome, menuInGame, menuSelectModel, menuMakeInstrument;
 
     [Header("Preview Creature")]
-    public GameObject previewCreature;
+    public GameObject previewCreature;//for INGAME, when about to spawn a creature
+    public GameObject previewCustomCreature;//for MAKINSTRUMENT, when creating a new creature from scratch
+    [Header("Make Instrument")]
+    public Transform modelSpawnPoint;
+    public GameObject modelPreview;
 
     private void Awake()
     {
@@ -60,6 +64,7 @@ public class MenuManager : MonoBehaviour
     {
         SetGameState(currentGameState);
         previousGameState = currentGameState;
+
         //load all images from Resources/CreatureImages and instantiate them as buttons in the defaultContentContainer
         Object[] images = Resources.LoadAll("CreatureImages", typeof(Sprite));
         Debug.Log("Creatures images.Length: " + images.Length);
@@ -73,14 +78,34 @@ public class MenuManager : MonoBehaviour
         }
 
         //Load all images from Resrouces/MonaImages and instantiate them as buttons in the monaContentContainer
-        Object[] monaImages = Resources.LoadAll("MonaImages", typeof(Sprite));
-        foreach (Object image in monaImages)
+        Object[] monaCreatureImages = Resources.LoadAll("MonaCreatureImages", typeof(Sprite));
+        foreach (Object image in monaCreatureImages)
         {
             GameObject button = Instantiate(PrefabManager.instance.buttonCreaturePrefab, monaContentContainer);
             button.name = image.name;
             button.GetComponent<UnityEngine.UI.Image>().sprite = (Sprite)image;
             button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnCreatureButtonPressed(image.name));
             generatedCreatures.Add(image.name, 0);
+        }
+
+        //Load all images from Resrouces/MonaModelImages and instantiate them as buttons in the monaModelContentContainer
+        Object[] monaModelImages = Resources.LoadAll("MonaModelImages", typeof(Sprite));
+        foreach (Object image in monaModelImages)
+        {
+            GameObject button = Instantiate(PrefabManager.instance.buttonCreaturePrefab, monaModelContentContainer);
+            button.name = image.name;
+            button.GetComponent<UnityEngine.UI.Image>().sprite = (Sprite)image;
+            button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnMonaModelButtonPressed(image.name));
+        }
+
+        //Instantiate buttons based on the amount of audio clips in Resources/Sounds
+        Object[] audioClips = Resources.LoadAll("Sounds", typeof(AudioClip));
+        foreach (Object clip in audioClips)
+        {
+            GameObject button = Instantiate(PrefabManager.instance.buttonAudioPrefab, audioContentContainer);
+            button.GetComponent<AudioSource>().clip = (AudioClip)clip;
+            button.name = clip.name;
+            button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnAudioButtonPressed(clip.name));
         }
 
         //select the first button by default
@@ -98,7 +123,7 @@ public class MenuManager : MonoBehaviour
         currentGameState = _gameState;
         menuWelcome.SetActive(currentGameState == GameState.WELCOME);
         menuInGame.SetActive(currentGameState == GameState.INGAME);
-        menuSelectAsset.SetActive(currentGameState == GameState.SELECTASSET);
+        menuSelectModel.SetActive(currentGameState == GameState.SELECTMODEL);
         menuMakeInstrument.SetActive(currentGameState == GameState.MAKEINSTRUMENT);
     }
 
@@ -130,6 +155,41 @@ public class MenuManager : MonoBehaviour
         }
         foreach(Transform child in monaContentContainer){
             child.GetComponent<UnityEngine.UI.Image>().color = (child.name == creatureName) ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0.5f);
+        }
+    }
+    
+    public void OnMonaModelButtonPressed(string modelName){
+        if(modelPreview != null){
+            Destroy(modelPreview);
+        }
+        modelPreview = Instantiate(Resources.Load("MonaModels/" + modelName)) as GameObject;
+        modelPreview.name = modelName;
+        modelPreview.transform.position = modelSpawnPoint.position;
+        modelPreview.transform.localScale = Vector3.one * 0.1f;
+        modelPreview.transform.parent = modelSpawnPoint;
+        SetGameState(GameState.MAKEINSTRUMENT);
+    }
+
+    //create a customCreaturePreview if there is no customCreaturePreview
+    //if there is a customCreaturePreview, swap the audioClip from the customCreaturePreview
+    public void OnAudioButtonPressed(string audioName){
+        Debug.Log("OnAudioButtonPressed" + audioName);
+        //spawn a preview
+        if(modelPreview == null){
+            Debug.Log("No model preview found");
+            return;
+        }
+        if(previewCustomCreature != null){
+            previewCustomCreature.GetComponent<CreatureModelSwapper>().UpdateAudioClip(Resources.Load<AudioClip>("Sounds/" + audioName));
+        }
+        else{
+            //turn the model preview into a creature, assign audio clip to it
+            previewCustomCreature = Instantiate(PrefabManager.instance.creatureTemplatePrefab);
+            Vector3 originalGlobalScale = modelPreview.transform.lossyScale;
+            previewCustomCreature.transform.parent = modelSpawnPoint;
+            previewCustomCreature.transform.localPosition = Vector3.zero;
+            previewCustomCreature.transform.localRotation = Quaternion.identity;
+            previewCustomCreature.GetComponent<CreatureModelSwapper>().InitiateCreature(modelPreview, Resources.Load<AudioClip>("Sounds/" + audioName), originalGlobalScale);
         }
     }
 
