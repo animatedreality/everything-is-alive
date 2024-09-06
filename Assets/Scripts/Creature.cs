@@ -95,7 +95,17 @@ public class Creature : MonoBehaviour
         {
             eventWrapper.WhenSelect.RemoveListener(OnSelected);
         }
-}   
+    }
+
+    void OnDestroy(){
+        //remove self from Global.instance.creatures
+        Global.instance.RemoveCreature(this);
+        foreach (PointableUnityEventWrapper eventWrapper in interactableEventWrappers)
+        {
+            eventWrapper.WhenSelect.RemoveListener(OnSelected);
+        }
+        Global.instance.OnEveryStepEvent -= EveryStep;
+    }
 
     public CreatureGroup GetGroup()
     {
@@ -105,12 +115,6 @@ public class Creature : MonoBehaviour
     public void SetGroup(CreatureGroup group)
     {
         this.creatureGroup = group;
-    }
-
-
-    void OnDestroy()
-    {
-        Global.instance.OnEveryStepEvent -= EveryStep;
     }
 
     public int GetLoopLength()

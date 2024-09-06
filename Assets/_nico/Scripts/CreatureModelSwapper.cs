@@ -24,7 +24,7 @@ public class CreatureModelSwapper : MonoBehaviour
 
 
     //when loading this creature from the menu, customize all the elements here
-    public void InitiateCreature(GameObject model, AudioClip clip, Vector3 originalGlobalScale){
+    public void InitiateCreature(GameObject model, Vector3 originalGlobalScale){
         //offset local scale from all the parent scale
         Vector3 totalParentScale = GetTotalParentScale();
         Vector3 correctedLocalScale = new Vector3(
@@ -40,7 +40,6 @@ public class CreatureModelSwapper : MonoBehaviour
         scaleOnPlay = model.AddComponent<ScaleOnPlay>();
         //append the ScaleUp method to the OnPlay event
         instrument.OnPlay.AddListener((int value) => scaleOnPlay.ScaleUp());
-        instrument.clip = clip;
     }
 
     public void UpdateAudioClip(AudioClip clip){

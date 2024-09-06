@@ -216,6 +216,7 @@ namespace Audio
         void OnDestroy()
         {
             SetPlayRule(false);
+            Global.instance.RemoveInstGroup(this);
         }
 
         void ResizeCanvas()

@@ -80,6 +80,10 @@ namespace Audio
         }
 
         public GameObject SpawnCreaturePreview(string _creatureName, Vector3 _position){
+            if(Resources.Load("CreaturePreview/" + _creatureName) == null){
+                Debug.Log("Failed to spawn creature preview");
+                return null;
+            }
             GameObject creature = Instantiate(Resources.Load("CreaturePreview/" + _creatureName)) as GameObject;
             creature.transform.position = _position;
             return creature;
