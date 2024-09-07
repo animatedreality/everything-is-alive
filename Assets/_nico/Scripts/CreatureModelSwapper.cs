@@ -24,40 +24,24 @@ public class CreatureModelSwapper : MonoBehaviour
 
 
     //when loading this creature from the menu, customize all the elements here
-    public void InitiateCreature(GameObject model, Vector3 originalGlobalScale){
-        //offset local scale from all the parent scale
-        Vector3 totalParentScale = GetTotalParentScale();
-        Vector3 correctedLocalScale = new Vector3(
-            originalGlobalScale.x / totalParentScale.x,
-            originalGlobalScale.y / totalParentScale.y,
-            originalGlobalScale.z / totalParentScale.z
-        );
-        model.transform.localScale = correctedLocalScale;
+    public void InitiateCreature(GameObject model, AudioClip clip = null){
         model.transform.parent = modelContainer;
         model.AddComponent<BoxCollider>();
         model.GetComponent<BoxCollider>().isTrigger = false;
         // model.AddComponent<MaterialPropertyBlockEditor>();
         scaleOnPlay = model.AddComponent<ScaleOnPlay>();
+        if(clip != null){
+            UpdateAudioClip(clip);
+        }
         //append the ScaleUp method to the OnPlay event
         instrument.OnPlay.AddListener((int value) => scaleOnPlay.ScaleUp());
     }
 
     public void UpdateAudioClip(AudioClip clip){
+        Debug.Log("UpdateAudioClip" + clip.name);
         instrument.clip = clip;
+        instrument.UpdateAudioClip(clip);
     }
-
-    Vector3 GetTotalParentScaleBackup()
-    {
-        // If there is no parent, return Vector3.one (identity scale)
-        if (transform.parent == null)
-        {
-            return Vector3.one;
-        }
-
-        // Multiply the parent's global scale by the parent's parent's scale, recursively
-        return Vector3.Scale(transform.parent.lossyScale, GetTotalParentScale());
-    }
-
     Vector3 GetTotalParentScale()
     {
         Vector3 totalScale = Vector3.one;

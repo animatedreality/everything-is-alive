@@ -173,6 +173,16 @@ namespace Audio
             return CreateNewSource();
         }
 
+        public void UpdateAudioClip(AudioClip clip){
+            Debug.Log("UpdateAudioClip in Instrument" + clip.name);
+            this.clip = clip;
+            foreach (AudioSource source in sources)
+            {
+                Debug.Log("Syncing audio clip in Instrument" + source.name);
+                SyncSourceVariables(source);
+            }
+        }
+
         protected void SyncSourceVariables(AudioSource source)
         {
             source.pitch = pitch;

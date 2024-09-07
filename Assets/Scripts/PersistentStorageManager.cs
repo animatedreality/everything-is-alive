@@ -35,6 +35,7 @@ public class PersistentStorageManager : MonoBehaviour
 
 
     public void SaveCustomCreature(string creatureName, string audioClipName){
+        creatureImage = Resources.Load<Sprite>(creatureModelImageFilePath + creatureName);
         CustomCreatureData customCreatureData = new CustomCreatureData(creatureName, audioClipName, creatureImage);
         List<CustomCreatureData> newCustomCreatures = new List<CustomCreatureData>();
         Debug.Log("Saving custom creature" + creatureName + " with audio clip " + audioClipName);
@@ -70,6 +71,16 @@ public class PersistentStorageManager : MonoBehaviour
         customCreatures = newCustomCreatures;
     }
 
+    public AudioClip LoadAudioClipFromCreature(string creatureName){
+        List<CustomCreatureData> customCreatures = LoadAllCustomCreatures();
+        foreach(CustomCreatureData customCreature in customCreatures){
+            if(customCreature.creatureName == creatureName){
+                return Resources.Load<AudioClip>(audioClipFilePath + customCreature.audioClipName);
+            }
+        }
+        return null;
+    }
+
     public Sprite LoadCreatureImage(string creatureName){
         //find the creature
         List<CustomCreatureData> customCreatures = LoadAllCustomCreatures();
@@ -89,6 +100,15 @@ public class PersistentStorageManager : MonoBehaviour
             customCreatures = JsonUtility.FromJson<CustomCreatureList>(existingJson).creatures;
         }
         return customCreatures;
+    }
+
+    public List<string> LoadAllCustomCreatureNames(){
+        List<string> customCreatureNames = new List<string>();
+        List<CustomCreatureData> customCreatures = LoadAllCustomCreatures();
+        foreach(CustomCreatureData customCreature in customCreatures){
+            customCreatureNames.Add(customCreature.creatureName);
+        }
+        return customCreatureNames;
     }
 }
 

@@ -82,26 +82,23 @@ public class MenuManager : MonoBehaviour
             defaultCreatureNames.Add(image.name);
         }
 
-        //for completed creatures from Mona
-        //Load all images from Resrouces/MonaImages and instantiate them as buttons in the monaContentContainer
-        Object[] monaCreatureImages = Resources.LoadAll("MonaCreatureImages", typeof(Sprite));
-        foreach (Object image in monaCreatureImages)
-        {
-            GameObject button = Instantiate(PrefabManager.instance.buttonCreaturePrefab, monaContentContainer);
-            button.name = image.name;
-            button.GetComponent<UnityEngine.UI.Image>().sprite = (Sprite)image;
-            button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnCreatureButtonPressed(image.name));
-            generatedCreatures.Add(image.name, 0);
-        }
-
         //Load all images from Resrouces/MonaModelImages and instantiate them as buttons in the monaModelContentContainer
+        //check from customCreatureNames
+        customCreatureNames = PersistentStorageManager.instance.LoadAllCustomCreatureNames();
+        //if monaModelImages names contains customCreatureNames, do not instantiate this button
         Object[] monaModelImages = Resources.LoadAll("MonaModelImages", typeof(Sprite));
         foreach (Object image in monaModelImages)
         {
-            GameObject button = Instantiate(PrefabManager.instance.buttonCreaturePrefab, monaModelContentContainer);
-            button.name = image.name;
-            button.GetComponent<UnityEngine.UI.Image>().sprite = (Sprite)image;
-            button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnMonaModelButtonPressed(image.name));
+            //if the image is not a Creature yet
+            if(!customCreatureNames.Contains(image.name)){
+                GameObject button = Instantiate(PrefabManager.instance.buttonCreaturePrefab, monaModelContentContainer);
+                button.name = image.name;
+                button.GetComponent<UnityEngine.UI.Image>().sprite = (Sprite)image;
+                button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnMonaModelButtonPressed(image.name));
+            }else{
+                //if the image is a Creature, instantiate it in the monaContentContainer
+                AddCustomCreatureButton(monaContentContainer, image.name);
+            }
         }
 
         //Instantiate buttons based on the amount of audio clips in Resources/Sounds
@@ -111,7 +108,7 @@ public class MenuManager : MonoBehaviour
             GameObject button = Instantiate(PrefabManager.instance.buttonAudioPrefab, audioContentContainer);
             button.GetComponent<AudioSource>().clip = (AudioClip)clip;
             button.name = clip.name;
-            button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnAudioButtonPressed(clip.name));
+            button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnAudioButtonPressed((AudioClip)clip));
         }
 
         //select the first button by default
@@ -132,6 +129,12 @@ public class MenuManager : MonoBehaviour
         menuSelectModel.SetActive(currentGameState == GameState.SELECTMODEL);
         menuMakeInstrument.SetActive(currentGameState == GameState.MAKEINSTRUMENT);
         saveCreatureButton.SetActive(false);
+        if(_gameState != GameState.MAKEINSTRUMENT){
+            DestroyPreviewCustomCreature();
+        }
+        if(_gameState != GameState.INGAME){
+            DestroyPreviewCreature();
+        }
     }
 
     public void SetGameStateWithString(string _gameState){
@@ -174,9 +177,7 @@ public class MenuManager : MonoBehaviour
     
     //Create a creature
     public void OnMonaModelButtonPressed(string modelName){
-        if(previewCustomCreature != null){
-            Destroy(previewCustomCreature);
-        }
+        DestroyPreviewCustomCreature();
         //here instantiate a new Creature with MonaModel as the visual
         previewCustomCreature = SpawnCustomCreatureInPreview(modelSpawnPoint, modelName);
         previewCustomCreature.GetComponent<CreatureModelSwapper>().UpdateAudioClip(Resources.Load<AudioClip>("Sounds/" + "crash-01"));
@@ -186,16 +187,16 @@ public class MenuManager : MonoBehaviour
 
     //create a customCreaturePreview if there is no customCreaturePreview
     //if there is a customCreaturePreview, swap the audioClip from the customCreaturePreview
-    public void OnAudioButtonPressed(string audioName){
-        Debug.Log("OnAudioButtonPressed" + audioName);
+    public void OnAudioButtonPressed(AudioClip clip){
+        Debug.Log("OnAudioButtonPressed" + clip.name);
         //spawn a preview
         if(previewCustomCreature == null){
             Debug.Log("No model preview found");
             return;
         }
         //previewCustomCreature is the container that Mona Model lives in
-        previewCustomCreature.GetComponent<CreatureModelSwapper>().UpdateAudioClip(Resources.Load<AudioClip>("Sounds/" + audioName));
-        previewCustomCreatureAudioName = audioName;
+        previewCustomCreature.GetComponent<CreatureModelSwapper>().UpdateAudioClip(clip);
+        previewCustomCreatureAudioName = clip.name;
         saveCreatureButton.SetActive(true);
     }
 
@@ -208,16 +209,19 @@ public class MenuManager : MonoBehaviour
     GameObject SpawnCustomCreature(Vector3 _spawnPoint, string _modelName)
     {
         GameObject modelPreview = Instantiate(Resources.Load("MonaModels/" + _modelName)) as GameObject;
-        Vector3 originalGlobalScale = modelPreview.transform.lossyScale;
-        modelPreview.transform.localScale = Vector3.one * 0.1f;
         GameObject newCreature = Instantiate(PrefabManager.instance.creatureTemplatePrefab);
         modelPreview.transform.parent = newCreature.transform;
         modelPreview.transform.localPosition = Vector3.zero;
-        modelPreview.transform.localRotation = Quaternion.identity;
+        //add 180 on y axis to localRotation
+        modelPreview.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        modelPreview.transform.localScale = Vector3.one * 0.05f;
+        Debug.Log("modelPreview.transform.localScale" + modelPreview.transform.localScale);
         newCreature.name = _modelName;
         newCreature.transform.position = _spawnPoint;
         newCreature.transform.localRotation = Quaternion.identity;
-        newCreature.GetComponent<CreatureModelSwapper>().InitiateCreature(modelPreview, originalGlobalScale);
+        //here we need to get the AudioClip name from PersistentStorageManager
+        AudioClip audioClip = PersistentStorageManager.instance.LoadAudioClipFromCreature(_modelName);
+        newCreature.GetComponent<CreatureModelSwapper>().InitiateCreature(modelPreview, audioClip);
         return newCreature;
     }
 
@@ -231,31 +235,37 @@ public class MenuManager : MonoBehaviour
         //Only saves the creature after an audio is selected
         Debug.Log("OnSaveCreatureButtonPressed");
 
-        ////remove this creature's button from monaModelContentContainer
-        //foreach(Transform child in monaModelContentContainer){
-        //    if(child.name == previewCustomCreature.name){
-        //        Destroy(child.gameObject);
-        //        break;
-        //    }
-        //}
+        //remove this creature's button from monaModelContentContainer
+        foreach(Transform child in monaModelContentContainer){
+           if(child.name == previewCustomCreature.name){
+               Destroy(child.gameObject);
+               break;
+           }
+        }
 
         //add this creature to the creatureGameObject component  customCreatures list in PersistentStorageManager
         PersistentStorageManager.instance.SaveCustomCreature(previewCustomCreature.name, previewCustomCreatureAudioName);
 
 
         //add this creature's button to monaContentContainer
-        GameObject button = Instantiate(PrefabManager.instance.buttonCreaturePrefab, monaContentContainer);
-        button.name = previewCustomCreature.name;
-        button.GetComponent<UnityEngine.UI.Image>().sprite = PersistentStorageManager.instance.LoadCreatureImage(button.name);
-        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnCreatureButtonPressed(button.name));
-        generatedCreatures.Add(previewCustomCreature.name, 0);
-
-        customCreatureNames.Add(previewCustomCreature.name);
+        //Create Custom Creature Button
+        AddCustomCreatureButton(monaContentContainer, previewCustomCreature.name);
 
         Destroy(previewCustomCreature);
         previewCustomCreature = null;
 
         SetGameState(GameState.INGAME);
+    }
+
+    void AddCustomCreatureButton(Transform container, string creatureName){
+        GameObject button = Instantiate(PrefabManager.instance.buttonCreaturePrefab, container);
+        button.name = creatureName;
+        button.GetComponent<UnityEngine.UI.Image>().sprite = PersistentStorageManager.instance.LoadCreatureImage(creatureName);
+        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnCreatureButtonPressed(creatureName));
+        generatedCreatures.Add(creatureName, 0);
+        if(!customCreatureNames.Contains(creatureName)){
+            customCreatureNames.Add(creatureName);
+        }
     }
 
     public void SpawnCreaturePreview(){
@@ -274,6 +284,13 @@ public class MenuManager : MonoBehaviour
         if(previewCreature != null){
             Destroy(previewCreature);
             previewCreature = null;
+        }
+    }
+
+    void DestroyPreviewCustomCreature(){
+        if(previewCustomCreature != null){
+            Destroy(previewCustomCreature);
+            previewCustomCreature = null;
         }
     }
 
