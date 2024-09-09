@@ -32,11 +32,13 @@ public class H_Selection : MonoBehaviour
     void SetActive(bool _isActive){
         foreach (GameObject obj in selectedObj)
         {
-            obj.SetActive(_isActive);
+            if(obj != null)
+                obj.SetActive(_isActive);
         }
         foreach (GameObject obj in unselectedObj)
         {
-            obj.SetActive(!_isActive);
+            if(obj != null) 
+                obj.SetActive(!_isActive);
         }
     }
 

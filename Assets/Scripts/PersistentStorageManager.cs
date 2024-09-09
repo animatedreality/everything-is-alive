@@ -86,7 +86,9 @@ public class PersistentStorageManager : MonoBehaviour
         List<CustomCreatureData> customCreatures = LoadAllCustomCreatures();
         foreach(CustomCreatureData customCreature in customCreatures){
             if(customCreature.creatureName == creatureName){
-                return customCreature.creatureImage;
+                Debug.Log("Loading creature image" + customCreature.creatureName);
+                //load custom creature image from /MonaModelImages/
+                return Resources.Load<Sprite>(creatureModelImageFilePath + creatureName);
             }
         }
         Debug.LogError("Creature " + creatureName + " image not found");

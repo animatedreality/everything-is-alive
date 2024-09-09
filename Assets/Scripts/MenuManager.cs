@@ -38,7 +38,7 @@ public class MenuManager : MonoBehaviour
     [Header("Game State")]
     public GameState currentGameState = GameState.INGAME;
     private GameState previousGameState = GameState.INGAME;
-    public GameObject menuWelcome, menuInGame, menuSelectModel, menuMakeInstrument;
+    public GameObject menuWelcome, menuInGame, menuSelectModel, menuMakeInstrument, backButton;
 
     [Header("Preview Creature")]
     public GameObject previewCreature;//for INGAME, when about to spawn a creature
@@ -89,7 +89,7 @@ public class MenuManager : MonoBehaviour
         Object[] monaModelImages = Resources.LoadAll("MonaModelImages", typeof(Sprite));
         foreach (Object image in monaModelImages)
         {
-            //if the image is not a Creature yet
+            //if the image is NOT a CustomCreature yet
             if(!customCreatureNames.Contains(image.name)){
                 GameObject button = Instantiate(PrefabManager.instance.buttonCreaturePrefab, monaModelContentContainer);
                 button.name = image.name;
@@ -135,6 +135,7 @@ public class MenuManager : MonoBehaviour
         if(_gameState != GameState.INGAME){
             DestroyPreviewCreature();
         }
+        //backButton.SetActive(_gameState == GameState.MAKEINSTRUMENT || _gameState == GameState.SELECTMODEL);
     }
 
     public void SetGameStateWithString(string _gameState){
@@ -145,16 +146,29 @@ public class MenuManager : MonoBehaviour
     public void ReturnToPreviousGameState(){
         if(currentGameState == GameState.SELECTMODEL)
         {
+            DeselectButtons(monaModelContentContainer);
+            selectedCreatureName = "";
             SetGameState(GameState.INGAME);
         }
         if(currentGameState == GameState.MAKEINSTRUMENT)
         {
+            DestroyPreviewCustomCreature();
+            previewCustomCreatureAudioName = "";
+            saveCreatureButton.SetActive(false);
             SetGameState(GameState.SELECTMODEL);
         }
     }
 
     public GameState GetGameState(){
         return currentGameState;
+    }
+
+    void DeselectButtons(Transform container){
+        foreach(Transform child in container){
+            if(child.GetComponent<Button>()){
+            child.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 0.5f);
+            }
+        }
     }
 
     public void OnCreatureButtonPressed(string creatureName)
@@ -258,9 +272,12 @@ public class MenuManager : MonoBehaviour
     }
 
     void AddCustomCreatureButton(Transform container, string creatureName){
+        Debug.Log("AddCustomCreatureButton" + creatureName);
         GameObject button = Instantiate(PrefabManager.instance.buttonCreaturePrefab, container);
         button.name = creatureName;
-        button.GetComponent<UnityEngine.UI.Image>().sprite = PersistentStorageManager.instance.LoadCreatureImage(creatureName);
+        Sprite creatureImage = PersistentStorageManager.instance.LoadCreatureImage(creatureName);
+        Debug.Log("check if Sprite is loaded" + creatureImage.name + " " + creatureName);
+        button.GetComponent<UnityEngine.UI.Image>().sprite = creatureImage;
         button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnCreatureButtonPressed(creatureName));
         generatedCreatures.Add(creatureName, 0);
         if(!customCreatureNames.Contains(creatureName)){
