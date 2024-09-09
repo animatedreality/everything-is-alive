@@ -222,12 +222,15 @@ namespace Audio
 
         private IEnumerator DeselectCreatureCoroutine(){
             yield return new WaitForSeconds(0.5f);
-             if (currentSelectedCreature != null)
-            {
+            DeselectCurrentCreature();
+            deselectCoroutine = null;
+        }
+
+        public void DeselectCurrentCreature(){
+            if(currentSelectedCreature != null){
                 currentSelectedCreature.OnDeselected();
                 Debug.Log("DeselectCreatureCoroutine is CALLED");
             }
-            deselectCoroutine = null;
         }
 
         public void SafeUnsubscribeFromEveryStep(OnEveryStepDelegate handler)

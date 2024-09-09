@@ -4,6 +4,7 @@ using Audio;
 using Oculus.Interaction.Samples;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public enum GameState{
     WELCOME,
@@ -108,6 +109,10 @@ public class MenuManager : MonoBehaviour
             GameObject button = Instantiate(PrefabManager.instance.buttonAudioPrefab, audioContentContainer);
             button.GetComponent<AudioSource>().clip = (AudioClip)clip;
             button.name = clip.name;
+            if(button.GetComponentInChildren<TextMeshProUGUI>()){
+                button.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(true);
+                button.GetComponentInChildren<TextMeshProUGUI>().text = clip.name;
+            }
             button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnAudioButtonPressed((AudioClip)clip));
         }
 
@@ -129,11 +134,9 @@ public class MenuManager : MonoBehaviour
         menuSelectModel.SetActive(currentGameState == GameState.SELECTMODEL);
         menuMakeInstrument.SetActive(currentGameState == GameState.MAKEINSTRUMENT);
         saveCreatureButton.SetActive(false);
-        if(_gameState != GameState.MAKEINSTRUMENT){
-            DestroyPreviewCustomCreature();
-        }
         if(_gameState != GameState.INGAME){
             DestroyPreviewCreature();
+            Global.instance.DeselectCurrentCreature();
         }
         //backButton.SetActive(_gameState == GameState.MAKEINSTRUMENT || _gameState == GameState.SELECTMODEL);
     }
