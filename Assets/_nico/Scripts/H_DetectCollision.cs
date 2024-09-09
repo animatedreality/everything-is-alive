@@ -26,7 +26,7 @@ public class H_DetectCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("OnCollisionEnter1");
+        
         if (Time.time - lastCollisionTime < collisionBuffer)
         {
             return; // Exit if not enough time has passed since last collision
@@ -38,10 +38,10 @@ public class H_DetectCollision : MonoBehaviour
             collidingObject = collision.gameObject;
             collisionEnterEvent?.Invoke();
             lastCollisionTime = Time.time;
+            //call the CollisionEvent that can be overriden by children scripts
+            CollisionEvent();
         }
 
-        //call the CollisionEvent that can be overriden by children scripts
-        CollisionEvent();
     }
 
     protected virtual void CollisionEvent(){

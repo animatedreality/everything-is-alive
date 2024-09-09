@@ -39,7 +39,7 @@ public class MenuManager : MonoBehaviour
     [Header("Game State")]
     public GameState currentGameState = GameState.INGAME;
     private GameState previousGameState = GameState.INGAME;
-    public GameObject menuWelcome, menuInGame, menuSelectModel, menuMakeInstrument, backButton;
+    public GameObject menuWelcome, menuInGame, menuSelectModel, menuMakeInstrument, welcomeGameObject;
 
     [Header("Preview Creature")]
     public GameObject previewCreature;//for INGAME, when about to spawn a creature
@@ -138,6 +138,7 @@ public class MenuManager : MonoBehaviour
             DestroyPreviewCreature();
             Global.instance.DeselectCurrentCreature();
         }
+        welcomeGameObject.SetActive(_gameState == GameState.WELCOME);
         //backButton.SetActive(_gameState == GameState.MAKEINSTRUMENT || _gameState == GameState.SELECTMODEL);
     }
 
