@@ -9,6 +9,8 @@ namespace Monaverse.Examples
 {
     public class MonaverseModalExample : MonoBehaviour
     {
+
+        public GameObject currentlyLoadedModel = null;
         [SerializeField] private MonaCollectibleListExample _compatibleItems;
         [SerializeField] private MonaCollectibleItemExample _importedItem;
         private void Start()
@@ -81,6 +83,9 @@ namespace Monaverse.Examples
             //remove model from its parent
             model.transform.SetParent(null);
             model.name = tokenName;
+            currentlyLoadedModel = model;
+            currentlyLoadedModel.transform.position = new Vector3(0,0,-7f);
+            
         }
 
         public void ResizeModelToFit(GameObject model)

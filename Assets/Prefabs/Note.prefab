@@ -42,11 +42,10 @@ GameObject:
   - component: {fileID: 5774068807039836583}
   - component: {fileID: 6889084432615139150}
   - component: {fileID: 9054568382645917491}
-  - component: {fileID: 823319141937575028}
   - component: {fileID: 147337971357809794}
   - component: {fileID: 3545348216632673658}
   m_Layer: 5
-  m_Name: Dot
+  m_Name: Note
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,23 +110,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &823319141937575028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3226094341542853420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab76990a6bba06429e1753c5a2a107d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  empty: {fileID: 21300000, guid: b336527f3dcfdf14bbdefe53401f1adc, type: 3}
-  filled: {fileID: 21300000, guid: b8045514b2b03ad4e95bc27ddf6f0af2, type: 3}
-  isOn: 0
-  image: {fileID: 9054568382645917491}
-  instrument: {fileID: 0}
 --- !u!114 &147337971357809794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,8 +154,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 823319141937575028}
-        m_TargetAssemblyTypeName: Audio.Dot, Assembly-CSharp
+      - m_Target: {fileID: 3545348216632673658}
+        m_TargetAssemblyTypeName: Note, Assembly-CSharp
         m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
