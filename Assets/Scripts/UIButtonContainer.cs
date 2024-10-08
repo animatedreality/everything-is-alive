@@ -10,7 +10,7 @@ public class UIButtonContainer : MonoBehaviour
     public void Initialize(List<CreatureData> _creatureDataList){
         foreach(CreatureData creatureData in _creatureDataList){
             GameObject button = Instantiate(UIManager.i.buttonPrefab, transform);
-            button.GetComponent<UIButton>().Initialize(creatureData.sprite, creatureData.name, this);
+            button.GetComponent<UIButton>().Initialize(creatureData, this);
         }
     }
 
@@ -24,5 +24,10 @@ public class UIButtonContainer : MonoBehaviour
         if(selectedButton != null && selectedButton != _button)
             selectedButton.UnselectSelf();
         selectedButton = _button;
+
+        //if I am defaultCreatureUIButtonContainer in UIManager, assign the selectedCreature to selectedCreatureData in CreatureManager
+        if(this == UIManager.i.defaultCreatureUIButtonContainer){
+            CreatureManager.i.selectedCreatureData = selectedButton.creatureData;
+        }
     }
 }

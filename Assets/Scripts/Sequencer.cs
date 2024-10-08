@@ -80,6 +80,8 @@ public class Sequencer : MonoBehaviour
     }
 
     void PopulateSequences(){
+        sequenceAmount = creatureData.audioClips.Count;
+        Debug.Log("PopulateSequences Set Amount: " + sequenceAmount);
         if(sequenceAmount > 1){
             //duplicate firstSequence based on sequenceAmount
             for(int i = 1; i < sequenceAmount; i++){
@@ -87,6 +89,7 @@ public class Sequencer : MonoBehaviour
                 newSequence.transform.localPosition = new Vector3(0, newSequence.transform.localPosition.y, 0 );
                 newSequence.transform.localRotation = Quaternion.identity;
                 newSequence.transform.localScale = new Vector3(1, 1, 1);
+                Debug.Log("PopulateSequences: " + newSequence.name);
                 sequences.Add(newSequence.GetComponent<Sequence>());
             }
         }
@@ -116,7 +119,7 @@ public class Sequencer : MonoBehaviour
                     sequences[i].Initialize(this, sequenceLength, notePrefab, creatureData.audioClips[i]);
                 }
             }else{
-                Debug.LogError(creatureFamily.name + "Sequence amount does not match audio clips count");
+                Debug.LogError(creatureFamily.name + "Sequence count " + sequences.Count + " does not match audio clips count " + creatureData.audioClips.Count);
             }
         }
         //Need to initialize for other CreatureType and SequencerTypes

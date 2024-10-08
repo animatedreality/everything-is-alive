@@ -10076,6 +10076,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!4 &630156415 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4659526798049294703, guid: 786c1d72a875d95499df27c2038de962, type: 3}
+  m_PrefabInstance: {fileID: 6602970753048649359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &632462887
 GameObject:
   m_ObjectHideFlags: 0
@@ -16533,11 +16538,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095147227}
   m_CullTransparentMesh: 1
---- !u!4 &1106593414 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1135577923794838283, guid: 786c1d72a875d95499df27c2038de962, type: 3}
-  m_PrefabInstance: {fileID: 6602970753048649359}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1109735026
 GameObject:
   m_ObjectHideFlags: 0
@@ -18127,6 +18127,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1188882286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1188882287}
+  m_Layer: 0
+  m_Name: LotusLeaves_Crash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1188882287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188882286}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1201045566
 GameObject:
   m_ObjectHideFlags: 0
@@ -21874,55 +21905,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1 &1408188839
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1408188840}
-  - component: {fileID: 1408188841}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1408188840
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408188839}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1106593414}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1408188841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408188839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2425061b94f596943901e0c14397192b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultCreatureContainer: {fileID: 52965202}
-  monaCreatureContainer: {fileID: 199247760}
-  buttonSelectedColor: {r: 1, g: 1, b: 1, a: 1}
-  buttonUnselectedColor: {r: 0.41552937, g: 0.44091988, b: 0.69182384, a: 1}
-  buttonPrefab: {fileID: 6655188595094188278, guid: b931eb2ffabf4fd4995f05096bd4028d, type: 3}
 --- !u!1 &1409053851
 GameObject:
   m_ObjectHideFlags: 0
@@ -35491,14 +35473,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1011136345749582243, guid: 786c1d72a875d95499df27c2038de962, type: 3}
-      propertyPath: assetMenuMona
-      value: 
-      objectReference: {fileID: 199247760}
-    - target: {fileID: 1011136345749582243, guid: 786c1d72a875d95499df27c2038de962, type: 3}
-      propertyPath: assetMenuDefault
-      value: 
-      objectReference: {fileID: 52965202}
     - target: {fileID: 1135577923794838283, guid: 786c1d72a875d95499df27c2038de962, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.553411
@@ -35543,12 +35517,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1966305973375468483, guid: 786c1d72a875d95499df27c2038de962, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 105036877}
+    - target: {fileID: 2212482018839066200, guid: 786c1d72a875d95499df27c2038de962, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1354735342}
+    - target: {fileID: 2613612889296459822, guid: 786c1d72a875d95499df27c2038de962, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1207013475}
+    - target: {fileID: 3539876376816541882, guid: 786c1d72a875d95499df27c2038de962, type: 3}
+      propertyPath: monaCreatureContainer
+      value: 
+      objectReference: {fileID: 199247760}
+    - target: {fileID: 3539876376816541882, guid: 786c1d72a875d95499df27c2038de962, type: 3}
+      propertyPath: defaultCreatureContainer
+      value: 
+      objectReference: {fileID: 52965202}
+    - target: {fileID: 7185997688405540582, guid: 786c1d72a875d95499df27c2038de962, type: 3}
+      propertyPath: creatureSpawnPoint
+      value: 
+      objectReference: {fileID: 630156415}
+    - target: {fileID: 7424279309088423818, guid: 786c1d72a875d95499df27c2038de962, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 646292431}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1135577923794838283, guid: 786c1d72a875d95499df27c2038de962, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1408188840}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 786c1d72a875d95499df27c2038de962, type: 3}
 --- !u!1 &7135119338569754442
@@ -38492,3 +38491,4 @@ SceneRoots:
   - {fileID: 2068199401}
   - {fileID: 1905352424}
   - {fileID: 6602970753048649359}
+  - {fileID: 1188882287}

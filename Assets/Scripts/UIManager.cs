@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject defaultCreatureContainer;
     public GameObject monaCreatureContainer;
+    public UIButtonContainer defaultCreatureUIButtonContainer, monaCreatureUIButtonContainer;
     public Color buttonSelectedColor, buttonUnselectedColor;
 
     [Header("Prefabs")]
@@ -39,7 +40,8 @@ public class UIManager : MonoBehaviour
     void InitializeCreatureContainer(GameObject _container, List<CreatureData> _creatureDataList){
         if(!_container.GetComponent<UIButtonContainer>())
             _container.AddComponent<UIButtonContainer>();
-        _container.GetComponent<UIButtonContainer>().Initialize(_creatureDataList);
+        defaultCreatureUIButtonContainer = _container.GetComponent<UIButtonContainer>();
+        defaultCreatureUIButtonContainer.Initialize(_creatureDataList);
     }
 
 

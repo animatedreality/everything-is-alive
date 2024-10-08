@@ -22,6 +22,11 @@ public class CreatureManager : MonoBehaviour
     //Load all CreatureData from Resources/CreatureData
     public List<CreatureData> creatureDataList;
     public GameObject creatureFamilyPrefab;
+    public Transform creatureSpawnPoint;
+
+    //assigned when the creature's UIButtonContainer SelectButton() is called
+    public CreatureData selectedCreatureData;
+
     // Start is called before the first frame update
     public void Initialize()
     {
@@ -32,5 +37,14 @@ public class CreatureManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SpawnCreature(){
+        //Spawn Creature if there has been one selected
+        if(selectedCreatureData != null){
+            GameObject creature = Instantiate(creatureFamilyPrefab);
+            creature.transform.position = creatureSpawnPoint.position;
+            Debug.Log("SpawnCreature");
+        }
     }
 }

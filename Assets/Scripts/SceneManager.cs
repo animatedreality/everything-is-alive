@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SceneState{
+    WELCOME,
+    INGAME,
+    SELECTMODEL,
+    MAKEINSTRUMENT
+}
 public class SceneManager : MonoBehaviour
 {
     //this is what MenuManager dreamed to be
@@ -20,10 +26,12 @@ public class SceneManager : MonoBehaviour
         }
     }
 
+    public SceneState currentSceneState = SceneState.WELCOME;
+    private SceneState previousSceneState = SceneState.WELCOME;
 
     void Start()
     {
-        //!!! DO NOT SHUFFLE ORDER
+        //!!!!! DO NOT SHUFFLE ORDER !!!!!
         AudioManager.i.Initialize();
         CreatureManager.i.Initialize();
         UIManager.i.Initialize();

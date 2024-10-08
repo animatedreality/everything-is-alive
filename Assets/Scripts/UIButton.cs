@@ -13,17 +13,18 @@ public class UIButton : MonoBehaviour
     Button button;
     Image image;
     Color unselectedColor, selectedColor;
+    public CreatureData creatureData;
     // Start is called before the first frame update
     void Start()
     {
     }
 
-    public void Initialize(Sprite _sprite, string _name, UIButtonContainer _container){
+    public void Initialize(CreatureData _creatureData, UIButtonContainer _container){
         button = GetComponent<Button>();
         image = GetComponent<Image>();
         button.onClick.AddListener(OnClick);
-        image.sprite = _sprite;
-        name = _name;
+        image.sprite = _creatureData.sprite;
+        creatureData = _creatureData;
         container = _container;
         container.buttons.Add(this);
         UnselectSelf();

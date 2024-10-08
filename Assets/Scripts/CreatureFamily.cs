@@ -14,7 +14,7 @@ public class CreatureFamily : MonoBehaviour
     void Start()
     {
         transform.localScale = Vector3.one * CreatureManager.i.creatureScaleMultiplier;
-        Initialize(creatureData);
+        Initialize(CreatureManager.i.selectedCreatureData);
     }
 
     // Update is called once per frame
@@ -50,6 +50,22 @@ public class CreatureFamily : MonoBehaviour
                 }
 
             }
+        }
+
+        //look at player
+        LookAtPlayer();
+    }
+
+    void LookAtPlayer()
+    {
+        AudioListener audioListener = FindObjectOfType<AudioListener>();
+        if (audioListener != null)
+        {
+            Vector3 dirToListener = audioListener.transform.position - transform.position;
+            Vector3 horizontalDirection = Vector3.ProjectOnPlane(dirToListener, Vector3.up);
+            Quaternion rotation = Quaternion.LookRotation(horizontalDirection);
+            rotation *= Quaternion.Euler(0, 180, 0);
+            transform.rotation = rotation;
         }
     }
 }
