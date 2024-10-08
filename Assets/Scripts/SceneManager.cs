@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 public class SceneManager : MonoBehaviour
 {
     //this is what MenuManager dreamed to be
@@ -19,17 +19,14 @@ public class SceneManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    [Header("InGame UI")]
-    public GameObject assetMenuDefault;
-    public GameObject assetMenuMona;
-    [Header("Prefabs")]
-    public GameObject buttonPrefab;
+
 
     void Start()
     {
+        //!!! DO NOT SHUFFLE ORDER
         AudioManager.i.Initialize();
         CreatureManager.i.Initialize();
-        InitializeAssetMenuDefault();
+        UIManager.i.Initialize();
     }
 
     // Update is called once per frame
@@ -38,11 +35,5 @@ public class SceneManager : MonoBehaviour
         
     }
 
-    void InitializeAssetMenuDefault(){
-        foreach(CreatureData creatureData in CreatureManager.i.creatureDataList){
-            GameObject button = Instantiate(buttonPrefab, assetMenuDefault.transform);
-            button.GetComponent<Image>().sprite = creatureData.sprite;
-            button.name = creatureData.name;
-        }
-    }
+
 }
