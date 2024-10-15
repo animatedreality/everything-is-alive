@@ -22,4 +22,5 @@ public class CreatureData : ScriptableObject
     public CreatureType creatureType;
     [Header("Length of Sequence")]
     public int sequenceLengthMultiplier = 1;
+    public int sequenceLength = 16;
 }

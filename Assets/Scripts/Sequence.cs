@@ -50,34 +50,8 @@ public class Sequence : MonoBehaviour
         {
             PlayAtTime(nextEventTime, localBeatIndex);
         }
-
-        // for (int i = 0; i < sequencePattern.Count; i++)
-        // {
-        //     int localBeatIndex = _beatIndex % sequenceLength;
-        //     if (sequencePattern[i] == localBeatIndex)
-        //     {
-        //         PlayAtTime(nextEventTime, localBeatIndex);
-        //     }
-        // }
     }
 
-    // private IEnumerator ScheduleCoroutine(int adjustedBeatIndex, double adjustedEventTime, double sixteenthNote)
-    // {
-    //     while (true)
-    //     {
-    //         yield return new WaitUntil(() => AudioSettings.dspTime >= adjustedEventTime);
-
-    //         int localBeatIndex = adjustedBeatIndex % sequenceLength;
-    //         if (sequencePattern.Contains(localBeatIndex))
-    //         {
-    //             Debug.Log(sequencer.creatureData.name + "Playing at time " + adjustedEventTime + " with beat index " + localBeatIndex);
-    //             PlayAtTime(adjustedEventTime, localBeatIndex);
-    //         }
-
-    //         adjustedEventTime += sixteenthNote / sequencer.creatureData.sequenceSpeedMultiplier;
-    //         adjustedBeatIndex++;
-    //     }
-    // }
 
     public void PlayAtTime(double time, int localBeatIndex)
     {

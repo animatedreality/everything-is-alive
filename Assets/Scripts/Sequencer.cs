@@ -7,8 +7,7 @@ public class Sequencer : MonoBehaviour
     protected enum SequencerType {
         Drum,
         Melody,
-        Pad,
-        None
+        Pad
     }
 
     protected SequencerType sequencerType;
@@ -36,32 +35,28 @@ public class Sequencer : MonoBehaviour
     public CreatureData creatureData;
     public CreatureFamily creatureFamily;
 
-    public virtual void Initialize(CreatureFamily _creatureFamily){
+    public void Initialize(CreatureFamily _creatureFamily){
 
         creatureFamily = _creatureFamily;
         creatureData = creatureFamily.creatureData;
+        sequenceAmount = _creatureFamily.creatureData.creatureMemberCount;
+        sequenceLength = _creatureFamily.creatureData.sequenceLength;
 
         //change the speed and length of each sequence based on SequencerType
         if(creatureData.creatureType == CreatureData.CreatureType.Drum){
-            sequenceLength = 16;
+            //sequenceLength = 16;
+            sequencerType = SequencerType.Drum;
+            notePrefab = AudioManager.i.drumNotePrefab;
         }else if(creatureData.creatureType == CreatureData.CreatureType.Pad){
-            sequenceLength = 4;
+            //sequenceLength = 4;
+            sequencerType = SequencerType.Pad;
+            notePrefab = AudioManager.i.padNotePrefab;
+        }else if(creatureData.creatureType == CreatureData.CreatureType.Melody){
+            //sequenceLength = 16;
+            sequencerType = SequencerType.Melody;
+            notePrefab = AudioManager.i.melodyNotePrefab;
         }
 
-        //MAKE SURE TO ADDRESS THIS
-        //this should be in inherented classes such as SequencerDrum
-        // if(creatureData.creatureType == CreatureType.Drum){
-
-        // }else if(creatureData.creatureType == CreatureType.Melody){
-        //     sequencerType = SequencerType.Melody;
-        //     sequenceAmount = 1;
-        // }else if(creatureData.creatureType == CreatureType.Pad){
-        //     sequencerType = SequencerType.Pad;
-        //     sequenceAmount = creatureData.creatureMemberCount;
-        // }else{
-        //     sequencerType = SequencerType.None;
-        //     sequenceAmount = 0;
-        // }
 
         //if sequencerType is None, hide first sequence
         // if(sequencerType == SequencerType.None){
@@ -119,7 +114,7 @@ public class Sequencer : MonoBehaviour
         );
     }
 
-    protected virtual void InitializeSequences(){
+    void InitializeSequences(){
         //populate sequences with notes based on sequenceLength
         if(sequencerType == SequencerType.Drum || sequencerType == SequencerType.Pad){
             if(sequences.Count == creatureData.audioClips.Count){

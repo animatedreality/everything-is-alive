@@ -173,6 +173,8 @@ MonoBehaviour:
       m_Calls: []
   sources: []
   sequencer: {fileID: 0}
+  clip: {fileID: 0}
+  sequenceLengthMultiplier: 0
 --- !u!1 &573620819847399365
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +499,7 @@ GameObject:
   - component: {fileID: 35130367884665623}
   - component: {fileID: 5460632232798138675}
   - component: {fileID: 7068105566823768926}
-  - component: {fileID: 161569784290461953}
+  - component: {fileID: -3465888329874328938}
   m_Layer: 0
   m_Name: Sequencer
   m_TagString: Untagged
@@ -763,7 +765,7 @@ MonoBehaviour:
   _selectSurface: {fileID: 0}
   _movementProvider: {fileID: 0}
   _tiebreakerScore: 0
---- !u!114 &161569784290461953
+--- !u!114 &-3465888329874328938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -772,10 +774,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4041193406698272852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4df9684d931e647923c63c0faf663e, type: 3}
+  m_Script: {fileID: 11500000, guid: 62e6e5b5124695f4eb302721777bc199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: f1ce4f64153e2450f80852db328b75c3, type: 3}
+  clip: {fileID: 0}
   pointerSurface: {fileID: 7444377322355982897}
   canvasRect: {fileID: 2174577488441982385}
   playHeadSlider: {fileID: 6076142228485461689}
@@ -786,7 +788,8 @@ MonoBehaviour:
   sequences: []
   sequenceLength: 16
   sequenceAmount: 4
-  creature: {fileID: 0}
+  creatureData: {fileID: 0}
+  creatureFamily: {fileID: 0}
 --- !u!1 &5379385644986587266
 GameObject:
   m_ObjectHideFlags: 0
