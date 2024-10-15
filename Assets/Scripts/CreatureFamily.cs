@@ -52,6 +52,8 @@ public class CreatureFamily : MonoBehaviour
             }
         }
 
+        transform.name = creatureData.name;
+
         //look at player
         LookAtPlayer();
     }

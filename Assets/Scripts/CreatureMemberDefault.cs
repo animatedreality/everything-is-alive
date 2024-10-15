@@ -26,6 +26,9 @@ public class CreatureMemberDefault : CreatureMember
 
     public override void OnPlay(){
         Debug.Log("OnPlay: " + name);
+        if(GetComponent<ScaleOnPlay>()){
+            GetComponent<ScaleOnPlay>().ScaleUp();
+        }
         if(GetComponentInChildren<ScaleOnPlay>()){
             GetComponentInChildren<ScaleOnPlay>().ScaleUp();
         }

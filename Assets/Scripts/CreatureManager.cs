@@ -40,6 +40,10 @@ public class CreatureManager : MonoBehaviour
     }
 
     public void SpawnCreature(){
+        //if globalPlay is false, start the game
+        if(!AudioManager.i.globalPlay){
+            AudioManager.i.Play();
+        }
         //Spawn Creature if there has been one selected
         if(selectedCreatureData != null){
             GameObject creature = Instantiate(creatureFamilyPrefab);

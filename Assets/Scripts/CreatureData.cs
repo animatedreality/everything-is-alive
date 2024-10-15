@@ -20,4 +20,6 @@ public class CreatureData : ScriptableObject
     }
     [Header("Creature Type determines Sequencer Type")]
     public CreatureType creatureType;
+    [Header("Length of Sequence")]
+    public int sequenceLengthMultiplier = 1;
 }

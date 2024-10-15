@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
 
     private double nextEventTime;
 
-    private bool globalPlay = false;
+    public bool globalPlay = false;
 
     public UnityEvent<int> OnEveryStep;
     public List<Sequence> sequences;
@@ -44,7 +44,6 @@ public class AudioManager : MonoBehaviour
     public GameObject padNotePrefab;
     public void Initialize()
     {
-        globalPlay = true;
         nextEventTime = AudioSettings.dspTime + 0.4;
     }
 
@@ -64,13 +63,21 @@ public class AudioManager : MonoBehaviour
         {
             if (time + sixteenthNote > nextEventTime)
             {
-                //Schedule sequencers to play
-                foreach(Sequence sequence in sequences){
-                    Debug.Log("Scheduling sequence Play " + sequence.sequencer.creatureFamily.name);
-                    sequence.Schedule(beatIndex, nextEventTime);
+                foreach(Sequence sequence in sequences)
+                {
+                    int localBeatIndex = beatIndex % sequence.sequenceLengthMultiplier;
+
+                    // Only schedule for sequences that should trigger on this beat
+                    if (localBeatIndex == 0)
+                    {
+                        Debug.Log(sequence.sequencer.creatureFamily.name + " Scheduling sequence Play " + beatIndex);
+                        sequence.Schedule(beatIndex, nextEventTime);
+                    }
                 }
+                
                 nextEventTime += sixteenthNote;
                 beatIndex++;
+
                 TimeEvent te = new TimeEvent(nextEventTime, EveryStepAction, beatIndex);
                 StartCoroutine(CheckEventRoutine(te));
             }

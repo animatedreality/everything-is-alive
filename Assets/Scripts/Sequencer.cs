@@ -37,6 +37,17 @@ public class Sequencer : MonoBehaviour
     public CreatureFamily creatureFamily;
 
     public virtual void Initialize(CreatureFamily _creatureFamily){
+
+        creatureFamily = _creatureFamily;
+        creatureData = creatureFamily.creatureData;
+
+        //change the speed and length of each sequence based on SequencerType
+        if(creatureData.creatureType == CreatureData.CreatureType.Drum){
+            sequenceLength = 16;
+        }else if(creatureData.creatureType == CreatureData.CreatureType.Pad){
+            sequenceLength = 4;
+        }
+
         //MAKE SURE TO ADDRESS THIS
         //this should be in inherented classes such as SequencerDrum
         // if(creatureData.creatureType == CreatureType.Drum){
@@ -58,8 +69,6 @@ public class Sequencer : MonoBehaviour
         //     return;
         // }
 
-        creatureFamily = _creatureFamily;
-        creatureData = creatureFamily.creatureData;
         if(firstSequence == null){
             Debug.LogError("firstSequence is null");
             return;
@@ -138,7 +147,7 @@ public class Sequencer : MonoBehaviour
     }
 
     public void OnEveryStep(int _beatIndex){
-        int localBeatIndex = _beatIndex % sequenceLength;
+        int localBeatIndex = ((int)_beatIndex / creatureData.sequenceLengthMultiplier) % sequenceLength;
         playHeadSlider.value = localBeatIndex;
     }
 

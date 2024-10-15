@@ -7,7 +7,7 @@ public class Sequence : MonoBehaviour
 {
     public int sequenceLength;
     public GameObject notePrefab;
-    public List<int> sequencePattern;//edit this from Note script
+    public List<int> sequencePattern;//edit this from Note script, contains indexes of notes that are on
     public List<Note> notes;
     public UnityEvent<int> OnPlay;
     public List<AudioSource> sources = new List<AudioSource>();
@@ -15,12 +15,14 @@ public class Sequence : MonoBehaviour
     //from Sequencer
     public Sequencer sequencer;
     public AudioClip clip;
+    public int sequenceLengthMultiplier;
     public void Initialize(Sequencer _sequencer, int _sequenceLength, GameObject _notePrefab, AudioClip _clip){
         //initialize sequenceLength
         sequenceLength = _sequenceLength;
         notePrefab = _notePrefab;
         clip = _clip;
         sequencer = _sequencer;
+        sequenceLengthMultiplier = sequencer.creatureData.sequenceLengthMultiplier;
         //populate notes
         for(int i = 0; i < sequenceLength; i++){
             GameObject newNote = Instantiate(notePrefab, transform);
@@ -40,20 +42,49 @@ public class Sequence : MonoBehaviour
 
     public void Schedule(int _beatIndex, double nextEventTime)
     {
-        for (int i = 0; i < sequencePattern.Count; i++)
+        Debug.Log(sequencer.creatureFamily.name + " Scheduling sequence Play " + _beatIndex);
+        int localBeatIndex = ((int)_beatIndex / sequenceLengthMultiplier) % sequenceLength;
+        Debug.Log(sequencer.creatureFamily.name + " Scheduling sequence Play " + localBeatIndex);
+        // Only play if the beat index aligns with the sequenceLengthMultiplier interval.
+        if (sequencePattern.Contains(localBeatIndex))
         {
-            int localBeatIndex = _beatIndex % sequenceLength;
-            if (sequencePattern[i] == localBeatIndex)
-            {
-                PlayAtTime(nextEventTime, localBeatIndex);
-            }
+            PlayAtTime(nextEventTime, localBeatIndex);
         }
+
+        // for (int i = 0; i < sequencePattern.Count; i++)
+        // {
+        //     int localBeatIndex = _beatIndex % sequenceLength;
+        //     if (sequencePattern[i] == localBeatIndex)
+        //     {
+        //         PlayAtTime(nextEventTime, localBeatIndex);
+        //     }
+        // }
     }
+
+    // private IEnumerator ScheduleCoroutine(int adjustedBeatIndex, double adjustedEventTime, double sixteenthNote)
+    // {
+    //     while (true)
+    //     {
+    //         yield return new WaitUntil(() => AudioSettings.dspTime >= adjustedEventTime);
+
+    //         int localBeatIndex = adjustedBeatIndex % sequenceLength;
+    //         if (sequencePattern.Contains(localBeatIndex))
+    //         {
+    //             Debug.Log(sequencer.creatureData.name + "Playing at time " + adjustedEventTime + " with beat index " + localBeatIndex);
+    //             PlayAtTime(adjustedEventTime, localBeatIndex);
+    //         }
+
+    //         adjustedEventTime += sixteenthNote / sequencer.creatureData.sequenceSpeedMultiplier;
+    //         adjustedBeatIndex++;
+    //     }
+    // }
 
     public void PlayAtTime(double time, int localBeatIndex)
     {
         if (time <= AudioSettings.dspTime)
             return;
+
+        Debug.Log(sequencer.creatureData.name + "Playing at time " + time + " with beat index " + localBeatIndex);
         AudioSource source = GetAvailableSource();
         source.PlayScheduled(time);
         StartCoroutine(OnPlayCoroutine(time, localBeatIndex));
