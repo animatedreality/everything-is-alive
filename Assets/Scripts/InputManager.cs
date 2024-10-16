@@ -6,6 +6,7 @@ using Oculus.Interaction.Samples;
 public class InputManager : MonoBehaviour
 {
     bool rightControllerBButton;
+    bool leftControllerMenuButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +17,12 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         rightControllerBButton = OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch);
-
+        leftControllerMenuButton = OVRInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.LTouch);
         if(rightControllerBButton){
             RightControllerBButton();
+        }
+        if(leftControllerMenuButton){
+            LeftControllerMenuButton();
         }
     }
 
@@ -28,5 +32,10 @@ public class InputManager : MonoBehaviour
         if(SceneManager.i.currentSceneState == SceneState.INGAME){
             CreatureManager.i.SpawnCreature();
         }
+    }
+
+    void LeftControllerMenuButton(){
+        Debug.Log("LeftControllerMenuButton");
+        UIManager.i.ToggleMainMenu();
     }
 }
