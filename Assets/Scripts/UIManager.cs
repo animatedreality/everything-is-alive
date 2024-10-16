@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager i;
 
     public GameObject mainMenu, toggleMainMenuIndicator;
     public GameObject defaultCreatureContainer;
-    public GameObject monaCreatureContainer;
-    public GameObject audioClipsContainer;
-    public UIButtonContainer defaultCreatureUIButtonContainer, monaCreatureUIButtonContainer;
+    public GameObject audioClipsContainer, audioScrollviewContainer;
+    public UIButtonContainer defaultCreatureUIButtonContainer;
     public Color buttonSelectedColor, buttonUnselectedColor;
 
     [Header("Mona")]
@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     public GameObject monaLoginScreen;
 
     [Header("Prefabs")]
-    public GameObject buttonPrefab;
+    public GameObject buttonPrefab, audioBttnPrefab;
     private void Awake()
     {
         if (i == null)
@@ -36,9 +36,8 @@ public class UIManager : MonoBehaviour
     {
         //change this later based on game state
         mainMenu.SetActive(true);
-        //creature tab is selected by default
-        SelectCreatureTab();
-
+        InitializeAudioClipsContainer();
+        SetMonaLoginScreens();
         InitializeCreatureContainer(defaultCreatureContainer, CreatureManager.i.creatureDataList);
     }
 
@@ -55,28 +54,30 @@ public class UIManager : MonoBehaviour
         defaultCreatureUIButtonContainer.Initialize(_creatureDataList);
     }
 
+    void InitializeAudioClipsContainer(){
+        //load all audio clips from Resources/AudioClips
+        AudioClip[] clips = Resources.LoadAll<AudioClip>("Sounds");
+        AudioManager.i.audioClips = new List<AudioClip>(clips);
+        foreach(AudioClip clip in clips){
+            GameObject button = Instantiate(audioBttnPrefab, audioClipsContainer.transform);
+            if(button.GetComponentInChildren<TextMeshProUGUI>()){
+                button.GetComponentInChildren<TextMeshProUGUI>().text = clip.name;
+                button.name = clip.name;
+            }
+            //set this to connect audio to new object later on
+            //button.GetComponent<Button>().onClick.AddListener(() => OnAudioClipButtonPressed((AudioClip)clip));
+        }
+    }
+
     public void ToggleMainMenu(){
         mainMenu.SetActive(!mainMenu.activeSelf);
         toggleMainMenuIndicator.GetComponent<H_Selection>().ToggleSelected();
     }
 
-    public void SelectCreatureTab(){
-        defaultCreatureContainer.SetActive(true);
-        audioClipsContainer.SetActive(false);
-        monaCreatureContainer.SetActive(false);
-        monaLoginScreen.SetActive(false);
-    }
-
-    public void SelectNewTab(){
-        //if already logged into Mona, show Mona's Modal + Audio Clips
-        //if not logged into Mona, show login button + Mona Login Modal
-        if(isMonaLoggedIn){
-            audioClipsContainer.SetActive(true);
-        }
-        else{
-            monaLoginScreen.SetActive(true);
-        }
-        defaultCreatureContainer.SetActive(false);
+    public void SetMonaLoginScreens(){
+        //isMonaLoggedIn is a public variable that is set by MonaManager
+        audioScrollviewContainer.SetActive(isMonaLoggedIn);
+        monaLoginScreen.SetActive(!isMonaLoggedIn);
     }
 
 

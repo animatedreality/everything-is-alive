@@ -42,6 +42,9 @@ public class AudioManager : MonoBehaviour
     public GameObject drumNotePrefab;
     public GameObject melodyNotePrefab;
     public GameObject padNotePrefab;
+
+    [Header("Audio")]
+    public List<AudioClip> audioClips = new List<AudioClip>();
     public void Initialize()
     {
         nextEventTime = AudioSettings.dspTime + 0.4;
