@@ -13,6 +13,8 @@ public class Sequencer : MonoBehaviour
     protected SequencerType sequencerType;
     [Header("Audio")]
     public AudioClip clip;
+    public float currentVolume = 1;
+    float lastVolume = 0f;
     [Header("UI")]
     public Transform pointerSurface;
     public RectTransform canvasRect;
@@ -144,6 +146,23 @@ public class Sequencer : MonoBehaviour
     public void OnEveryStep(int _beatIndex){
         int localBeatIndex = ((int)_beatIndex / creatureData.sequenceLengthMultiplier) % sequenceLength;
         playHeadSlider.value = localBeatIndex;
+    }
+
+    public void SetVolume(float _volume){
+        foreach(Sequence sequence in sequences){
+            sequence.SetVolume(_volume);
+        }
+        currentVolume = _volume;
+        lastVolume = _volume;
+    }
+
+    public void ToggleMute(){
+        if(currentVolume == 0){
+            SetVolume(lastVolume);
+        }else{
+            lastVolume = currentVolume;
+            SetVolume(0);
+        }
     }
 
 }

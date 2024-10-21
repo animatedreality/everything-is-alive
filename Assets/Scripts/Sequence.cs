@@ -88,6 +88,12 @@ public class Sequence : MonoBehaviour
         }
     }
 
+    public void SetVolume(float _volume){
+        foreach(AudioSource source in sources){
+            source.volume = _volume;
+        }
+    }
+
     //------------AudioSources-------------
     AudioSource GetAvailableSource()
     {

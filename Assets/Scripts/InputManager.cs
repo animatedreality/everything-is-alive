@@ -5,8 +5,8 @@ using Oculus.Interaction.Samples;
 
 public class InputManager : MonoBehaviour
 {
-    bool rightControllerBButton;
-    bool leftControllerMenuButton;
+    bool rightControllerBButton, rightControllerAButton;
+    bool leftControllerXButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,12 +17,16 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         rightControllerBButton = OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch);
-        leftControllerMenuButton = OVRInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.LTouch);
+        rightControllerAButton = OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch);
+        leftControllerXButton = OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch);
         if(rightControllerBButton){
             RightControllerBButton();
         }
-        if(leftControllerMenuButton){
-            LeftControllerMenuButton();
+        if(rightControllerAButton){
+            RightControllerAButton();
+        }
+        if(leftControllerXButton){
+            LeftControllerXButton();
         }
     }
 
@@ -34,8 +38,14 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    void LeftControllerMenuButton(){
-        Debug.Log("LeftControllerMenuButton");
+    void RightControllerAButton(){
+        Debug.Log("RightControllerAButton");
+        //Toggle Hint
+        UIManager.i.ToggleGameplayHint();
+    }
+
+    void LeftControllerXButton(){
+        Debug.Log("LeftControllerXButton");
         UIManager.i.ToggleMainMenu();
     }
 }

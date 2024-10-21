@@ -5,11 +5,13 @@ using UnityEngine;
 public class CreatureFamily : MonoBehaviour
 {
     public CreatureData creatureData;
+    public Transform manipulationUI;
     public Sequencer sequencer;
     public Transform meshContainer;
 
     public GameObject creatureMesh;
     public List<CreatureMember> creatureMembers;
+    public bool isSelected = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,5 +71,32 @@ public class CreatureFamily : MonoBehaviour
             rotation *= Quaternion.Euler(0, 180, 0);
             transform.rotation = rotation;
         }
+    }
+
+    public void OnSelect(){
+        isSelected = true;
+        CreatureManager.i.SelectCreatureFamily(this);
+        manipulationUI.gameObject.SetActive(true);
+    }
+
+    public void OnDeselect(){
+        isSelected = false;
+        if(CreatureManager.i.selectedCreatureFamily == this){
+            CreatureManager.i.selectedCreatureFamily = null;
+        }
+        manipulationUI.gameObject.SetActive(false);
+    }
+
+    public void DestroySelf(){
+        OnDeselect();
+        Destroy(gameObject);
+    }
+
+    public void ToggleMute(){
+        sequencer.ToggleMute();
+    }
+
+    public void SetVolume(float _volume){
+        sequencer.SetVolume(_volume);
     }
 }

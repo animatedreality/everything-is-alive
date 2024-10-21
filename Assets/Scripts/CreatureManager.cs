@@ -27,6 +27,9 @@ public class CreatureManager : MonoBehaviour
     //assigned when the creature's UIButtonContainer SelectButton() is called
     public CreatureData selectedCreatureData;
 
+    //tracks which creature is currently being selectd
+    public CreatureFamily selectedCreatureFamily;
+
     // Start is called before the first frame update
     public void Initialize()
     {
@@ -50,5 +53,13 @@ public class CreatureManager : MonoBehaviour
             creature.transform.position = creatureSpawnPoint.position;
             Debug.Log("SpawnCreature");
         }
+    }
+
+    public void SelectCreatureFamily(CreatureFamily _creatureFamily){
+        if(selectedCreatureFamily != null){
+            selectedCreatureFamily.OnDeselect();
+        }
+        selectedCreatureFamily = _creatureFamily;
+        Debug.Log("Selected Creature Family: " + selectedCreatureFamily.name);
     }
 }

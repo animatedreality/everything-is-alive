@@ -7,7 +7,8 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager i;
 
-    public GameObject mainMenu, toggleMainMenuIndicator;
+    public GameObject mainMenu, mainMenuToggle, hintToggle;
+    public GameObject[] GameplayHints;
     public GameObject defaultCreatureContainer;
     public GameObject audioClipsContainer, audioScrollviewContainer;
     public UIButtonContainer defaultCreatureUIButtonContainer;
@@ -71,7 +72,14 @@ public class UIManager : MonoBehaviour
 
     public void ToggleMainMenu(){
         mainMenu.SetActive(!mainMenu.activeSelf);
-        toggleMainMenuIndicator.GetComponent<H_Selection>().ToggleSelected();
+        mainMenuToggle.GetComponent<H_Selection>().ToggleSelected();
+    }
+
+    public void ToggleGameplayHint(){
+        hintToggle.GetComponent<H_Selection>().ToggleSelected();
+        foreach(GameObject hint in GameplayHints){
+            hint.SetActive(!hint.activeSelf);
+        }
     }
 
     public void SetMonaLoginScreens(){

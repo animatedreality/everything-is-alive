@@ -7,7 +7,6 @@ public class CreatureMemberDefault : CreatureMember
 
     //DEFAULT CREATURE == DRUM & PAD SEQUENCER
     public AudioClip clip;
-    // Start is called before the first frame update
     public override void Initialize(Sequence _sequence)
     {
         sequence = _sequence;
