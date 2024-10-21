@@ -74,17 +74,23 @@ public class CreatureFamily : MonoBehaviour
     }
 
     public void OnSelect(){
+        if(isSelected){
+            return;
+        }
         isSelected = true;
         CreatureManager.i.SelectCreatureFamily(this);
-        manipulationUI.gameObject.SetActive(true);
+        manipulationUI.GetComponent<H_AnimateAppearance>().AnimateIn();
     }
 
     public void OnDeselect(){
+        if(!isSelected){
+            return;
+        }
         isSelected = false;
         if(CreatureManager.i.selectedCreatureFamily == this){
             CreatureManager.i.selectedCreatureFamily = null;
         }
-        manipulationUI.gameObject.SetActive(false);
+        manipulationUI.GetComponent<H_AnimateAppearance>().AnimateOut();
     }
 
     public void DestroySelf(){

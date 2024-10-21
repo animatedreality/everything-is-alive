@@ -15,6 +15,9 @@ public class Sequencer : MonoBehaviour
     public AudioClip clip;
     public float currentVolume = 1;
     float lastVolume = 0f;
+    [Header("Volume Slider")]
+    public Slider volumeSlider;
+    public bool isMuted;
     [Header("UI")]
     public Transform pointerSurface;
     public RectTransform canvasRect;
@@ -148,20 +151,28 @@ public class Sequencer : MonoBehaviour
         playHeadSlider.value = localBeatIndex;
     }
 
-    public void SetVolume(float _volume){
-        foreach(Sequence sequence in sequences){
-            sequence.SetVolume(_volume);
+    public void ToggleMute(){
+        isMuted = !isMuted;
+        if(isMuted){
+            SetVolume(0);
+        }else{
+            SetVolume(currentVolume);
         }
-        currentVolume = _volume;
-        lastVolume = _volume;
     }
 
-    public void ToggleMute(){
-        if(currentVolume == 0){
-            SetVolume(lastVolume);
+    public void SetVolume(float _volume){
+        isMuted = (_volume == 0);
+        if(!isMuted){
+            foreach(Sequence sequence in sequences){
+                sequence.SetVolume(_volume);
+            }
+            currentVolume = _volume;
+            volumeSlider.value = currentVolume;
         }else{
-            lastVolume = currentVolume;
-            SetVolume(0);
+            foreach(Sequence sequence in sequences){
+                sequence.SetVolume(0);
+            }
+            volumeSlider.value = 0;
         }
     }
 
