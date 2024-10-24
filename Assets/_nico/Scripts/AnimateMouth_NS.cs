@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 //TO BE USED WITH AnimatewithSamples_NS
 public class AnimateMouth_NS : MonoBehaviour
 {
+    public CreatureMember creatureMember;
+    List<AudioSource> creatureAudioSources = new List<AudioSource>();
     public GameObject upperLip, lowerLip;
     public Vector3 upperLipOpenVec3, lowerLipOpenVec3;
     private Quaternion upperLipOpen, lowerLipOpen;
@@ -16,12 +19,18 @@ public class AnimateMouth_NS : MonoBehaviour
         lowerLipClosed = lowerLip.transform.localRotation;
         upperLipOpen = Quaternion.Euler(upperLipOpenVec3);
         lowerLipOpen = Quaternion.Euler(lowerLipOpenVec3);
+        if(creatureMember){
+            creatureAudioSources = creatureMember.sequence.sources;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(creatureAudioSources.Count > 0){
+            float maxVolume = creatureAudioSources.Max(source => source.volume);
+            LerpMouthAnimation(maxVolume);
+        }
     }
 
     // if t = 0, the mouth is closed

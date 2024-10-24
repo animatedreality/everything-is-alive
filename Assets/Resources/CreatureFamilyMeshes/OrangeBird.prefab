@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c39f26c27864ed588ce5ca1a4b4610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creatureMember: {fileID: 8800730972372585097}
   upperLip: {fileID: 4191033532498727226}
   lowerLip: {fileID: 344286132000791632}
   upperLipOpenVec3: {x: 37, y: 88, z: -90}
@@ -1181,6 +1182,8 @@ MonoBehaviour:
   sequencer: {fileID: 0}
   sequence: {fileID: 0}
   clip: {fileID: 0}
+  h_detectCollision: {fileID: 0}
+  scaleUpOnPlay: 0
 --- !u!135 &8550080489866614096
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2110,7 +2113,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8821497344809969359}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4f7a8e810ba8442d7a6f00942fd665c7, type: 2}
   m_CullingMode: 0

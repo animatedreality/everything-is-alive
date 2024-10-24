@@ -52,6 +52,13 @@ public class CreatureFamily : MonoBehaviour
                 }
 
             }
+        }else if(creatureData.creatureType == CreatureData.CreatureType.Stars){
+            for(int i = 0; i < creatureMembers.Count; i++){
+                if(creatureMembers[i] is CreatureMemberStar){
+                    CreatureMemberStar member = (CreatureMemberStar)creatureMembers[i];
+                    member.Initialize(this, i);
+                }
+            }
         }
 
         transform.name = creatureData.name;

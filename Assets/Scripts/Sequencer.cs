@@ -7,7 +7,8 @@ public class Sequencer : MonoBehaviour
     protected enum SequencerType {
         Drum,
         Melody,
-        Pad
+        Pad,
+        Other
     }
 
     protected SequencerType sequencerType;
@@ -19,6 +20,7 @@ public class Sequencer : MonoBehaviour
     public Slider volumeSlider;
     public bool isMuted;
     [Header("UI")]
+    public GameObject sequencerContainer;
     public Transform pointerSurface;
     public RectTransform canvasRect;
     public Slider playHeadSlider;
@@ -60,14 +62,13 @@ public class Sequencer : MonoBehaviour
             //sequenceLength = 16;
             sequencerType = SequencerType.Melody;
             notePrefab = AudioManager.i.melodyNotePrefab;
+        }else if(creatureData.creatureType == CreatureData.CreatureType.Stars){
+            sequencerType = SequencerType.Other;
+            sequencerContainer.SetActive(false);
+            return;
         }
 
-
-        //if sequencerType is None, hide first sequence
-        // if(sequencerType == SequencerType.None){
-        //     firstSequence.gameObject.SetActive(false);
-        //     return;
-        // }
+        //Everything related to actually using sequencer UI (special instrument does not need this)
 
         if(firstSequence == null){
             Debug.LogError("firstSequence is null");
@@ -163,16 +164,34 @@ public class Sequencer : MonoBehaviour
     public void SetVolume(float _volume){
         isMuted = (_volume == 0);
         if(!isMuted){
-            foreach(Sequence sequence in sequences){
-                sequence.SetVolume(_volume);
+            if(creatureData.creatureType == CreatureData.CreatureType.Stars){
+                SetVolumeInStars(_volume);
+            }else{
+                SetVolumeInSequences(_volume);
             }
             currentVolume = _volume;
             volumeSlider.value = currentVolume;
         }else{
-            foreach(Sequence sequence in sequences){
-                sequence.SetVolume(0);
+            if(creatureData.creatureType == CreatureData.CreatureType.Stars){
+                SetVolumeInStars(0);
+            }else{
+                SetVolumeInSequences(0);
             }
             volumeSlider.value = 0;
+        }
+    }
+
+    private void SetVolumeInStars(float _volume){
+        if(creatureData.creatureType == CreatureData.CreatureType.Stars){
+            foreach(CreatureMemberStar member in creatureFamily.creatureMembers){
+                member.audioSource.volume = _volume;
+            }
+        }
+    }
+
+    private void SetVolumeInSequences(float _volume){
+        foreach(Sequence sequence in sequences){
+            sequence.SetVolume(_volume);
         }
     }
 

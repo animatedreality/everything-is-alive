@@ -64,6 +64,11 @@ public class Sequence : MonoBehaviour
         StartCoroutine(OnPlayCoroutine(time, localBeatIndex));
     }
 
+    public void PlayAudio(){
+        AudioSource source = GetAvailableSource();
+        source.Play();
+    }
+
     IEnumerator OnPlayCoroutine(double time, int localBeatIndex)
     {
         yield return new WaitForSeconds((float)(time - AudioSettings.dspTime));

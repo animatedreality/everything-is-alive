@@ -7,9 +7,6 @@ public class CreatureMember : MonoBehaviour
     public CreatureData creatureData;
     public Sequencer sequencer;
     public Sequence sequence;//NOT ALL CREATURE MEMBERS NEED SEQUENCE
-    public virtual void Initialize(Sequence _sequence){
-
-    }
     public virtual void OnPlay(){
 
     }

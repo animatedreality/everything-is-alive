@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Meta.XR.Util;
 public class UIManager : MonoBehaviour
 {
     public static UIManager i;
@@ -16,7 +17,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Mona")]
     public bool isMonaLoggedIn = false;
-    public GameObject monaLoginScreen;
+    public GameObject monaLoginScreen, monaModal;
+    public OVRVirtualKeyboard virtualKeyboard;
 
     [Header("Prefabs")]
     public GameObject buttonPrefab, audioBttnPrefab;
@@ -86,6 +88,13 @@ public class UIManager : MonoBehaviour
         //isMonaLoggedIn is a public variable that is set by MonaManager
         audioScrollviewContainer.SetActive(isMonaLoggedIn);
         monaLoginScreen.SetActive(!isMonaLoggedIn);
+    }
+
+    public void UpdateKeyboardPosition(){
+        virtualKeyboard.gameObject.SetActive(true);
+        virtualKeyboard.UseSuggestedLocation(OVRVirtualKeyboard.KeyboardPosition.Custom);
+        Vector3 offset = new Vector3(0, -1.2f, 0);
+        virtualKeyboard.transform.position = monaModal.transform.position + offset;
     }
 
 
