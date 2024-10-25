@@ -5,11 +5,21 @@ using System.Threading.Tasks;
 using Monaverse.Redcode.Awaiting;
 using UnityEngine;
 using UnityEngine.UI;
+using Monaverse.Modal.UI;
+using UnityEngine.Events;
+using TMPro;
 
 namespace Monaverse.Modal.UI.Components
 {
     public class MonaModal : MonoBehaviour
-    {
+    {   
+        [SerializeField] public GameObject keyboardInputObject;
+
+        [System.Serializable]
+        public class InputFieldEvent : UnityEvent<TMP_InputField> {}
+        [SerializeField]
+        public InputFieldEvent onOpenView;
+
         [Header("Scene References")]
         [SerializeField] private Canvas _canvas;
 
@@ -76,6 +86,10 @@ namespace Monaverse.Modal.UI.Components
             view.Show(modal, resizeCoroutine, parameters);
 
             Header.Title = view.GetTitle();
+
+
+
+            
         }
 
         public void CloseView()
@@ -91,6 +105,15 @@ namespace Monaverse.Modal.UI.Components
                 Header.Title = nextView.GetTitle();
                 var resizeCoroutine = ResizeModalRoutine(nextView.GetViewHeight());
                 nextView.Show(this, resizeCoroutine);
+
+
+                Debug.Log("MonaModal: CloseView: " + nextView.GetTitle());
+                
+                TMP_InputField inputField = nextView.gameObject.GetComponentInChildren<TMP_InputField>();
+                if(inputField != null){
+                    Debug.Log("MonaModal: OpenView: InputField" + inputField.name);
+                    onOpenView.Invoke(inputField);
+                }
             }
             else
             {
@@ -156,6 +179,10 @@ namespace Monaverse.Modal.UI.Components
                 _globalBackgroundCanvas.enabled = true;
 
             Opened?.Invoke(this, EventArgs.Empty);
+
+
+            Debug.Log("MonaModal: EnableModal: " + _canvas.name);
+
         }
 
         private void DisableModal()

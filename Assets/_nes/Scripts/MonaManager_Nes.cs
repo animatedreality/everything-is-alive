@@ -8,19 +8,27 @@ using UnityGLTF;
 
 namespace Monaverse.Examples
 {
-    public class MonaManager : MonoBehaviour
+    public class MonaManager_Nes : MonoBehaviour
     {
+                //model will be loaded into this object
+        public GLTFComponent gltfComponent;
+        public float scaleFactor = 0.1f;
+        public GameObject currentModel;
         private void Start()
         {
             MonaverseModal.ImportTokenClicked += OnImportTokenClicked;
             MonaverseModal.TokensLoaded += OnTokensLoaded;
             MonaverseModal.TokensViewOpened += OnTokensViewOpened;
-            StartCoroutine(StartMonaModelForTesting());
+            //StartCoroutine(StartMonaModelForTesting());
         }
 
         IEnumerator StartMonaModelForTesting()
         {
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(2);
+            MonaverseModal.Open();
+        }
+
+        public void StartMonaModel(){
             MonaverseModal.Open();
         }
 
@@ -67,30 +75,26 @@ namespace Monaverse.Examples
 
         private async void Load3DModel(string url, string tokenName)
         {
-            // Load the 3D model from the given URL
-            // find the GLTFComponent in the scene
-            GLTFComponent gltfComponent = FindObjectOfType<GLTFComponent>();
-            if (gltfComponent == null)
-            {
-                Debug.LogError("GLTFComponent not found in scene");
-                return;
-            }
             gltfComponent.GLTFUri = url;
+            gltfComponent.AppendStreamingAssets = false;
+            gltfComponent.UseStream = true;
+            Debug.Log("NES_Loading model from: " + url);
             await gltfComponent.Load();
+            //if (gltfComponent.gameObject.transform.childCount == 0)
             if (gltfComponent.gameObject.transform.childCount == 0)
             {
                 Debug.Log("No model found in GLTFComponent");
                 return;
             }
-            GameObject model = gltfComponent.gameObject.transform.GetChild(0).gameObject;
-            ResizeModelToFit(model);
-            //remove model from its parent
-            model.transform.SetParent(null);
-            model.name = tokenName;
+            currentModel = gltfComponent.gameObject.transform.GetChild(0).gameObject;
+            ResizeModelToFit(currentModel);
+            currentModel.name = tokenName;
+            UIManager.i.OnMonaModelLoaded(currentModel);
         }
 
         public void ResizeModelToFit(GameObject model)
         {
+            Debug.Log("NES_Resizing model to fit");
             // Get the MeshFilter component
             MeshFilter meshFilter = model.GetComponentInChildren<MeshFilter>();
             if (meshFilter == null)
@@ -109,14 +113,14 @@ namespace Monaverse.Examples
             float maxDimension = Mathf.Max(currentSize.x, currentSize.y, currentSize.z);
 
             // Define the desired max and min sizes
-            float desiredMaxSize = 1f; // 1 meter
-            float desiredMinSize = 0.1f; // 0.1 meter
+            float desiredMaxSize = 0.07f; // 1 meter
+            float desiredMinSize = 0.02f; // 0.1 meter
 
             // Calculate the scaling factor needed to resize the model
             float scaleFactor = Mathf.Clamp(desiredMaxSize / maxDimension, desiredMinSize / maxDimension, desiredMaxSize / maxDimension);
 
             // Apply the scaling factor to the model's transform
-            model.transform.localScale = model.transform.localScale * scaleFactor;
+            model.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
 
             Debug.Log($"Model resized with scale factor: {scaleFactor}");
         }

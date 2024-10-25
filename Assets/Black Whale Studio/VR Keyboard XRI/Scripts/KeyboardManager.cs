@@ -60,6 +60,7 @@ namespace Keyboard
         
         [Header("Output Field Settings")]
         [SerializeField] private TMP_InputField outputField;
+        [SerializeField] public TMP_InputField emailInputField, otpInputField;
         [SerializeField] private Button enterButton;
         [SerializeField] private int maxCharacters = 15;
         [SerializeField] private int minCharacters = 3;
@@ -321,6 +322,18 @@ namespace Keyboard
             }
 
             shiftButton.colors = shiftButtonColors;
+        }
+        
+        public void SwapInputField(TMP_InputField _inputField){
+            Debug.Log("KeyboardManager: SwapInputField: " + _inputField.name);
+            outputField = _inputField;
+        }
+
+        public void SetInputFieldToEmail(){
+            outputField = emailInputField;
+        }
+        public void SetInputFieldToOTP(){
+            outputField = otpInputField;
         }
     }
 }

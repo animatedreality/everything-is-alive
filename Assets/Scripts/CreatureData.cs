@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "CreatureBase", menuName = "ScriptableObjects/CreatureBaseScriptableObject")]
 public class CreatureData : ScriptableObject
 {
-    public string name;
+    public string name;//identifier for save and load from persistent storage
     public GameObject prefab;
     public Sprite sprite;
     public List<AudioClip> audioClips;

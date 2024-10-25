@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Meta.XR.Util;
+using Monaverse.Examples;
 public class UIManager : MonoBehaviour
 {
     public static UIManager i;
@@ -11,13 +12,14 @@ public class UIManager : MonoBehaviour
     public GameObject mainMenu, mainMenuToggle, hintToggle;
     public GameObject[] GameplayHints;
     public GameObject defaultCreatureContainer;
-    public GameObject audioClipsContainer, audioScrollviewContainer;
+    public GameObject audioClipsContainer, audioClipsMenu;
     public UIButtonContainer defaultCreatureUIButtonContainer;
     public Color buttonSelectedColor, buttonUnselectedColor;
 
     [Header("Mona")]
     public bool isMonaLoggedIn = false;
-    public GameObject monaLoginScreen, monaObject, virtualKeyboard;
+    public GameObject monaLoginScreen, monaObject, gltfLoader, virtualKeyboard;
+    public MonaManager_Nes customMonaManager;
 
     [Header("Prefabs")]
     public GameObject buttonPrefab, audioBttnPrefab;
@@ -38,7 +40,9 @@ public class UIManager : MonoBehaviour
     {
         //change this later based on game state
         mainMenu.SetActive(true);
-        InitializeAudioClipsContainer();
+        audioClipsMenu.SetActive(false);
+        //monaObject.SetActive(false);
+        virtualKeyboard.SetActive(false);
         InitializeCreatureContainer(defaultCreatureContainer, CreatureManager.i.creatureDataList);
     }
 
@@ -55,7 +59,14 @@ public class UIManager : MonoBehaviour
         defaultCreatureUIButtonContainer.Initialize(_creatureDataList);
     }
 
-    void InitializeAudioClipsContainer(){
+    public void OnMonaModelLoaded(GameObject _model){
+        //create a new creature with the model
+        CreatureManager.i.CreateTempMonaCreature(_model);
+        //enable audio clips menu
+        InitializeAudioClipsContainer();
+    }
+    public void InitializeAudioClipsContainer(){
+        audioClipsMenu.SetActive(true);
         //load all audio clips from Resources/AudioClips
         AudioClip[] clips = Resources.LoadAll<AudioClip>("Sounds");
         AudioManager.i.audioClips = new List<AudioClip>(clips);
@@ -83,13 +94,15 @@ public class UIManager : MonoBehaviour
     }
 
     public void SetMonaLoginScreens(){
+
         //isMonaLoggedIn is a public variable that is set by MonaManager
-        audioScrollviewContainer.SetActive(isMonaLoggedIn);
-        monaLoginScreen.SetActive(!isMonaLoggedIn);
+        monaLoginScreen.SetActive(true);
         monaObject.SetActive(true);
         virtualKeyboard.transform.position = monaObject.transform.position + new Vector3(0, -0.25f, 0);
         //virtualKeyboard.transform.rotation = monaObject.transform.rotation;
         virtualKeyboard.SetActive(true);
+        gltfLoader.transform.position = monaObject.transform.position + new Vector3(0.33f, 0, 0);
+        customMonaManager.StartMonaModel();
     }
 
 
