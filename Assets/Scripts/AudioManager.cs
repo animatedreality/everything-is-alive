@@ -133,4 +133,37 @@ public class AudioManager : MonoBehaviour
         globalPlay = false;
     }
 
+    public void SwapAudioClip(AudioClip _clip, CreatureFamily _creatureFamily){
+        if(_creatureFamily.creatureData.creatureMemberCount != 1){
+            Debug.LogError("SwapAudioClip: CreatureMemberCount is not 1");
+            return;
+        }
+        //swap in CreatureData
+        _creatureFamily.creatureData.audioClips.Clear();
+        _creatureFamily.creatureData.audioClips.Add(_clip);
+        //swap AudioSource and Clip in Sequences
+        foreach(Sequence sequence in _creatureFamily.sequencer.sequences){
+            sequence.clip = _clip;
+            foreach(AudioSource source in sequence.sources){
+                source.clip = _clip;
+            }
+        }
+
+        //swap in CreatureMember
+        foreach(CreatureMember member in _creatureFamily.creatureMembers){
+            if(member != null) {
+                member.clip = _clip;
+            }
+        }
+    }
+
+    public void PlayAudioClip(AudioClip _clip){
+        //attach AudioSource to audioClipsMenu if it doesn't have one
+        if(UIManager.i.audioClipsMenu.GetComponent<AudioSource>() == null){
+            UIManager.i.audioClipsMenu.AddComponent<AudioSource>();
+        }
+        UIManager.i.audioClipsMenu.GetComponent<AudioSource>().clip = _clip;
+        UIManager.i.audioClipsMenu.GetComponent<AudioSource>().Play();
+    }
+
 }

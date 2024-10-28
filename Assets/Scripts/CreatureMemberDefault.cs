@@ -6,7 +6,6 @@ public class CreatureMemberDefault : CreatureMember
 {
 
     //DEFAULT CREATURE == DRUM & PAD SEQUENCER
-    public AudioClip clip;
     public H_DetectCollision h_detectCollision;
     [Header("Customize")]
     public bool scaleUpOnPlay = true;

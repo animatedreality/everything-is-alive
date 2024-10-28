@@ -93,6 +93,7 @@ namespace Monaverse.Examples
             currentModel.name += "_MonaModel";
 
             CreatureManager.i.CreateTempMonaCreature(currentModel, transform.position);
+
             UIManager.i.InitializeAudioClipsContainer();
         }
 
@@ -123,7 +124,7 @@ namespace Monaverse.Examples
 
 
             // Define the desired max and min sizes
-            float desiredMaxSize = 0.3f; // 1 meter
+            float desiredMaxSize = 0.6f; // 1 meter
             float desiredMinSize = 0.1f; // 0.1 meter
 
             // Calculate the scaling factor needed to resize the model

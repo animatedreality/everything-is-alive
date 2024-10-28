@@ -35,6 +35,10 @@ public class CreatureManager : MonoBehaviour
     [Header("Instantiating Creatures")]
     public CreatureData creatureDataTemplate;
     public GameObject creatureMeshPrefab;
+
+    [Header("Mona related")]
+    public GameObject tempMona3DModel;
+    public Vector3 tempMona3DModelScale;
     public CreatureFamily tempMonaCreatureFamily;//temporarily create a new creatureFamily when browsing Mona Models
 
     // Start is called before the first frame update
@@ -56,6 +60,12 @@ public class CreatureManager : MonoBehaviour
         }
         //Spawn Creature if there has been one selected
         if(selectedCreatureData != null && isInGame){
+            if(selectedCreatureData.name.Contains("MonaModel")){
+                //add the 3D model from persistent storage to creatureData and then initiate CreatureFamily
+                selectedCreatureData.prefab = H_PersistentStorage.LoadGLB(selectedCreatureData.name);
+                return;
+            }
+
             GameObject creature = Instantiate(creatureFamilyPrefab);
             creature.GetComponent<CreatureFamily>().Initialize(selectedCreatureData);
             creature.transform.position = creatureSpawnPoint.position;
@@ -72,45 +82,62 @@ public class CreatureManager : MonoBehaviour
     }
 
     public void CreateTempMonaCreature(GameObject _model, Vector3 _position){
+        //if globalPlay is false, start the game
+        if(!AudioManager.i.globalPlay){
+            AudioManager.i.Play();
+        }
         //implement creatureData
-        CreatureData newCreatureData = ScriptableObject.CreateInstance<CreatureData>();
-        newCreatureData.name = _model.name;
-        newCreatureData.sprite = creatureDataTemplate.sprite;//set this from Mona later
-        newCreatureData.audioClips = creatureDataTemplate.audioClips;
-        newCreatureData.creatureMemberCount = 1;
-        newCreatureData.creatureType = CreatureData.CreatureType.Drum;
-        newCreatureData.sequenceLengthMultiplier = 1;
-        newCreatureData.sequenceLength = 16;
+        CreatureData monaCreatureData = ScriptableObject.CreateInstance<CreatureData>();
+        monaCreatureData.name = _model.name;
+        monaCreatureData.sprite = creatureDataTemplate.sprite;//set this from Mona later
+        monaCreatureData.audioClips = creatureDataTemplate.audioClips;
+        monaCreatureData.creatureMemberCount = 1;
+        monaCreatureData.creatureType = CreatureData.CreatureType.Drum;
+        monaCreatureData.sequenceLengthMultiplier = 1;
+        monaCreatureData.sequenceLength = 16;
 
-        selectedCreatureData = newCreatureData;
+        selectedCreatureData = monaCreatureData;
 
         //implement creatureFamily
         //selectedCreatureData is implemented in Start() in CreatureFamily
-        GameObject newCreatureFamilyObject = Instantiate(creatureFamilyPrefab);
-        newCreatureFamilyObject.transform.position = _position;
-        Debug.Log("Assigning newCreatureFamilyObject: " + newCreatureFamilyObject.name);
-        newCreatureFamilyObject.name = "CreatureFamily_" + _model.name;
-        CreatureFamily newCreatureFamilyScript = newCreatureFamilyObject.GetComponent<CreatureFamily>();
-        newCreatureFamilyScript.Initialize(newCreatureData);
+        GameObject monaCreatureFamilyObj = Instantiate(creatureFamilyPrefab);
+        monaCreatureFamilyObj.transform.position = _position;
+        Debug.Log("Assigning monaCreatureFamilyObj: " + monaCreatureFamilyObj.name);
+        monaCreatureFamilyObj.name = "CreatureFamily_" + _model.name;
+        CreatureFamily monaCreatureFamily = monaCreatureFamilyObj.GetComponent<CreatureFamily>();
+        monaCreatureFamily.Initialize(monaCreatureData);
         
-        _model.transform.parent = newCreatureFamilyScript.creatureMesh.GetComponentInChildren<CreatureMemberDefault>().transform;
+        _model.transform.parent = monaCreatureFamily.creatureMesh.GetComponentInChildren<CreatureMemberDefault>().transform;
         _model.transform.localPosition = Vector3.zero;
 
-        tempMonaCreatureFamily = newCreatureFamilyObject.GetComponent<CreatureFamily>();
+        tempMona3DModel = _model;
+        tempMona3DModelScale = _model.transform.localScale;
+        tempMonaCreatureFamily = monaCreatureFamilyObj.GetComponent<CreatureFamily>();
         //tempMonaCreatureFamily is automatically initialized with selectedCreatureData
 
 
     }
 
+    //call this with a custom button when Mona object pops up and is selected
     public void SaveTempMonaCreature(){
         //save tempMonaCreatureData to persistent storage
-        if(selectedCreatureData == tempMonaCreatureFamily.creatureData){
-            H_PersistentStorage.SaveCreatureData(selectedCreatureData);
-        }else{
+        if(selectedCreatureData != tempMonaCreatureFamily.creatureData){
             Debug.LogError("SaveTempMonaCreature: selectedCreatureData is not the same as tempMonaCreatureFamily.creatureData");
+            return;
         }
+        Debug.Log("Saving tempMonaCreatureData: " + selectedCreatureData.name);
+        H_PersistentStorage.SaveCreatureData(selectedCreatureData);
+
+        //save the 3D model as a GLB file
+        //save the 3D model to persistent storage, as well as its local scale
+        H_PersistentStorage.SaveGLB(tempMona3DModel, tempMona3DModelScale, tempMona3DModel.name);
+
+        //add a button to the main menu
+        UIManager.i.AddNewCreatureButton(selectedCreatureData);
         
-        //also need to initialize CreatureManager to make sure the button to load this creature is enabled and the workflow exist
+       //clear tempMonaCreatureFamily and selectedCreatureData
+       tempMonaCreatureFamily = null;
+       selectedCreatureData = null;
     }
 
     public void DeleteTempMonaCreature(){

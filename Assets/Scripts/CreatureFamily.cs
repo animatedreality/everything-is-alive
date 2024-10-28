@@ -8,6 +8,7 @@ public class CreatureFamily : MonoBehaviour
     public Transform manipulationUI;
     public Sequencer sequencer;
     public Transform meshContainer;
+    public GameObject creatureGLB;//Mona Only
 
     public GameObject creatureMesh;
     public List<CreatureMember> creatureMembers;
@@ -113,5 +114,9 @@ public class CreatureFamily : MonoBehaviour
 
     public void SetVolume(float _volume){
         sequencer.SetVolume(_volume);
+    }
+
+    public void SetGLB(GameObject _glb){
+        creatureGLB = _glb;
     }
 }

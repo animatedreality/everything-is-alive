@@ -22,7 +22,8 @@ public class UIManager : MonoBehaviour
     public MonaManager_Nes customMonaManager;
 
     [Header("Prefabs")]
-    public GameObject buttonPrefab, audioBttnPrefab;
+    public GameObject buttonPrefab;
+    public GameObject audioBttnPrefab;
     private void Awake()
     {
         if (i == null)
@@ -71,8 +72,15 @@ public class UIManager : MonoBehaviour
                 button.name = clip.name;
             }
             //set this to connect audio to new object later on
-            //button.GetComponent<Button>().onClick.AddListener(() => OnAudioClipButtonPressed((AudioClip)clip));
+            button.GetComponent<Button>().onClick.AddListener(() => OnAudioClipButtonPressed((AudioClip)clip));
         }
+    }
+
+    void OnAudioClipButtonPressed(AudioClip _clip){
+        Debug.Log("Audio Clip Button Pressed: " + _clip.name);
+        //play the audioClip
+        AudioManager.i.PlayAudioClip(_clip);
+        AudioManager.i.SwapAudioClip(_clip, CreatureManager.i.tempMonaCreatureFamily);
     }
 
     public void ToggleMainMenu(){
@@ -97,6 +105,11 @@ public class UIManager : MonoBehaviour
         virtualKeyboard.SetActive(true);
         monaModel3DContainer.transform.position = monaObject.transform.position;
         customMonaManager.StartMonaModel();
+    }
+
+    public void AddNewCreatureButton(CreatureData _creatureData){
+        GameObject button = Instantiate(buttonPrefab, defaultCreatureUIButtonContainer.transform);
+        button.GetComponent<UIButton>().Initialize(_creatureData, defaultCreatureUIButtonContainer);
     }
 
 

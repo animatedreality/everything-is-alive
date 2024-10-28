@@ -18,6 +18,7 @@ public class Sequence : MonoBehaviour
     public int sequenceLengthMultiplier;
     public void Initialize(Sequencer _sequencer, int _sequenceLength, GameObject _notePrefab, AudioClip _clip){
         //initialize sequenceLength
+        Debug.Log("Initializing Sequence");
         sequenceLength = _sequenceLength;
         notePrefab = _notePrefab;
         clip = _clip;
@@ -30,6 +31,7 @@ public class Sequence : MonoBehaviour
         }
         if(!AudioManager.i.sequences.Contains(this)){
             AudioManager.i.sequences.Add(this);
+            Debug.Log("Adding to AudioManager");
         }
 
         //TO BE REMOVED, TESTING ONLY!!!!!!!!!!!!!!!!
