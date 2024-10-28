@@ -57,6 +57,7 @@ public class CreatureManager : MonoBehaviour
         //Spawn Creature if there has been one selected
         if(selectedCreatureData != null && isInGame){
             GameObject creature = Instantiate(creatureFamilyPrefab);
+            creature.GetComponent<CreatureFamily>().Initialize(selectedCreatureData);
             creature.transform.position = creatureSpawnPoint.position;
             Debug.Log("SpawnCreature");
         }
@@ -70,18 +71,10 @@ public class CreatureManager : MonoBehaviour
         Debug.Log("Selected Creature Family: " + selectedCreatureFamily.name);
     }
 
-    public void CreateTempMonaCreature(GameObject _model){
-        //implement creatureMesh
-        GameObject newCreatureMesh = Instantiate(creatureMeshPrefab);
-
-        //fill in this creatureMesh with _model
-        _model.transform.parent = newCreatureMesh.transform.Find("MeshContainer");
-        _model.transform.localPosition = Vector3.zero;
-
+    public void CreateTempMonaCreature(GameObject _model, Vector3 _position){
         //implement creatureData
         CreatureData newCreatureData = ScriptableObject.CreateInstance<CreatureData>();
         newCreatureData.name = _model.name;
-        newCreatureData.prefab = newCreatureMesh;
         newCreatureData.sprite = creatureDataTemplate.sprite;//set this from Mona later
         newCreatureData.audioClips = creatureDataTemplate.audioClips;
         newCreatureData.creatureMemberCount = 1;
@@ -92,9 +85,18 @@ public class CreatureManager : MonoBehaviour
         selectedCreatureData = newCreatureData;
 
         //implement creatureFamily
-        GameObject newCreatureFamily = Instantiate(creatureFamilyPrefab);
-        newCreatureFamily.name = _model.name;
-        tempMonaCreatureFamily = newCreatureFamily.GetComponent<CreatureFamily>();
+        //selectedCreatureData is implemented in Start() in CreatureFamily
+        GameObject newCreatureFamilyObject = Instantiate(creatureFamilyPrefab);
+        newCreatureFamilyObject.transform.position = _position;
+        Debug.Log("Assigning newCreatureFamilyObject: " + newCreatureFamilyObject.name);
+        newCreatureFamilyObject.name = "CreatureFamily_" + _model.name;
+        CreatureFamily newCreatureFamilyScript = newCreatureFamilyObject.GetComponent<CreatureFamily>();
+        newCreatureFamilyScript.Initialize(newCreatureData);
+        
+        _model.transform.parent = newCreatureFamilyScript.creatureMesh.GetComponentInChildren<CreatureMemberDefault>().transform;
+        _model.transform.localPosition = Vector3.zero;
+
+        tempMonaCreatureFamily = newCreatureFamilyObject.GetComponent<CreatureFamily>();
         //tempMonaCreatureFamily is automatically initialized with selectedCreatureData
 
 

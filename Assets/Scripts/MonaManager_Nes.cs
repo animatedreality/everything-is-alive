@@ -87,24 +87,29 @@ namespace Monaverse.Examples
                 return;
             }
             currentModel = gltfComponent.gameObject.transform.GetChild(0).gameObject;
+            
             ResizeModelToFit(currentModel);
             currentModel.name = tokenName;
-            UIManager.i.OnMonaModelLoaded(currentModel);
+            currentModel.name += "_MonaModel";
+
+            CreatureManager.i.CreateTempMonaCreature(currentModel, transform.position);
+            UIManager.i.InitializeAudioClipsContainer();
         }
 
         public void ResizeModelToFit(GameObject model)
         {
             Debug.Log("NES_Resizing model to fit");
             // Get the MeshFilter component
-            MeshFilter meshFilter = model.GetComponentInChildren<MeshFilter>();
-            if (meshFilter == null)
+            Mesh mesh = model.GetComponentInChildren<MeshFilter>()?.sharedMesh 
+             ?? model.GetComponentInChildren<SkinnedMeshRenderer>()?.sharedMesh;
+    
+            if (mesh == null)
             {
-                Debug.LogWarning("No MeshFilter found on the model.");
+                Debug.LogWarning("No mesh found on the model.");
                 return;
             }
 
-            // Get the mesh bounds
-            Bounds bounds = meshFilter.sharedMesh.bounds;
+            Bounds bounds = mesh.bounds;
 
             // Calculate the current size of the model in each dimension
             Vector3 currentSize = bounds.size;
@@ -112,9 +117,14 @@ namespace Monaverse.Examples
             // Determine the maximum size of the model (assuming it's axis-aligned)
             float maxDimension = Mathf.Max(currentSize.x, currentSize.y, currentSize.z);
 
+                // Add debug logs
+            Debug.Log($"Current model size: {currentSize}, Max dimension: {maxDimension}");
+            Debug.Log($"Before scaling - Model scale: {model.transform.localScale}");
+
+
             // Define the desired max and min sizes
-            float desiredMaxSize = 0.07f; // 1 meter
-            float desiredMinSize = 0.02f; // 0.1 meter
+            float desiredMaxSize = 0.3f; // 1 meter
+            float desiredMinSize = 0.1f; // 0.1 meter
 
             // Calculate the scaling factor needed to resize the model
             float scaleFactor = Mathf.Clamp(desiredMaxSize / maxDimension, desiredMinSize / maxDimension, desiredMaxSize / maxDimension);
@@ -122,7 +132,7 @@ namespace Monaverse.Examples
             // Apply the scaling factor to the model's transform
             model.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
 
-            Debug.Log($"Model resized with scale factor: {scaleFactor}");
+            Debug.Log($"After scaling - Model scale: {model.transform.localScale}");
         }
 
 

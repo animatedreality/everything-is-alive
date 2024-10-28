@@ -15,8 +15,6 @@ public class CreatureFamily : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.localScale = Vector3.one * CreatureManager.i.creatureScaleMultiplier;
-        Initialize(CreatureManager.i.selectedCreatureData);
     }
 
     // Update is called once per frame
@@ -26,8 +24,12 @@ public class CreatureFamily : MonoBehaviour
     }
 
     public void Initialize(CreatureData _data){
+        transform.localScale = Vector3.one * CreatureManager.i.creatureScaleMultiplier;
         creatureData = _data;
         //generate mesh
+        if(creatureData.prefab == null){
+            creatureData.prefab = CreatureManager.i.creatureMeshPrefab;
+        }
         creatureMesh = Instantiate(creatureData.prefab, meshContainer);
         creatureMesh.transform.localPosition = Vector3.zero;
         creatureMesh.transform.localRotation = Quaternion.identity;

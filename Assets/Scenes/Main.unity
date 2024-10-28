@@ -3224,8 +3224,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1970100015}
-  - {fileID: 2031113235}
+  - {fileID: 1077766083}
   - {fileID: 71439950439847114}
   - {fileID: 6823416626680150242}
   m_Father: {fileID: 0}
@@ -7759,6 +7758,10 @@ PrefabInstance:
     - target: {fileID: 2155101532317446875, guid: 2d9f3c0af7bef472898265d5c00f6beb, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2253379520987801300, guid: 2d9f3c0af7bef472898265d5c00f6beb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2637191817157157476, guid: 2d9f3c0af7bef472898265d5c00f6beb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -12670,6 +12673,39 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1077766082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1077766083}
+  m_Layer: 0
+  m_Name: Mona3DModelContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1077766083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077766082}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1970100015}
+  - {fileID: 2031113235}
+  m_Father: {fileID: 330100472}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1077794859
 GameObject:
   m_ObjectHideFlags: 0
@@ -24849,7 +24885,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 330100472}
+  m_Father: {fileID: 1077766083}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1970100016
 MonoBehaviour:
@@ -25847,14 +25883,14 @@ Transform:
   m_GameObject: {fileID: 2031113234}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.33543235, z: -0, w: 0.9420643}
-  m_LocalPosition: {x: 0.707, y: -0.033, z: -0.161}
-  m_LocalScale: {x: 0.16521, y: 0.16521, z: 0.16521}
+  m_LocalPosition: {x: 0.889, y: -0.032999992, z: -0.131}
+  m_LocalScale: {x: 0.16521001, y: 0.16521, z: 0.16521001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1489084574}
   - {fileID: 1553301488}
   - {fileID: 844093639}
-  m_Father: {fileID: 330100472}
+  m_Father: {fileID: 1077766083}
   m_LocalEulerAnglesHint: {x: 0, y: 39.198, z: 0}
 --- !u!114 &2031113236
 MonoBehaviour:
@@ -63143,7 +63179,7 @@ MonoBehaviour:
   isMonaLoggedIn: 0
   monaLoginScreen: {fileID: 1815650541}
   monaObject: {fileID: 5867205387122626726}
-  gltfLoader: {fileID: 1970100014}
+  monaModel3DContainer: {fileID: 1077766082}
   virtualKeyboard: {fileID: 1090129709885127822}
   customMonaManager: {fileID: 1970100017}
   buttonPrefab: {fileID: 6655188595094188278, guid: b931eb2ffabf4fd4995f05096bd4028d, type: 3}

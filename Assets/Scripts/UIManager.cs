@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Mona")]
     public bool isMonaLoggedIn = false;
-    public GameObject monaLoginScreen, monaObject, gltfLoader, virtualKeyboard;
+    public GameObject monaLoginScreen, monaObject, monaModel3DContainer, virtualKeyboard;
     public MonaManager_Nes customMonaManager;
 
     [Header("Prefabs")]
@@ -59,12 +59,6 @@ public class UIManager : MonoBehaviour
         defaultCreatureUIButtonContainer.Initialize(_creatureDataList);
     }
 
-    public void OnMonaModelLoaded(GameObject _model){
-        //create a new creature with the model
-        CreatureManager.i.CreateTempMonaCreature(_model);
-        //enable audio clips menu
-        InitializeAudioClipsContainer();
-    }
     public void InitializeAudioClipsContainer(){
         audioClipsMenu.SetActive(true);
         //load all audio clips from Resources/AudioClips
@@ -101,7 +95,7 @@ public class UIManager : MonoBehaviour
         virtualKeyboard.transform.position = monaObject.transform.position + new Vector3(0, -0.25f, 0);
         //virtualKeyboard.transform.rotation = monaObject.transform.rotation;
         virtualKeyboard.SetActive(true);
-        gltfLoader.transform.position = monaObject.transform.position + new Vector3(0.33f, 0, 0);
+        monaModel3DContainer.transform.position = monaObject.transform.position;
         customMonaManager.StartMonaModel();
     }
 
