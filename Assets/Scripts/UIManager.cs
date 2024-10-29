@@ -83,6 +83,9 @@ public class UIManager : MonoBehaviour
             
             // Load creature data using existing MonaManager function
             CreatureData creatureData = CreatureManager.i.monaManager_Nes.LoadCreatureData(creatureName);
+
+            //chang this to mona images later
+            creatureData.sprite = Resources.Load<Sprite>("CreatureImages/Stars_Key");
             
             if (creatureData != null)
             {
