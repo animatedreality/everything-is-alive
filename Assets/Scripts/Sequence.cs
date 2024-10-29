@@ -18,7 +18,7 @@ public class Sequence : MonoBehaviour
     public int sequenceLengthMultiplier;
     public void Initialize(Sequencer _sequencer, int _sequenceLength, GameObject _notePrefab, AudioClip _clip){
         //initialize sequenceLength
-        Debug.Log("Initializing Sequence");
+        //Debug.Log("Initializing Sequence");
         sequenceLength = _sequenceLength;
         notePrefab = _notePrefab;
         clip = _clip;
@@ -31,7 +31,7 @@ public class Sequence : MonoBehaviour
         }
         if(!AudioManager.i.sequences.Contains(this)){
             AudioManager.i.sequences.Add(this);
-            Debug.Log("Adding to AudioManager");
+           // Debug.Log("Adding to AudioManager");
         }
 
         //TO BE REMOVED, TESTING ONLY!!!!!!!!!!!!!!!!
@@ -44,9 +44,9 @@ public class Sequence : MonoBehaviour
 
     public void Schedule(int _beatIndex, double nextEventTime)
     {
-        Debug.Log(sequencer.creatureFamily.name + " Scheduling sequence Play " + _beatIndex);
+        //Debug.Log(sequencer.creatureFamily.name + " Scheduling sequence Play " + _beatIndex);
         int localBeatIndex = ((int)_beatIndex / sequenceLengthMultiplier) % sequenceLength;
-        Debug.Log(sequencer.creatureFamily.name + " Scheduling sequence Play " + localBeatIndex);
+        //Debug.Log(sequencer.creatureFamily.name + " Scheduling sequence Play " + localBeatIndex);
         // Only play if the beat index aligns with the sequenceLengthMultiplier interval.
         if (sequencePattern.Contains(localBeatIndex))
         {

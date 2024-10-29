@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Threading.Tasks;
+using Monaverse.Examples;
 public class CreatureManager : MonoBehaviour
 {
     public static CreatureManager i;
@@ -37,6 +38,7 @@ public class CreatureManager : MonoBehaviour
     public GameObject creatureMeshPrefab;
 
     [Header("Mona related")]
+    public MonaManager_Nes monaManager_Nes;
     public GameObject tempMona3DModel;
     public Vector3 tempMona3DModelScale;
     public CreatureFamily tempMonaCreatureFamily;//temporarily create a new creatureFamily when browsing Mona Models
@@ -53,24 +55,55 @@ public class CreatureManager : MonoBehaviour
         
     }
 
-    public void SpawnCreature(){
+    public async Task SpawnCreature(){
         //if globalPlay is false, start the game
         if(!AudioManager.i.globalPlay){
             AudioManager.i.Play();
         }
+        GameObject newCreature = null;
         //Spawn Creature if there has been one selected
         if(selectedCreatureData != null && isInGame){
+
+            //check if the selectedCreatureData is a Mona Model
+            Debug.Log("SpawnCreature: selectedCreatureData: " + selectedCreatureData.name);
             if(selectedCreatureData.name.Contains("MonaModel")){
-                //add the 3D model from persistent storage to creatureData and then initiate CreatureFamily
-                selectedCreatureData.prefab = H_PersistentStorage.LoadGLB(selectedCreatureData.name);
-                return;
+                newCreature = await CreateNewCreature(selectedCreatureData);
+                //creatureFamily is initialized in CreateNewCreature
+            }
+            else{
+                newCreature = Instantiate(creatureFamilyPrefab);
+                //initialize the creatureFamily
+                newCreature.GetComponent<CreatureFamily>().Initialize(selectedCreatureData);
             }
 
-            GameObject creature = Instantiate(creatureFamilyPrefab);
-            creature.GetComponent<CreatureFamily>().Initialize(selectedCreatureData);
-            creature.transform.position = creatureSpawnPoint.position;
+            
+            newCreature.transform.position = creatureSpawnPoint.position;
             Debug.Log("SpawnCreature");
         }
+    }
+
+    public async Task<GameObject> CreateNewCreature(CreatureData _creatureData){
+        selectedCreatureData = _creatureData;
+
+        GameObject newCreatureModel = await monaManager_Nes.Load3DModelPersistently(_creatureData.name);
+
+        //step1 instantiate creatureFamilyPrefab
+        GameObject newCreatureFamily = Instantiate(creatureFamilyPrefab);
+        newCreatureFamily.GetComponent<CreatureFamily>().Initialize(_creatureData);
+        
+        newCreatureFamily.name = _creatureData.name + "_Loaded_Family";
+        //step2 swap creatureMesh with 3D model saved with H_PersistentStorage with the creatureData's name
+        //GameObject newCreatureModel = await H_PersistentStorage.LoadNewCreatureModel(_creatureData.name);
+        
+        Debug.Log("Set New Creautre Parent" + newCreatureFamily.name);
+        Debug.Log("the new CreatureModel is: " + newCreatureModel.name);
+        newCreatureModel.name += "_Loaded_Model";
+        newCreatureModel.transform.parent = newCreatureFamily.GetComponent<CreatureFamily>().creatureMesh.GetComponentInChildren<CreatureMemberDefault>().transform;
+        newCreatureModel.transform.localPosition = Vector3.zero;
+        monaManager_Nes.ResizeModelToFit(newCreatureModel);
+        // Vector3 newModelGlobalScale = monaManager_Nes.LoadCreatureScale(_creatureData.name);
+        // SetLocalScaleToMatchGlobalScale(newCreatureModel.transform, newModelGlobalScale);
+        return newCreatureFamily;
     }
 
     public void SelectCreatureFamily(CreatureFamily _creatureFamily){
@@ -111,7 +144,7 @@ public class CreatureManager : MonoBehaviour
         _model.transform.localPosition = Vector3.zero;
 
         tempMona3DModel = _model;
-        tempMona3DModelScale = _model.transform.localScale;
+        tempMona3DModelScale = _model.transform.lossyScale;
         tempMonaCreatureFamily = monaCreatureFamilyObj.GetComponent<CreatureFamily>();
         //tempMonaCreatureFamily is automatically initialized with selectedCreatureData
 
@@ -125,17 +158,16 @@ public class CreatureManager : MonoBehaviour
             Debug.LogError("SaveTempMonaCreature: selectedCreatureData is not the same as tempMonaCreatureFamily.creatureData");
             return;
         }
-        Debug.Log("Saving tempMonaCreatureData: " + selectedCreatureData.name);
-        H_PersistentStorage.SaveCreatureData(selectedCreatureData);
+        Debug.Log("STEP1 Saving tempMonaCreatureData: " + selectedCreatureData.name);
 
-        //save the 3D model as a GLB file
-        //save the 3D model to persistent storage, as well as its local scale
-        H_PersistentStorage.SaveGLB(tempMona3DModel, tempMona3DModelScale, tempMona3DModel.name);
 
+        monaManager_Nes.SaveNewCreature(selectedCreatureData, tempMona3DModel, tempMona3DModelScale);
+        //H_PersistentStorage.SaveNewCreature(selectedCreatureData, tempMona3DModel, tempMona3DModelScale);
         //add a button to the main menu
         UIManager.i.AddNewCreatureButton(selectedCreatureData);
         
        //clear tempMonaCreatureFamily and selectedCreatureData
+       tempMonaCreatureFamily.name += "_Temp";
        tempMonaCreatureFamily = null;
        selectedCreatureData = null;
     }
@@ -145,5 +177,23 @@ public class CreatureManager : MonoBehaviour
             selectedCreatureData = null;
         }
         Destroy(tempMonaCreatureFamily);
+    }
+
+
+    void SetLocalScaleToMatchGlobalScale(Transform transform, Vector3 targetGlobalScale)
+    {
+        Transform parent = transform.parent;
+        Vector3 newLocalScale = targetGlobalScale;
+
+        // Divide the target global scale by each parent's global scale to get the necessary local scale
+        while (parent != null)
+        {
+            newLocalScale.x /= parent.lossyScale.x;
+            newLocalScale.y /= parent.lossyScale.y;
+            newLocalScale.z /= parent.lossyScale.z;
+            parent = parent.parent;
+        }
+
+        transform.localScale = newLocalScale;
     }
 }

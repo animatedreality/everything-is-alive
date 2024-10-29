@@ -73,7 +73,7 @@ public class AudioManager : MonoBehaviour
                     // Only schedule for sequences that should trigger on this beat
                     if (localBeatIndex == 0)
                     {
-                        Debug.Log(sequence.sequencer.creatureFamily.name + " Scheduling sequence Play " + beatIndex);
+                        //Debug.Log(sequence.sequencer.creatureFamily.name + " Scheduling sequence Play " + beatIndex);
                         sequence.Schedule(beatIndex, nextEventTime);
                     }
                 }

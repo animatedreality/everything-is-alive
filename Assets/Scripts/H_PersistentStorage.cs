@@ -1,10 +1,13 @@
 using System.IO;
 using UnityEngine;
-
+using UnityGLTF;
+using System.Threading.Tasks;
 public static class H_PersistentStorage
 {
-    private static readonly string creatureDataPath = Path.Combine(Application.persistentDataPath, "CreatureData");
-    private static readonly string glbDataPath = Path.Combine(Application.persistentDataPath, "GLBFiles");
+    private static readonly string creatureDataPath = Path.Combine(Application.persistentDataPath, "CreatureData").Replace("\\", "/");
+    private static readonly string glbDataPath = Path.Combine(Application.persistentDataPath, "GLBFiles").Replace("\\","/");
+
+    private static readonly GLTFComponent gltfComponent;
 
     static H_PersistentStorage()
     {
@@ -13,6 +16,46 @@ public static class H_PersistentStorage
 
         if (!Directory.Exists(glbDataPath))
             Directory.CreateDirectory(glbDataPath);
+
+        // Initialize a GameObject with GLTFComponent for GLB loading
+        GameObject gltfLoaderObject = new GameObject("GLTFLoader");
+        gltfComponent = gltfLoaderObject.AddComponent<GLTFComponent>();
+        Object.DontDestroyOnLoad(gltfLoaderObject);  // Keep GLTFComponent available across scenes
+    }
+
+    public static void SaveNewCreature(CreatureData creatureData, GameObject glbModel, Vector3 glbModelScale){
+        SaveCreatureData(creatureData);
+        SaveGLB(glbModel, glbModelScale, creatureData.name);
+        SaveCreatureScale(glbModelScale, creatureData.name);
+        Debug.Log($"Saved new creature with name: {creatureData.name}");
+    }
+    
+    public static async Task<GameObject> LoadNewCreatureModel(string creatureName){
+        GameObject loadedGLBModel = await LoadGLB(creatureName);
+        Vector3 loadedGLBModelScale = LoadCreatureScale(creatureName);
+        loadedGLBModel.transform.localScale = loadedGLBModelScale;
+        Debug.Log($"Loaded new creature with name: {creatureName}");
+        return loadedGLBModel;
+    }
+
+    private static void SaveCreatureScale(Vector3 scale, string creatureName)
+    {
+        string scalePath = Path.Combine(creatureDataPath, creatureName + "_scale.json");
+        string scaleJson = JsonUtility.ToJson(scale);
+        File.WriteAllText(scalePath, scaleJson);
+        Debug.Log($"Saved scale data for {creatureName} at {scalePath}");
+    }
+
+    private static Vector3 LoadCreatureScale(string creatureName)
+    {
+        string scalePath = Path.Combine(creatureDataPath, creatureName + "_scale.json");
+        if (File.Exists(scalePath))
+        {
+            string scaleJson = File.ReadAllText(scalePath);
+            return JsonUtility.FromJson<Vector3>(scaleJson);
+        }
+        Debug.LogError($"No scale data found for {creatureName} at {scalePath}");
+        return Vector3.one; // default scale if not found
     }
 
     public static void SaveCreatureData(CreatureData creatureData)
@@ -40,41 +83,71 @@ public static class H_PersistentStorage
         }
     }
 
-    public static void SaveGLB(GameObject glbModel, string creatureName)
+    public static void SaveGLB(GameObject glbModel, Vector3 glbModelScale, string creatureName)
     {
-        string filePath = Path.Combine(glbDataPath, creatureName + ".glb");
-        // This example assumes the GLB data is serialized and available in `glbModel`.
-        byte[] glbData = GetGLBDataFromModel(glbModel);
-        File.WriteAllBytes(filePath, glbData);
-        Debug.Log($"Saved GLB model to {filePath}");
+        if (glbModel == null)
+        {
+            Debug.LogError("GLB Model is null!");
+            return;
+        }
+        string filePath = Path.Combine(glbDataPath, creatureName + ".glb").Replace("\\","/");
+        string fileName = creatureName + ".glb";
+
+        try
+        {
+            var exporter = new GLTFSceneExporter(
+                new Transform[] { glbModel.transform },
+                (texture) => texture.name
+            );
+
+            // Pass both the filename and filepath to SaveGLB
+            exporter.SaveGLB(fileName, filePath);
+            Debug.Log("Save GLB Filepath is " + filePath);
+
+            // Verify file was created
+            if (File.Exists(filePath))
+            {
+                var fileInfo = new FileInfo(filePath);
+                Debug.Log($"GLB file created successfully. Size: {fileInfo.Length} bytes");
+            }
+            else
+            {
+                Debug.LogError("GLB file was not created!");
+            }
+
+            Debug.Log($"Saved GLB model to {filePath}");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Error saving GLB: {e.Message}\n{e.StackTrace}");
+        }
     }
 
-    public static GameObject LoadGLB(string creatureName)
+    public static async Task<GameObject> LoadGLB(string creatureName)
     {
         string filePath = Path.Combine(glbDataPath, creatureName + ".glb");
-        if (File.Exists(filePath))
-        {
-            byte[] glbData = File.ReadAllBytes(filePath);
-            return CreateGameObjectFromGLBData(glbData);  // Assuming a function for deserialization
-        }
-        else
+        if (!File.Exists(filePath))
         {
             Debug.LogError($"No GLB file found at {filePath}");
             return null;
         }
+
+        // Configure GLTFComponent as in MonaManager_Nes
+        gltfComponent.GLTFUri = filePath;
+
+        Debug.Log($"Loading GLB model from {filePath}");
+        await gltfComponent.Load();
+
+        // Retrieve the loaded model as the first child
+        if (gltfComponent.transform.childCount == 0)
+        {
+            Debug.LogError("No model found in GLTFComponent after loading.");
+            return null;
+        }
+
+        GameObject loadedModel = gltfComponent.transform.GetChild(0).gameObject;
+
+        return loadedModel;
     }
 
-    private static byte[] GetGLBDataFromModel(GameObject model)
-    {
-        // Serialize the GLB data here based on the model (requires GLTF exporter or custom serialization)
-        // Placeholder implementation, replace with actual GLB serialization logic
-        return new byte[0];
-    }
-
-    private static GameObject CreateGameObjectFromGLBData(byte[] data)
-    {
-        // Deserialize the GLB data here (requires GLTF importer or custom deserialization)
-        // Placeholder implementation, replace with actual GLB import logic
-        return new GameObject("ImportedModel");
-    }
 }

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -56,8 +58,38 @@ public class UIManager : MonoBehaviour
     void InitializeCreatureContainer(GameObject _container, List<CreatureData> _creatureDataList){
         if(!_container.GetComponent<UIButtonContainer>())
             _container.AddComponent<UIButtonContainer>();
+
         defaultCreatureUIButtonContainer = _container.GetComponent<UIButtonContainer>();
-        defaultCreatureUIButtonContainer.Initialize(_creatureDataList);
+        //initialize all the buttons
+        foreach(CreatureData creatureData in _creatureDataList){
+            GameObject button = Instantiate(UIManager.i.buttonPrefab, defaultCreatureUIButtonContainer.transform);
+            button.GetComponent<UIButton>().Initialize(creatureData, defaultCreatureUIButtonContainer);
+        }
+
+        //load all creatureData from persistent storage
+        LoadAllSavedCreatureButtons();
+    }
+
+    private void LoadAllSavedCreatureButtons()
+    {
+        // Get all json files in persistent data path that end with _CreatureData.json
+        string[] creatureFiles = Directory.GetFiles(Application.persistentDataPath, "*_CreatureData.json");
+        
+        foreach (string filePath in creatureFiles)
+        {
+            // Extract creature name from filename (remove _CreatureData.json)
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
+            string creatureName = fileName.Replace("_CreatureData", "");
+            
+            // Load creature data using existing MonaManager function
+            CreatureData creatureData = CreatureManager.i.monaManager_Nes.LoadCreatureData(creatureName);
+            
+            if (creatureData != null)
+            {
+                // Add button for this creature
+                AddNewCreatureButton(creatureData);
+            }
+        }
     }
 
     public void InitializeAudioClipsContainer(){

@@ -6,13 +6,6 @@ public class UIButtonContainer : MonoBehaviour
 {
     public List<UIButton> buttons;
     public UIButton selectedButton;
-    // Start is called before the first frame update
-    public void Initialize(List<CreatureData> _creatureDataList){
-        foreach(CreatureData creatureData in _creatureDataList){
-            GameObject button = Instantiate(UIManager.i.buttonPrefab, transform);
-            button.GetComponent<UIButton>().Initialize(creatureData, this);
-        }
-    }
 
     // Update is called once per frame
     void Update()
