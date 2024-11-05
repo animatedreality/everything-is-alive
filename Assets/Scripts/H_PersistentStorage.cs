@@ -147,7 +147,53 @@ public static class H_PersistentStorage
 
         GameObject loadedModel = gltfComponent.transform.GetChild(0).gameObject;
 
+        //Apply Materials
+        Material defaultStandardMaterial = Resources.Load<Material>("GLTFMaterials/PBRGraph");
+        //Material defaultMetallicMaterial = Resources.Load<Material>("GLTFMaterials/PBRMetallicRoughness");
+
+        if (defaultStandardMaterial == null)
+        {
+            Debug.LogError("Default material could not be loaded from Resources. Make sure it's in Resources/GLTFMaterials/PBRGraph.");
+            return loadedModel;
+        }
+
+        foreach (MeshRenderer renderer in loadedModel.GetComponentsInChildren<MeshRenderer>())
+        {
+            renderer.sharedMaterial = defaultStandardMaterial;
+        }
+
+        Debug.Log($"Loaded and applied default material to model: {creatureName}");
         return loadedModel;
+    }
+
+    public static void SaveTexture(Texture2D texture, string fileName)
+    {
+        string texturePath = Path.Combine(glbDataPath, fileName); // Save in the same directory as GLB files
+
+        byte[] textureBytes = texture.EncodeToJPG(); // Encode as JPG
+        File.WriteAllBytes(texturePath, textureBytes);
+        Debug.Log($"Texture saved at {texturePath}");
+    }
+
+    public static Sprite CreateSpriteFromBytes(byte[] imageData)
+    {
+        if (imageData == null || imageData.Length == 0)
+        {
+            Debug.LogWarning("No image data provided to create sprite.");
+            return null;
+        }
+
+        Texture2D texture = new Texture2D(2, 2);
+        if (texture.LoadImage(imageData))
+        {
+            var rect = new Rect(0.0f, 0.0f, texture.width, texture.height);
+            return Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f), 100.0f);
+        }
+        else
+        {
+            Debug.LogError("Failed to load image data into texture.");
+            return null;
+        }
     }
 
 }

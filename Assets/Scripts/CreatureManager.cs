@@ -82,6 +82,7 @@ public class CreatureManager : MonoBehaviour
         }
     }
 
+    //Creating Creatures from Mona Models
     public async Task<GameObject> CreateNewCreature(CreatureData _creatureData){
         selectedCreatureData = _creatureData;
 
@@ -99,15 +100,19 @@ public class CreatureManager : MonoBehaviour
         Debug.Log("the new CreatureModel is: " + newCreatureModel.name);
         newCreatureModel.name += "_Loaded_Model";
         newCreatureModel.transform.parent = newCreatureFamily.GetComponent<CreatureFamily>().creatureMesh.GetComponentInChildren<CreatureMemberDefault>().transform;
-        newCreatureModel.transform.localPosition = Vector3.zero;
+
         monaManager_Nes.ResizeModelToFit(newCreatureModel);
+        //custom offsets
+        newCreatureModel.transform.localPosition = new Vector3(0, 0.04f, 0);
+        newCreatureModel.transform.localScale *= 0.333f;
+        newCreatureModel.transform.localRotation *= Quaternion.Euler(0, 0, 0);
         // Vector3 newModelGlobalScale = monaManager_Nes.LoadCreatureScale(_creatureData.name);
         // SetLocalScaleToMatchGlobalScale(newCreatureModel.transform, newModelGlobalScale);
         return newCreatureFamily;
     }
 
     public void SelectCreatureFamily(CreatureFamily _creatureFamily){
-        if(selectedCreatureFamily != null){
+        if(selectedCreatureFamily != null && selectedCreatureFamily != _creatureFamily){
             selectedCreatureFamily.OnDeselect();
         }
         selectedCreatureFamily = _creatureFamily;
@@ -135,17 +140,21 @@ public class CreatureManager : MonoBehaviour
         //selectedCreatureData is implemented in Start() in CreatureFamily
         GameObject monaCreatureFamilyObj = Instantiate(creatureFamilyPrefab);
         monaCreatureFamilyObj.transform.position = _position;
-        Debug.Log("Assigning monaCreatureFamilyObj: " + monaCreatureFamilyObj.name);
+        //Debug.Log("Assigning monaCreatureFamilyObj: " + monaCreatureFamilyObj.name);
         monaCreatureFamilyObj.name = "CreatureFamily_" + _model.name;
         CreatureFamily monaCreatureFamily = monaCreatureFamilyObj.GetComponent<CreatureFamily>();
         monaCreatureFamily.Initialize(monaCreatureData);
         
+        
         _model.transform.parent = monaCreatureFamily.creatureMesh.GetComponentInChildren<CreatureMemberDefault>().transform;
         _model.transform.localPosition = Vector3.zero;
+        _model.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
         tempMona3DModel = _model;
         tempMona3DModelScale = _model.transform.lossyScale;
         tempMonaCreatureFamily = monaCreatureFamilyObj.GetComponent<CreatureFamily>();
+
+        monaCreatureFamily.meshContainer.transform.localPosition = new Vector3(0, 0.02f, 0);
         //tempMonaCreatureFamily is automatically initialized with selectedCreatureData
 
 
@@ -167,7 +176,8 @@ public class CreatureManager : MonoBehaviour
         UIManager.i.AddNewCreatureButton(selectedCreatureData);
         
        //clear tempMonaCreatureFamily and selectedCreatureData
-       tempMonaCreatureFamily.name += "_Temp";
+       //delete the tempMona3DModel
+       Destroy(tempMonaCreatureFamily.gameObject);
        tempMonaCreatureFamily = null;
        selectedCreatureData = null;
     }

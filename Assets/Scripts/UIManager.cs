@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using Meta.XR.Util;
 using Monaverse.Examples;
+using Monaverse.Modal.UI.Components;
 public class UIManager : MonoBehaviour
 {
     public static UIManager i;
@@ -20,7 +21,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Mona")]
     public bool isMonaLoggedIn = false;
-    public GameObject monaLoginScreen, monaObject, monaModel3DContainer, virtualKeyboard;
+    public GameObject monaObjectContainer, monaObject, monaModel3DContainer, virtualKeyboard;
     public MonaManager_Nes customMonaManager;
 
     [Header("Prefabs")]
@@ -44,9 +45,11 @@ public class UIManager : MonoBehaviour
         //change this later based on game state
         mainMenu.SetActive(true);
         audioClipsMenu.SetActive(false);
-        //monaObject.SetActive(false);
+        monaObjectContainer.SetActive(false);
         virtualKeyboard.SetActive(false);
         InitializeCreatureContainer(defaultCreatureContainer, CreatureManager.i.creatureDataList);
+
+        MonaModal.OnModalClosed += CloseModal;
     }
 
     // Update is called once per frame
@@ -85,7 +88,7 @@ public class UIManager : MonoBehaviour
             CreatureData creatureData = CreatureManager.i.monaManager_Nes.LoadCreatureData(creatureName);
 
             //chang this to mona images later
-            creatureData.sprite = Resources.Load<Sprite>("CreatureImages/Stars_Key");
+            creatureData.sprite = Resources.Load<Sprite>("CreatureImages/icon_temp1");
             
             if (creatureData != null)
             {
@@ -131,21 +134,50 @@ public class UIManager : MonoBehaviour
     }
 
     public void SetMonaLoginScreens(){
-
         //isMonaLoggedIn is a public variable that is set by MonaManager
-        monaLoginScreen.SetActive(true);
-        monaObject.SetActive(true);
+        //monaLoginScreen.SetActive(true);
+        monaObjectContainer.SetActive(true);
         virtualKeyboard.transform.position = monaObject.transform.position + new Vector3(0, -0.25f, 0);
-        //virtualKeyboard.transform.rotation = monaObject.transform.rotation;
-        virtualKeyboard.SetActive(true);
         monaModel3DContainer.transform.position = monaObject.transform.position;
         customMonaManager.StartMonaModel();
     }
 
-    public void AddNewCreatureButton(CreatureData _creatureData){
+    public void CloseModal(){
+        Debug.Log("Closing Modal");
+        //monaObject.SetActive(false);
+        monaObjectContainer.SetActive(false);
+
+        //if there is a temporary creature family, destroy it
+        // if(CreatureManager.i.tempMonaCreatureFamily != null){
+        //     Destroy(CreatureManager.i.tempMonaCreatureFamily.gameObject);
+        // }
+    }
+
+    public void AddNewCreatureButton(CreatureData _creatureData)
+    {
         GameObject button = Instantiate(buttonPrefab, defaultCreatureUIButtonContainer.transform);
+
+        //code to load custom image, deal with this later
+        // _creatureData.sprite = H_PersistentStorage.CreateSpriteFromBytes(_creatureData.GetSavedImageData());
+        
+        // // Get the Image component from the button
+        // Image buttonImage = button.GetComponent<Image>();
+        
+        // // Set the button's image to the creature's sprite
+        // if (_creatureData.sprite != null)
+        // {
+        //     buttonImage.sprite = _creatureData.sprite;
+        // }
+        // else
+        // {
+        //     Debug.LogWarning("CreatureData sprite is null. Ensure the image is downloaded and assigned.");
+        // }
+        
         button.GetComponent<UIButton>().Initialize(_creatureData, defaultCreatureUIButtonContainer);
     }
 
+    void OnDestroy(){
+        MonaModal.OnModalClosed -= CloseModal;
+    }
 
 }

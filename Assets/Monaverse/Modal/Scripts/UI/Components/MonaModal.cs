@@ -45,6 +45,8 @@ namespace Monaverse.Modal.UI.Components
 
         public int ViewCount => _viewsStack.Count;
 
+        [SerializeField] public static event System.Action OnModalClosed;
+
         private void Awake()
         {
             _hasGlobalBackground = _globalBackgroundCanvas != null;
@@ -131,6 +133,8 @@ namespace Monaverse.Modal.UI.Components
 
             _viewsStack.Clear();
             DisableModal();
+
+            //OnModalClosed?.Invoke();
 
             Closed?.Invoke(this, EventArgs.Empty);
         }

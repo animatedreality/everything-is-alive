@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityGLTF;
 using System.IO;
 using System.Threading.Tasks;
+using UnityEngine.Networking;
 
 namespace Monaverse.Examples
 {
@@ -74,17 +75,15 @@ namespace Monaverse.Examples
             }
             MonaverseModal.Open();
         }
-
-
         //Saving and Loading 3D Models
 
-        public void SaveNewCreature(CreatureData creatureData, GameObject glbModel, Vector3 glbModelScale){
-            SaveCreatureData(creatureData);
-            //the glbModel here is the currentModel from Load3DModel below
-            Save3DModelPersistently(glbModel, creatureData.name);
-            SaveCreatureScale(glbModelScale, creatureData.name);
-            Debug.Log($"Saved new creature with name: {creatureData.name}");
-        }
+        // public void SaveNewCreature(CreatureData creatureData, GameObject glbModel, Vector3 glbModelScale){
+        //     SaveCreatureData(creatureData);
+        //     //the glbModel here is the currentModel from Load3DModel below
+        //     Save3DModelPersistently(glbModel, creatureData.name);
+        //     SaveCreatureScale(glbModelScale, creatureData.name);
+        //     Debug.Log($"Saved new creature with name: {creatureData.name}");
+        // }
         private async void Load3DModel(string url, string tokenName)
         {
             gltfComponent.GLTFUri = url;
@@ -240,6 +239,19 @@ namespace Monaverse.Examples
                 string json = File.ReadAllText(filePath);
                 CreatureData loadedData = ScriptableObject.CreateInstance<CreatureData>();
                 JsonUtility.FromJsonOverwrite(json, loadedData);
+
+                // If we have saved image data, convert it back to a sprite
+                byte[] imageData = loadedData.GetSavedImageData();
+                if (imageData != null && imageData.Length > 0)
+                {
+                    Texture2D tex = new Texture2D(2, 2);
+                    if (tex.LoadImage(imageData))
+                    {
+                        var rect = new Rect(0.0f, 0.0f, tex.width, tex.height);
+                        loadedData.sprite = Sprite.Create(tex, rect, new Vector2(0.5f, 0.5f), 100.0f);
+                    }
+                }
+
                 return loadedData;
             }
             else
@@ -248,7 +260,6 @@ namespace Monaverse.Examples
                 return null;
             }
         }
-
         private void SaveCreatureScale(Vector3 scale, string creatureName)
         {
             string scalePath = Path.Combine(Application.persistentDataPath, creatureName + "_scale.json");
@@ -276,6 +287,44 @@ namespace Monaverse.Examples
         public void OpenModal()
         {
             MonaverseModal.Open();
+        }
+
+
+        // //ACTIVATE THIS LATER
+        // public async Task DownloadAndSaveImage(string url, CreatureData creatureData)
+        // {
+        //     using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(url))
+        //     {
+        //         await uwr.SendWebRequest();
+
+        //         if (uwr.result != UnityWebRequest.Result.Success)
+        //         {
+        //             Debug.LogError($"Failed to download image: {uwr.error}");
+        //             return;
+        //         }
+
+        //         // Save the raw image data
+        //         creatureData.SaveImageData(uwr.downloadHandler.data);
+                
+        //         // Create and assign the sprite
+        //         var texture = DownloadHandlerTexture.GetContent(uwr);
+        //         var rect = new Rect(0.0f, 0.0f, texture.width, texture.height);
+        //         creatureData.sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f), 100.0f);
+        //     }
+        // }
+
+        public async void SaveNewCreature(CreatureData creatureData, GameObject glbModel, Vector3 glbModelScale)
+        {
+            // // If we have an image URL, download and save the image
+            // if (!string.IsNullOrEmpty(creatureData.imageUrl))
+            // {
+            //     await DownloadAndSaveImage(creatureData.imageUrl, creatureData);
+            // }
+
+            SaveCreatureData(creatureData);
+            Save3DModelPersistently(glbModel, creatureData.name);
+            SaveCreatureScale(glbModelScale, creatureData.name);
+            Debug.Log($"Saved new creature with name: {creatureData.name}");
         }
     }
 }
