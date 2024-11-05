@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1928c020fd3234ea92339cff298547, type: 3}
+  m_Name: Flowers1
+  m_EditorClassIdentifier: 
+  name: Flowers1
+  prefab: {fileID: 2630844269495879277, guid: 37fcb58b98c4041a695b2bdb4c952f5b, type: 3}
+  sprite: {fileID: 21300000, guid: c0df93fb5ed7b4c3c9fc53cca609801b, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: ed9a9f62e474b44e3aa783215db7884a, type: 3}
+  - {fileID: 8300000, guid: 1635c88c202e64022ba31b1e8bce818f, type: 3}
+  - {fileID: 8300000, guid: 09e7d79782a1548dab9a73e4a5189cbe, type: 3}
+  - {fileID: 8300000, guid: 40d11df9e4c214ae691e50350b95d0df, type: 3}
+  - {fileID: 8300000, guid: fcb70110c7e484072b098d7f8f9f3404, type: 3}
+  creatureMemberCount: 5
+  creatureType: 0
+  sequenceLengthMultiplier: 1
+  sequenceLength: 16
