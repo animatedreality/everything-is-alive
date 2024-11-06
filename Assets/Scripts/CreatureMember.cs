@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CreatureMember : MonoBehaviour
 {
+    public AudioClip clip;
     public CreatureData creatureData;
     public Sequencer sequencer;
     public Sequence sequence;//NOT ALL CREATURE MEMBERS NEED SEQUENCE

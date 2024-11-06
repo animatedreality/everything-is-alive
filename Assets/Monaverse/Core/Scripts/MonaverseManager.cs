@@ -67,5 +67,10 @@ namespace Monaverse.Core
             MonaDebug.IsEnabled = Instance.showDebugLogs;
             Instance.SDK = new MonaWalletSDK(sdkOptions);
         }
+
+        public void ResetLogin()
+        {
+            SDK.Logout();
+        }
     }
 }

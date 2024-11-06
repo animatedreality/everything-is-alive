@@ -5,6 +5,7 @@ using Monaverse.Modal.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace Monaverse.Modal.UI.Views
 {
@@ -14,6 +15,8 @@ namespace Monaverse.Modal.UI.Views
         [SerializeField] private MonaModalView _userTokensView;
         [SerializeField] private TMP_InputField _emailInputField;
         [SerializeField] private Button _generateOtpButton;
+
+        public UnityEvent OnVerifyOtpTriggerredEvent;
 
         private void Start()
         {
@@ -50,7 +53,9 @@ namespace Monaverse.Modal.UI.Views
                 
                 if (result)
                 {
+
                     parentModal.OpenView(_verifyOtpView, parameters: _emailInputField.text);
+                    OnVerifyOtpTriggerredEvent.Invoke();
                     return;
                 }
 

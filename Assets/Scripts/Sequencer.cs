@@ -13,7 +13,6 @@ public class Sequencer : MonoBehaviour
 
     protected SequencerType sequencerType;
     [Header("Audio")]
-    public AudioClip clip;
     public float currentVolume = 1;
     float lastVolume = 0f;
     [Header("Volume Slider")]
@@ -63,6 +62,7 @@ public class Sequencer : MonoBehaviour
             sequencerType = SequencerType.Melody;
             notePrefab = AudioManager.i.melodyNotePrefab;
         }else if(creatureData.creatureType == CreatureData.CreatureType.Stars){
+            //IF THIS IS THE CASE, AUDIO WOULD NOT BE CONTROLLED BY AUDIOMANAGER!!!
             sequencerType = SequencerType.Other;
             sequencerContainer.SetActive(false);
             return;
