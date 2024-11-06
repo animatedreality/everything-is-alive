@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(true);
         audioClipsMenu.SetActive(false);
         monaObjectContainer.SetActive(false);
-        virtualKeyboard.SetActive(false);
+        //virtualKeyboard.SetActive(false);
         InitializeCreatureContainer(defaultCreatureContainer, CreatureManager.i.creatureDataList);
 
         MonaModal.OnModalClosed += CloseModal;

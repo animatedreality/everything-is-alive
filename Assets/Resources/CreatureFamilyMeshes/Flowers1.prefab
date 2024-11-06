@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8292603605954471665}
   - component: {fileID: 843622488731955394}
   - component: {fileID: 6292015774397182647}
-  - component: {fileID: 18010572715146336}
+  - component: {fileID: 5202078579040299686}
   m_Layer: 0
   m_Name: pink-head
   m_TagString: Untagged
@@ -32,8 +32,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364724134275805619}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.3507909, y: -0.02825567, z: -0.021613264, w: 0.93577796}
-  m_LocalPosition: {x: -0.10942699, y: 5.21481, z: 0.30128837}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.2981273, y: 1.2981281, z: 1.2981278}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129,7 +129,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 1.1519959, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.10942718, y: 5.21481, z: 0.30128908}
+  m_ConnectedAnchor: {x: -0.0000001535989, y: 1.4954381, z: -0.00000008408217}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 1
@@ -352,25 +352,13 @@ MonoBehaviour:
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 18010572715146336}
-        m_TargetAssemblyTypeName: EA_InstrumentNode_Drum, Assembly-CSharp
-        m_MethodName: PlayNode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
   collidingObject: {fileID: 0}
   collisionBuffer: 0.1
---- !u!114 &18010572715146336
+--- !u!114 &5202078579040299686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -379,11 +367,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1364724134275805619}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd972e75e19ad3646a8e95dc42d745d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 805863e5ed6dbe7469abf23ab40fc1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio: {fileID: 0}
-  sequencer: {fileID: 0}
+  scaleAmount: 1.2
+  duration: 0.2
 --- !u!1 &2499214389666364926
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,8 +387,8 @@ GameObject:
   - component: {fileID: 6305540364828903267}
   - component: {fileID: 245912244056119751}
   - component: {fileID: 5298003347315914549}
-  - component: {fileID: 2378071661651870229}
-  - component: {fileID: 6349123335985654753}
+  - component: {fileID: 6271818364960389188}
+  - component: {fileID: 3294393702563267323}
   m_Layer: 0
   m_Name: blue-head
   m_TagString: Untagged
@@ -417,7 +405,7 @@ Transform:
   m_GameObject: {fileID: 2499214389666364926}
   serializedVersion: 2
   m_LocalRotation: {x: -0.3763427, y: -0.012461443, z: -0.16328096, w: 0.9118938}
-  m_LocalPosition: {x: 0.08443261, y: 5.32652, z: 0.09542801}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.2709373, y: 1.2709377, z: 1.2709373}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -513,7 +501,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 1.1519959, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.08443281, y: 5.32652, z: 0.09542865}
+  m_ConnectedAnchor: {x: 0.44973135, y: 0.97130984, z: -0.9989653}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 1
@@ -721,7 +709,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2378071661651870229
+--- !u!114 &6271818364960389188
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -736,25 +724,13 @@ MonoBehaviour:
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6349123335985654753}
-        m_TargetAssemblyTypeName: EA_InstrumentNode_Drum, Assembly-CSharp
-        m_MethodName: PlayNode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
   collidingObject: {fileID: 0}
   collisionBuffer: 0.1
---- !u!114 &6349123335985654753
+--- !u!114 &3294393702563267323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -763,11 +739,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2499214389666364926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd972e75e19ad3646a8e95dc42d745d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 805863e5ed6dbe7469abf23ab40fc1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio: {fileID: 0}
-  sequencer: {fileID: 0}
+  scaleAmount: 1.2
+  duration: 0.2
 --- !u!1 &2520990201651559835
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,8 +759,8 @@ GameObject:
   - component: {fileID: 7276708922435327382}
   - component: {fileID: 9120777468512234217}
   - component: {fileID: 1943062164566885011}
-  - component: {fileID: 965327683532976782}
-  - component: {fileID: 5162365964293745731}
+  - component: {fileID: 1532518889504653848}
+  - component: {fileID: 4809261335452158894}
   m_Layer: 0
   m_Name: purple-head
   m_TagString: Untagged
@@ -800,13 +776,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2520990201651559835}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.8125498, y: 0.09649719, z: 0.01260419, w: 0.57471055}
-  m_LocalPosition: {x: -0.063176945, y: 3.1467404, z: 0.014134172}
+  m_LocalRotation: {x: -0.7815363, y: 0.0000000037252899, z: -0, w: 0.6238598}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.000099, y: 2.0001001, z: 2.000099}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4058824046742240383}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -102.803, y: 0, z: 0}
 --- !u!33 &8333808242960190267
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -918,7 +894,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 1.1519959, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.063176975, y: 3.1467404, z: 0.01413423}
+  m_ConnectedAnchor: {x: -0.000000038294324, y: -0.5105855, z: -2.2468235}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 1
@@ -1104,7 +1080,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &965327683532976782
+--- !u!114 &1532518889504653848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1119,25 +1095,13 @@ MonoBehaviour:
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5162365964293745731}
-        m_TargetAssemblyTypeName: EA_InstrumentNode_Drum, Assembly-CSharp
-        m_MethodName: PlayNode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
   collidingObject: {fileID: 0}
   collisionBuffer: 0.1
---- !u!114 &5162365964293745731
+--- !u!114 &4809261335452158894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1146,11 +1110,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2520990201651559835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd972e75e19ad3646a8e95dc42d745d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 805863e5ed6dbe7469abf23ab40fc1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio: {fileID: 0}
-  sequencer: {fileID: 0}
+  scaleAmount: 1.2
+  duration: 0.2
 --- !u!1 &2630844269495879277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,14 +1177,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4138007721877463098}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00082378654, y: 0.9738146, z: -0.22710183, w: 0.010452964}
-  m_LocalPosition: {x: -0.065304, y: -0.034712195, z: 0.038814995}
-  m_LocalScale: {x: 0.022646716, y: 0.02264671, z: 0.022646712}
+  m_LocalRotation: {x: 0.0016540219, y: 0.95262396, z: -0.3039699, w: 0.010354096}
+  m_LocalPosition: {x: -0.067374, y: 0.08263901, z: -0.032557}
+  m_LocalScale: {x: 0.01978262, y: 0.019782616, z: 0.019782616}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4835493273593616975}
   m_Father: {fileID: 3723962110206936291}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35.392, y: 178.684, z: -0.221}
 --- !u!54 &1586866269333178684
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1260,10 +1224,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce86666f65713884899125c47c6cd374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip: {fileID: 0}
   creatureData: {fileID: 0}
   sequencer: {fileID: 0}
   sequence: {fileID: 0}
-  clip: {fileID: 0}
   h_detectCollision: {fileID: 0}
   scaleUpOnPlay: 1
 --- !u!1 &4522267347392083050
@@ -1292,14 +1256,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4522267347392083050}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.008383386, y: 0.9774028, z: -0.19813345, w: -0.073189944}
-  m_LocalPosition: {x: 0.11254, y: -0.069, z: -0.027}
-  m_LocalScale: {x: 0.022646729, y: 0.022646718, z: 0.022646727}
+  m_LocalRotation: {x: 0.02288756, y: 0.99728113, z: 0.0018567957, w: -0.07002292}
+  m_LocalPosition: {x: 0.0902, y: 0.0189, z: -0.03566}
+  m_LocalScale: {x: 0.018612115, y: 0.018612105, z: 0.018612115}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2007117112323079390}
   m_Father: {fileID: 3723962110206936291}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.396, y: -171.976, z: 2.602}
 --- !u!54 &1519063867012791845
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1339,10 +1303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce86666f65713884899125c47c6cd374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip: {fileID: 0}
   creatureData: {fileID: 0}
   sequencer: {fileID: 0}
   sequence: {fileID: 0}
-  clip: {fileID: 0}
   h_detectCollision: {fileID: 0}
   scaleUpOnPlay: 1
 --- !u!1 &5902155205818184865
@@ -1371,14 +1335,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5902155205818184865}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.04735098, y: 0.9760666, z: -0.20887557, w: 0.037722006}
-  m_LocalPosition: {x: -0.023842, y: -0.066551, z: -0.024020001}
-  m_LocalScale: {x: 0.02264672, y: 0.022646721, z: 0.022646703}
+  m_LocalRotation: {x: -0.019747743, y: 0.9770149, z: -0.21097195, w: 0.023298025}
+  m_LocalPosition: {x: -0.010626, y: -0.0065, z: -0.033164}
+  m_LocalScale: {x: 0.020594036, y: 0.020594038, z: 0.020594021}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1193633867685302945}
   m_Father: {fileID: 3723962110206936291}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 24.288, y: 176.613, z: -3.045}
 --- !u!54 &6001461924661045734
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1418,10 +1382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce86666f65713884899125c47c6cd374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip: {fileID: 0}
   creatureData: {fileID: 0}
   sequencer: {fileID: 0}
   sequence: {fileID: 0}
-  clip: {fileID: 0}
   h_detectCollision: {fileID: 0}
   scaleUpOnPlay: 1
 --- !u!1 &6452788898807402151
@@ -1439,8 +1403,8 @@ GameObject:
   - component: {fileID: 3865625257529418480}
   - component: {fileID: 8535540596128040692}
   - component: {fileID: 8085551730284780705}
-  - component: {fileID: 8947630472264725269}
-  - component: {fileID: 6167603237775714864}
+  - component: {fileID: 5967708152526103555}
+  - component: {fileID: 2998157436136398658}
   m_Layer: 0
   m_Name: yellow-head
   m_TagString: Untagged
@@ -1457,7 +1421,7 @@ Transform:
   m_GameObject: {fileID: 6452788898807402151}
   serializedVersion: 2
   m_LocalRotation: {x: -0.027468212, y: -0.0128973955, z: -0.07115154, w: 0.99700385}
-  m_LocalPosition: {x: 0.02801431, y: 5.7370925, z: 0.25525826}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.3688124, y: 1.3688129, z: 1.3688117}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1553,7 +1517,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 1.1519959, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.028015383, y: 5.7370954, z: 0.2552597}
+  m_ConnectedAnchor: {x: 0.22483808, y: 1.5585214, z: -0.083473824}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 1
@@ -1761,7 +1725,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8947630472264725269
+--- !u!114 &5967708152526103555
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1776,25 +1740,13 @@ MonoBehaviour:
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6167603237775714864}
-        m_TargetAssemblyTypeName: EA_InstrumentNode_Drum, Assembly-CSharp
-        m_MethodName: PlayNode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
   collidingObject: {fileID: 0}
   collisionBuffer: 0.1
---- !u!114 &6167603237775714864
+--- !u!114 &2998157436136398658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1803,11 +1755,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6452788898807402151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd972e75e19ad3646a8e95dc42d745d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 805863e5ed6dbe7469abf23ab40fc1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio: {fileID: 0}
-  sequencer: {fileID: 0}
+  scaleAmount: 1.2
+  duration: 0.2
 --- !u!1 &7363413243845874606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,8 +1787,8 @@ Transform:
   m_GameObject: {fileID: 7363413243845874606}
   serializedVersion: 2
   m_LocalRotation: {x: -0.25623617, y: 0.9611426, z: -0.028209792, w: -0.09875314}
-  m_LocalPosition: {x: -0.091805, y: -0.071593694, z: -0.0369522}
-  m_LocalScale: {x: 0.022646714, y: 0.022646714, z: 0.022646712}
+  m_LocalPosition: {x: -0.1266, y: 0.0078, z: -0.029588}
+  m_LocalScale: {x: 0.015280873, y: 0.015280873, z: 0.015280871}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1851359422388493219}
@@ -1881,10 +1833,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce86666f65713884899125c47c6cd374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip: {fileID: 0}
   creatureData: {fileID: 0}
   sequencer: {fileID: 0}
   sequence: {fileID: 0}
-  clip: {fileID: 0}
   h_detectCollision: {fileID: 0}
   scaleUpOnPlay: 1
 --- !u!1 &7698415576401594611
@@ -1903,7 +1855,7 @@ GameObject:
   - component: {fileID: 9102619518984863341}
   - component: {fileID: 6075948081450340171}
   - component: {fileID: 8837406245946514759}
-  - component: {fileID: 4447302798668924095}
+  - component: {fileID: 2397530471737984431}
   m_Layer: 0
   m_Name: orange-head
   m_TagString: Untagged
@@ -1919,13 +1871,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7698415576401594611}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.20064479, y: -0.10257536, z: 0.0056361, w: 0.9742629}
-  m_LocalPosition: {x: 0, y: 3.3766208, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.06778647, y: -0.100885324, z: 0.019380953, w: 0.99239695}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1.2534, y: 1.2534, z: 1.2534}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8282996325475565383}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -7.506, y: -11.807, z: 3.015}
 --- !u!33 &3145235214476205204
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2016,7 +1968,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 1.1519959, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.00000016449584, y: 3.3766208, z: 0.000000061685945}
+  m_ConnectedAnchor: {x: -0.035794742, y: 1.4295571, z: -0.19991353}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 1
@@ -2239,25 +2191,13 @@ MonoBehaviour:
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4447302798668924095}
-        m_TargetAssemblyTypeName: EA_InstrumentNode_Drum, Assembly-CSharp
-        m_MethodName: PlayNode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
   collidingObject: {fileID: 0}
   collisionBuffer: 0.1
---- !u!114 &4447302798668924095
+--- !u!114 &2397530471737984431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2266,11 +2206,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7698415576401594611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd972e75e19ad3646a8e95dc42d745d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 805863e5ed6dbe7469abf23ab40fc1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio: {fileID: 0}
-  sequencer: {fileID: 0}
+  scaleAmount: 1.2
+  duration: 0.2
 --- !u!1 &9154150603671369274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,14 +2237,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9154150603671369274}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0718864, y: 0.99468595, z: 0.04193164, w: -0.0606132}
-  m_LocalPosition: {x: 0.029209, y: -0.024947196, z: -0.047898203}
-  m_LocalScale: {x: 0.022646712, y: 0.022646716, z: 0.022646725}
+  m_LocalRotation: {x: 0.07466554, y: 0.9967438, z: -0.030444816, w: 0.000012598961}
+  m_LocalPosition: {x: 0.024664, y: 0.1014, z: -0.044365}
+  m_LocalScale: {x: 0.018072687, y: 0.018072689, z: 0.018072696}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8304653029925641830}
   m_Father: {fileID: 3723962110206936291}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 3.48, y: -179.74, z: 8.576}
 --- !u!54 &4532512088868709883
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2344,9 +2284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce86666f65713884899125c47c6cd374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip: {fileID: 0}
   creatureData: {fileID: 0}
   sequencer: {fileID: 0}
   sequence: {fileID: 0}
-  clip: {fileID: 0}
   h_detectCollision: {fileID: 0}
   scaleUpOnPlay: 1
