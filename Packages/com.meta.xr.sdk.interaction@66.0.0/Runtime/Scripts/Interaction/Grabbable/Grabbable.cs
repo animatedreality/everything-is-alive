@@ -493,7 +493,7 @@ namespace Oculus.Interaction
             private void LoadThrowVelocities()
             {
                 _ransacVelocity.GetVelocities(out Vector3 velocity, out Vector3 torque);
-                _rigidbody.velocity = velocity;
+                _rigidbody.linearVelocity = velocity;
                 _rigidbody.angularVelocity = torque;
             }
 
