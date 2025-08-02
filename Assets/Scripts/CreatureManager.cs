@@ -62,7 +62,7 @@ public class CreatureManager : MonoBehaviour
         }
         GameObject newCreature = null;
         //Spawn Creature if there has been one selected
-        if(selectedCreatureData != null && isInGame){
+        if(selectedCreatureData != null){ //remove second parameter && isInGame
 
             //check if the selectedCreatureData is a Mona Model
             Debug.Log("SpawnCreature: selectedCreatureData: " + selectedCreatureData.name);

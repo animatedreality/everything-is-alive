@@ -52,12 +52,6 @@ public class UIManager : MonoBehaviour
         MonaModal.OnModalClosed += CloseModal;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void InitializeCreatureContainer(GameObject _container, List<CreatureData> _creatureDataList){
         if(!_container.GetComponent<UIButtonContainer>())
             _container.AddComponent<UIButtonContainer>();

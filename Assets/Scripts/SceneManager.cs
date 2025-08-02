@@ -36,12 +36,4 @@ public class SceneManager : MonoBehaviour
         CreatureManager.i.Initialize();
         UIManager.i.Initialize();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
 }

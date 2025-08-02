@@ -46,14 +46,6 @@ public class InputManager : MonoBehaviour
         isSpawningCreature = false;
     }
 
-    // async void RightControllerBButton(){
-    //     //Spawn Creature if is in Game
-    //     Debug.Log("RightControllerBButton");
-    //     if(SceneManager.i.currentSceneState == SceneState.INGAME){
-    //         CreatureManager.i.SpawnCreature();
-    //     }
-    // }
-
     void RightControllerAButton(){
         Debug.Log("RightControllerAButton");
         //Toggle Hint
