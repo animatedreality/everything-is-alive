@@ -14,10 +14,6 @@ public class UIButton : MonoBehaviour
     Image image;
     Color unselectedColor, selectedColor;
     public CreatureData creatureData;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     public void Initialize(CreatureData _creatureData, UIButtonContainer _container){
         button = GetComponent<Button>();
@@ -30,20 +26,26 @@ public class UIButton : MonoBehaviour
         UnselectSelf();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnClick(){
+        Debug.Log($"Button clicked for creature: {creatureData.name}");
         SelectSelf();
+
+        //Verify the creature data was set
+        if (CreatureManager.i.selectedCreatureData == creatureData)
+        {
+            Debug.Log($"Successfully selected creature: {creatureData.name}");
+        }
+        else {
+            Debug.LogError("Failed to set selected creature data!");
+        }
     }
 
     public void SelectSelf(){
         image.color = UIManager.i.buttonSelectedColor;
         isSelected = true;
         container.SelectButton(this);
+
+        Debug.Log($"Selected creature: {creatureData.name}");
     }
 
     public void UnselectSelf(){
