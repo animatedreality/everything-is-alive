@@ -7403,6 +7403,7 @@ GameObject:
   - component: {fileID: 581597256}
   - component: {fileID: 581597255}
   - component: {fileID: 581597254}
+  - component: {fileID: 581597259}
   m_Layer: 0
   m_Name: '[BuildingBlock] Camera Rig'
   m_TagString: Untagged
@@ -7566,6 +7567,24 @@ Transform:
   - {fileID: 1804361285}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &581597259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581597253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd5a9b3eef808d14d88a456ace1aa571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableDebugLogging: 1
+  OnOrientationReset:
+    m_PersistentCalls:
+      m_Calls: []
+  enableManualReset: 0
+  doubleTapWindow: 0.5
 --- !u!1 &587573423
 GameObject:
   m_ObjectHideFlags: 0
@@ -24573,6 +24592,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1303940882875996210, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+      propertyPath: _leftHand
+      value: 
+      objectReference: {fileID: 1370519001}
+    - target: {fileID: 1303940882875996210, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+      propertyPath: _rightHand
+      value: 
+      objectReference: {fileID: 1209496792}
     - target: {fileID: 1303940882875996210, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
       propertyPath: _ovrCameraRig
       value: 
