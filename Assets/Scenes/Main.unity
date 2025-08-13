@@ -15525,7 +15525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1212087551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15533,7 +15533,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212087550}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c160c5f2b6fa79b4d9917b5e897492cc, type: 3}
   m_Name: 
@@ -73062,6 +73062,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1212087552}
   - {fileID: 581597258}
   - {fileID: 1698667590}
   - {fileID: 355315629}
@@ -73073,4 +73074,3 @@ SceneRoots:
   - {fileID: 1135577924127277204}
   - {fileID: 2146055977}
   - {fileID: 887880792}
-  - {fileID: 1212087552}
