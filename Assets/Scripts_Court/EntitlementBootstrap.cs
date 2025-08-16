@@ -33,6 +33,7 @@ public class EntitlementBootstrap : MonoBehaviour
 #if QUEST_RUNTIME
     private IEnumerator RunEntitlementGate()
     {
+        bool initializationFailed = false;
         try
         {
             Core.Initialize();
@@ -40,6 +41,11 @@ public class EntitlementBootstrap : MonoBehaviour
         catch (System.Exception e)
         {
             Debug.LogError("[EntitlementBootstrap] Platform Core.Initialize() failed: " + e.Message);
+            initializationFailed = true;
+        }
+
+        if (initializationFailed)
+        {
             yield return FailAndQuit("Initialization failed.");
             yield break;
         }
@@ -103,7 +109,7 @@ public class EntitlementBootstrap : MonoBehaviour
         float t = 0f;
         while (t < 1.5f) { t += Time.unscaledDeltaTime; yield return null; }
 
-        if (quitOnFailure) Application.Quit();
+        if (quitOnFailure) UnityEngine.Application.Quit();
     }
 #endif
 }
