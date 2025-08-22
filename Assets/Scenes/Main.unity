@@ -7242,6 +7242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -7249,7 +7251,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -9365,7 +9366,7 @@ GameObject:
   - component: {fileID: 664983475}
   m_Layer: 0
   m_Name: HandCollider
-  m_TagString: Untagged
+  m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13350,6 +13351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -13357,7 +13360,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -14034,6 +14036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -14041,7 +14045,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -19240,6 +19243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -19247,7 +19252,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -23004,6 +23008,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -23011,7 +23017,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -24659,6 +24664,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2123560616553043793, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 2224947974419301851, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
       propertyPath: _grabCenter
       value: 
@@ -24679,9 +24688,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3243603905238878720, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4080219683929557775, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426684176438755575, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5210901955989276318, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
       propertyPath: m_IsActive
@@ -24711,6 +24728,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6486953268857320405, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486953268892564883, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6580985409772685222, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -24726,6 +24751,10 @@ PrefabInstance:
     - target: {fileID: 6957006045866009691, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993785960599776625, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7847408104416374070, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
       propertyPath: m_IsActive
@@ -28044,7 +28073,7 @@ GameObject:
   - component: {fileID: 2091270092}
   m_Layer: 0
   m_Name: HandCollider
-  m_TagString: Untagged
+  m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65575,6 +65604,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -65582,7 +65613,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -65854,6 +65884,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -65861,7 +65893,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -67563,6 +67594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -67570,7 +67603,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -68472,6 +68504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -68479,7 +68513,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -69217,6 +69250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -69224,7 +69259,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -69615,6 +69649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -69622,7 +69658,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -69901,6 +69936,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -69908,7 +69945,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -70269,6 +70305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -70276,7 +70314,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -70584,6 +70621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -70591,7 +70630,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -70966,6 +71004,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -70973,7 +71013,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -71974,6 +72013,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -71981,7 +72022,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
@@ -72773,6 +72813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96065c3c1e6018747b4382ef6cf268eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useTagInsteadOfName: 1
+  targetTag: Hand
   targetStringContains: Hand
   collisionEnterEvent:
     m_PersistentCalls:
@@ -72780,7 +72822,6 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidingObject: {fileID: 0}
   collisionBuffer: 0.1
   audioSource: {fileID: 0}
   scaleUpOnCollision: 1
