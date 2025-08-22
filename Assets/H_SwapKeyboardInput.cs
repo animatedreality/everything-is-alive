@@ -9,12 +9,6 @@ public class H_SwapKeyboardInput : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
     public void SetInputtoEmail(){
 

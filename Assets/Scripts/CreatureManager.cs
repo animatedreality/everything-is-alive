@@ -49,12 +49,6 @@ public class CreatureManager : MonoBehaviour
         creatureDataList = new List<CreatureData>(Resources.LoadAll<CreatureData>("CreatureData"));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public async Task SpawnCreature(){
         //if globalPlay is false, start the game
         if(!AudioManager.i.globalPlay){
@@ -188,7 +182,6 @@ public class CreatureManager : MonoBehaviour
         }
         Destroy(tempMonaCreatureFamily);
     }
-
 
     void SetLocalScaleToMatchGlobalScale(Transform transform, Vector3 targetGlobalScale)
     {

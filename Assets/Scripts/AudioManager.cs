@@ -24,6 +24,16 @@ public class AudioManager : MonoBehaviour
 
     // public event OnEveryStepDelegate OnEveryStepEvent;
 
+    // Cache the AudioSource component
+    private AudioSource audioClipsMenuSource;
+
+    void Start()
+    {
+        audioClipsMenuSource = UIManager.i.audioClipsMenu.GetComponent<AudioSource>();
+        if (audioClipsMenuSource == null)
+            audioClipsMenuSource = UIManager.i.audioClipsMenu.AddComponent<AudioSource>();
+    }
+
     private void Awake()
     {
         if (i == null)
@@ -158,12 +168,16 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlayAudioClip(AudioClip _clip){
+
         //attach AudioSource to audioClipsMenu if it doesn't have one
-        if(UIManager.i.audioClipsMenu.GetComponent<AudioSource>() == null){
-            UIManager.i.audioClipsMenu.AddComponent<AudioSource>();
-        }
-        UIManager.i.audioClipsMenu.GetComponent<AudioSource>().clip = _clip;
-        UIManager.i.audioClipsMenu.GetComponent<AudioSource>().Play();
+        //if(UIManager.i.audioClipsMenu.GetComponent<AudioSource>() == null){
+        //    UIManager.i.audioClipsMenu.AddComponent<AudioSource>();
+        //}
+        //UIManager.i.audioClipsMenu.GetComponent<AudioSource>().clip = _clip;
+        //UIManager.i.audioClipsMenu.GetComponent<AudioSource>().Play();
+
+        audioClipsMenuSource.clip = _clip;
+        audioClipsMenuSource.Play();
     }
 
 }

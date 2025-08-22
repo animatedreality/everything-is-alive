@@ -32,8 +32,14 @@ public class MetaOrientationResetBlock : MonoBehaviour
     private InputDevice rightController;
     private InputDevice leftController;
 
+    // Cache the camera reference
+    private Camera mainCameraCache;
+
     void Start()
     {
+        mainCameraCache = Camera.main;
+        // Cache other frequently accessed objects
+
         if (!XRSettings.enabled)
         {
             LogDebug("XR is not enabled! This script requires XR to function.");
@@ -60,6 +66,11 @@ public class MetaOrientationResetBlock : MonoBehaviour
 
     void Update()
     {
+        if (Time.frameCount % 300 == 0) // Reduced from 120 to 300 frames
+        {
+            RefreshInputDevices();
+        }
+
         // Refresh devices if needed
         if (Time.frameCount % 120 == 0) // Every 2 seconds at 60 FPS
         {

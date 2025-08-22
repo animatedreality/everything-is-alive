@@ -13,16 +13,6 @@ public class CreatureFamily : MonoBehaviour
     public GameObject creatureMesh;
     public List<CreatureMember> creatureMembers;
     public bool isSelected = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Initialize(CreatureData _data){
         transform.localScale = Vector3.one * CreatureManager.i.creatureScaleMultiplier;

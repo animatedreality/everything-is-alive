@@ -24,6 +24,9 @@ public class SceneManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // Replace your obsolete code with this:
+        OVRManager.foveatedRenderingLevel = OVRManager.FoveatedRenderingLevel.High;
     }
 
     public SceneState currentSceneState = SceneState.WELCOME;

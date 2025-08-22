@@ -30,12 +30,6 @@ public class CreatureMemberDefault : CreatureMember
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void OnPlay(){
         Debug.Log("OnPlay: " + name);
         if(scaleUpOnPlay){
