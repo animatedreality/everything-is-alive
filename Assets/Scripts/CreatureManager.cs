@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 using Monaverse.Examples;
+using UnityEngine.Pool;
+
 public class CreatureManager : MonoBehaviour
 {
     public static CreatureManager i;
+
+    // Cache all resources at startup
+    private static Dictionary<string, CreatureData> cachedCreatureData = new Dictionary<string, CreatureData>();
+    private static bool resourcesLoaded = false;
+
     private void Awake()
     {
         if (i == null)
@@ -16,6 +23,12 @@ public class CreatureManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        if (!resourcesLoaded)
+        {
+            LoadAllResourcesOnce();
+            resourcesLoaded = true;
         }
     }
 
@@ -43,11 +56,43 @@ public class CreatureManager : MonoBehaviour
     public Vector3 tempMona3DModelScale;
     public CreatureFamily tempMonaCreatureFamily;//temporarily create a new creatureFamily when browsing Mona Models
 
-    // Start is called before the first frame update
-    public void Initialize()
+    [Header("Object Pooling")]
+    public ObjectPool<GameObject> creatureFamilyPool;
+    public ObjectPool<GameObject> tempCreaturePool;
+    private const int INITIAL_POOL_SIZE = 10;
+
+    void Start()
     {
-        creatureDataList = new List<CreatureData>(Resources.LoadAll<CreatureData>("CreatureData"));
+        // Initialize pools
+        creatureFamilyPool = new ObjectPool<GameObject>(
+            () => Instantiate(creatureFamilyPrefab),
+            creature => creature.SetActive(true),
+            creature => creature.SetActive(false),
+            creature => Destroy(creature),
+            maxSize: 20
+        );
     }
+
+    //public void Initialize()
+    //{
+    //    creatureDataList = new List<CreatureData>(Resources.LoadAll<CreatureData>("CreatureData"));
+    //}
+
+    private void LoadAllResourcesOnce()
+    {
+        CreatureData[] allCreatureData = Resources.LoadAll<CreatureData>("CreatureData");
+        foreach (var data in allCreatureData)
+        {
+            cachedCreatureData[data.name] = data;
+        }
+        creatureDataList = new List<CreatureData>(allCreatureData);
+    }
+
+    public CreatureData GetCachedCreatureData(string name)
+    {
+        return cachedCreatureData.TryGetValue(name, out CreatureData data) ? data : null;
+    }
+
 
     public async Task SpawnCreature(){
         //if globalPlay is false, start the game
@@ -59,21 +104,26 @@ public class CreatureManager : MonoBehaviour
         if(selectedCreatureData != null && isInGame)
         { 
             //check if the selectedCreatureData is a Mona Model
-            Debug.Log("SpawnCreature: selectedCreatureData: " + selectedCreatureData.name);
+            //Debug.Log("SpawnCreature: selectedCreatureData: " + selectedCreatureData.name);
             if(selectedCreatureData.name.Contains("MonaModel")){
                 newCreature = await CreateNewCreature(selectedCreatureData);
                 //creatureFamily is initialized in CreateNewCreature
             }
             else{
-                newCreature = Instantiate(creatureFamilyPrefab);
+                newCreature = creatureFamilyPool.Get();
                 //initialize the creatureFamily
                 newCreature.GetComponent<CreatureFamily>().Initialize(selectedCreatureData);
             }
 
             
             newCreature.transform.position = creatureSpawnPoint.position;
-            Debug.Log("SpawnCreature");
+            //Debug.Log("SpawnCreature");
         }
+    }
+
+    public void ReturnCreatureToPool(GameObject creature)
+    {
+        creatureFamilyPool.Release(creature);
     }
 
     //Creating Creatures from Mona Models
@@ -90,8 +140,8 @@ public class CreatureManager : MonoBehaviour
         //step2 swap creatureMesh with 3D model saved with H_PersistentStorage with the creatureData's name
         //GameObject newCreatureModel = await H_PersistentStorage.LoadNewCreatureModel(_creatureData.name);
         
-        Debug.Log("Set New Creautre Parent" + newCreatureFamily.name);
-        Debug.Log("the new CreatureModel is: " + newCreatureModel.name);
+        //Debug.Log("Set New Creautre Parent" + newCreatureFamily.name);
+        //Debug.Log("the new CreatureModel is: " + newCreatureModel.name);
         newCreatureModel.name += "_Loaded_Model";
         newCreatureModel.transform.parent = newCreatureFamily.GetComponent<CreatureFamily>().creatureMesh.GetComponentInChildren<CreatureMemberDefault>().transform;
 
@@ -110,7 +160,7 @@ public class CreatureManager : MonoBehaviour
             selectedCreatureFamily.OnDeselect();
         }
         selectedCreatureFamily = _creatureFamily;
-        Debug.Log("Selected Creature Family: " + selectedCreatureFamily.name);
+        //Debug.Log("Selected Creature Family: " + selectedCreatureFamily.name);
     }
 
     public void CreateTempMonaCreature(GameObject _model, Vector3 _position){
@@ -137,7 +187,7 @@ public class CreatureManager : MonoBehaviour
         //Debug.Log("Assigning monaCreatureFamilyObj: " + monaCreatureFamilyObj.name);
         monaCreatureFamilyObj.name = "CreatureFamily_" + _model.name;
         CreatureFamily monaCreatureFamily = monaCreatureFamilyObj.GetComponent<CreatureFamily>();
-        monaCreatureFamily.Initialize(monaCreatureData);
+        //monaCreatureFamily.Initialize(monaCreatureData);
         
         
         _model.transform.parent = monaCreatureFamily.creatureMesh.GetComponentInChildren<CreatureMemberDefault>().transform;
@@ -158,10 +208,10 @@ public class CreatureManager : MonoBehaviour
     public void SaveTempMonaCreature(){
         //save tempMonaCreatureData to persistent storage
         if(selectedCreatureData != tempMonaCreatureFamily.creatureData){
-            Debug.LogError("SaveTempMonaCreature: selectedCreatureData is not the same as tempMonaCreatureFamily.creatureData");
+            //Debug.LogError("SaveTempMonaCreature: selectedCreatureData is not the same as tempMonaCreatureFamily.creatureData");
             return;
         }
-        Debug.Log("STEP1 Saving tempMonaCreatureData: " + selectedCreatureData.name);
+        //Debug.Log("STEP1 Saving tempMonaCreatureData: " + selectedCreatureData.name);
 
 
         monaManager_Nes.SaveNewCreature(selectedCreatureData, tempMona3DModel, tempMona3DModelScale);

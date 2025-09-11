@@ -11,9 +11,12 @@ public class AnimatewithAudio : MonoBehaviour
     [HideInInspector]
     public AudioClip[] sounds; // Set the array size and the sounds in the Inspector
     private float[] freqData;
-    private int nSamples = 256;
+    private int nSamples = 128; //changed from 256 to 128
     private float fMax = 24000f;
-    //public List<AudioSource> audioSources;
+
+    // Cache arrays and reuse them
+    private static float[] sharedFreqData = new float[128];
+    private static float[] sharedSamples = new float[128];
 
     private float volume = 40f;
     private float frqLow = 200f;
@@ -26,37 +29,50 @@ public class AnimatewithAudio : MonoBehaviour
 
     private float[] samples;
 
+    private Transform cachedTransform;
+    private AudioSource cachedAudioSource;
+
     [System.Serializable]
     public class FloatEvent : UnityEvent<float> { }
 
     public FloatEvent onVoiceBandVolChange;
     public FloatEvent onVolumeChange;
 
-    void Start()
+    void Awake()
     {
-
+        // Cache references once
+        cachedTransform = transform;
+        cachedAudioSource = GetComponent<AudioSource>();
     }
 
-    public void AssignAudioSource(AudioSource source){
+    void Start()
+    {
+        StartCoroutine(AudioAnalysisCoroutine());
+    }
+
+    public void AssignAudioSource(AudioSource source)
+    {
         audioSource = source;
-        freqData = new float[nSamples];
+        freqData = sharedFreqData;
         if (onVoiceBandVolChange == null)
             onVoiceBandVolChange = new FloatEvent();
-        samples = new float[nSamples];
+        samples = sharedSamples;
         if (onVolumeChange == null)
             onVolumeChange = new FloatEvent();
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator AudioAnalysisCoroutine()
     {
-        //targetObj.transform.localScale = new Vector3(scale, scale, scale);
-        //invoke a unity event here passing the voiceBandVol
-        //onVoiceBandVolChange.Invoke(voiceBandVol);
-        onVoiceBandVolChange.Invoke(BandVol(audioSource, frqLow, frqHigh) * volume * frequencyMultiplier + GetVolume(audioSource) * volumeMultiplier);
+        while (true)
+        {
+            if (audioSource != null && audioSource.isPlaying && audioSource.clip != null)
+            {
+                // Perform expensive audio analysis
+                onVoiceBandVolChange.Invoke(BandVol(audioSource, frqLow, frqHigh) * volume * frequencyMultiplier + GetVolume(audioSource) * volumeMultiplier);
+            }
+            yield return new WaitForSeconds(0.066f); // Update at 30Hz instead of 60Hz -> Changed to 15Hz by Court
+        }
     }
-
-
 
     float BandVol(AudioSource source, float fLow, float fHigh)
     {

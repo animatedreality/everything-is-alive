@@ -36,7 +36,7 @@ public class SceneManager : MonoBehaviour
     {
         //!!!!! DO NOT SHUFFLE ORDER !!!!!
         AudioManager.i.Initialize();
-        CreatureManager.i.Initialize();
+        //CreatureManager.i.Initialize();
         UIManager.i.Initialize();
     }
 }
