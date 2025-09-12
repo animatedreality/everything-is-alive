@@ -40,17 +40,54 @@ public class UIManager : MonoBehaviour
         }
     }
     // Start is called before the first frame update
+    //public void Initialize()
+    //{
+    //    //change this later based on game state
+    //    mainMenu.SetActive(true);
+    //    audioClipsMenu.SetActive(false);
+    //    monaObjectContainer.SetActive(false);
+    //    //virtualKeyboard.SetActive(false);
+    //    InitializeCreatureContainer(defaultCreatureContainer, CreatureManager.i.creatureDataList);
+
+    //MonaModal.OnModalClosed += CloseModal;
+    //}
+
     public void Initialize()
     {
+        Debug.Log("UIManager: Initialize() called");
+
+        if (defaultCreatureContainer == null)
+        {
+            Debug.LogError("UIManager: defaultCreatureContainer is NULL! Cannot create creature buttons.");
+            return;
+        }
+
+        if (CreatureManager.i == null)
+        {
+            Debug.LogError("UIManager: CreatureManager.i is NULL!");
+            return;
+        }
+
+        if (CreatureManager.i.creatureDataList == null)
+        {
+            Debug.LogError("UIManager: CreatureManager.i.creatureDataList is NULL!");
+            return;
+        }
+
+        Debug.Log($"UIManager: Found {CreatureManager.i.creatureDataList.Count} creature data items");
+
         //change this later based on game state
         mainMenu.SetActive(true);
         audioClipsMenu.SetActive(false);
         monaObjectContainer.SetActive(false);
-        //virtualKeyboard.SetActive(false);
+
         InitializeCreatureContainer(defaultCreatureContainer, CreatureManager.i.creatureDataList);
 
         MonaModal.OnModalClosed += CloseModal;
+
+        Debug.Log("UIManager: Initialization complete");
     }
+
 
     void InitializeCreatureContainer(GameObject _container, List<CreatureData> _creatureDataList){
         if(!_container.GetComponent<UIButtonContainer>())

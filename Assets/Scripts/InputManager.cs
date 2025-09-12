@@ -38,8 +38,8 @@ public class InputManager : MonoBehaviour
         }
         isSpawningCreature = true;
         Debug.Log("RightControllerBButton");
-        if(SceneManager.i.currentSceneState == SceneState.INGAME){
-            var task = CreatureManager.i.SpawnCreature();
+        if(GameSceneManager.i.currentSceneState == SceneState.INGAME){
+            var task = CreatureManager.i.SpawnCreatureAsync();
             while (!task.IsCompleted)
                 yield return null;
         }
