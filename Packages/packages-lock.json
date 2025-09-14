@@ -105,7 +105,11 @@
     },
     "com.unity.burst": {
       "version": "1.8.19",
+<<<<<<< Updated upstream
       "depth": 2,
+=======
+      "depth": 1,
+>>>>>>> Stashed changes
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
@@ -155,7 +159,11 @@
         "com.unity.ide.rider": "3.0.34",
         "com.unity.editorcoroutines": "1.0.0",
         "com.unity.performance.profile-analyzer": "1.2.3",
+<<<<<<< Updated upstream
         "com.unity.test-framework": "1.4.6",
+=======
+        "com.unity.test-framework": "1.1.33",
+>>>>>>> Stashed changes
         "com.unity.testtools.codecoverage": "1.2.6"
       }
     },
@@ -214,7 +222,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
+<<<<<<< Updated upstream
       "version": "17.0.4",
+=======
+      "version": "14.0.12",
+>>>>>>> Stashed changes
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -229,6 +241,7 @@
       }
     },
     "com.unity.render-pipelines.universal": {
+<<<<<<< Updated upstream
       "version": "17.0.4",
       "depth": 0,
       "source": "builtin",
@@ -236,6 +249,17 @@
         "com.unity.render-pipelines.core": "17.0.4",
         "com.unity.shadergraph": "17.0.4",
         "com.unity.render-pipelines.universal-config": "17.0.3"
+=======
+      "version": "14.0.12",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.1",
+        "com.unity.burst": "1.8.9",
+        "com.unity.render-pipelines.core": "14.0.12",
+        "com.unity.shadergraph": "14.0.12",
+        "com.unity.render-pipelines.universal-config": "14.0.9"
+>>>>>>> Stashed changes
       }
     },
     "com.unity.render-pipelines.universal-config": {
@@ -271,12 +295,21 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
+<<<<<<< Updated upstream
       "version": "17.0.4",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
         "com.unity.render-pipelines.core": "17.0.4",
         "com.unity.searcher": "4.9.3"
+=======
+      "version": "14.0.12",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "14.0.12",
+        "com.unity.searcher": "4.9.2"
+>>>>>>> Stashed changes
       }
     },
     "com.unity.test-framework": {
