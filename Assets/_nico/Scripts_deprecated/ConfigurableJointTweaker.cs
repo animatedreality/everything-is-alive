@@ -90,7 +90,7 @@ public class ConfigurableJointTweaker : MonoBehaviour
 
     public void AdjustRigidbodyDrag(Rigidbody rb, float dragAdj, float angularDragAdj)
     {
-        rb.drag *= dragAdj;
-        rb.angularDrag *= angularDragAdj;
+        rb.linearDamping *= dragAdj;
+        rb.angularDamping *= angularDragAdj;
     }
 }
