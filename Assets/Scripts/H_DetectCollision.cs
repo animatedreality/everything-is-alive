@@ -5,55 +5,129 @@ using UnityEngine.Events;
 
 public class H_DetectCollision : MonoBehaviour
 {
-    public string targetStringContains = "Hand"; // name of target collision must contain this string
+    [Header("Detection Settings")]
+    [Tooltip("Use tags for better performance than string matching")]
+    public bool useTagInsteadOfName = true;
+
+    [Tooltip("Target tag to detect (recommended)")]
+    public string targetTag = "Hand";
+
+    [Tooltip("Target string name contains (fallback, less efficient)")]
+    public string targetStringContains = "Hand";
+
+    [Header("Events")]
     public UnityEvent collisionEnterEvent, collisionExitEvent;
-    public GameObject collidingObject;
 
-    public float collisionBuffer = 0.1f; // Buffer time in seconds
-    private float lastCollisionTime = -1f; // Time of the last collision
+    [Header("Collision Settings")]
+    public float collisionBuffer = 0.1f;
 
-    // Start is called before the first frame update
+    // Cached references
+    private GameObject collidingObject;
+    private float lastCollisionTime = -1f;
+
+    // Performance optimization: cache string hash for faster comparison
+    private int targetStringHash;
+    private bool hasTargetString;
+
     void Start()
     {
-        
-    }
+        // Cache string hash for faster string comparison if not using tags
+        if (!useTagInsteadOfName && !string.IsNullOrEmpty(targetStringContains))
+        {
+            targetStringHash = targetStringContains.GetHashCode();
+            hasTargetString = true;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Validate tag exists if using tag-based detection
+        if (useTagInsteadOfName)
+        {
+            try
+            {
+                GameObject.FindWithTag(targetTag);
+            }
+            catch (UnityException)
+            {
+                Debug.LogWarning($"Tag '{targetTag}' doesn't exist. Consider adding it to Tags & Layers.", this);
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        // Early exit for collision buffer
         if (Time.time - lastCollisionTime < collisionBuffer)
+            return;
+
+        // Optimized target detection
+        bool isTargetObject = false;
+
+        if (useTagInsteadOfName)
         {
-            return; // Exit if not enough time has passed since last collision
+            // Tag comparison is much faster than string operations
+            isTargetObject = collision.gameObject.CompareTag(targetTag);
+        }
+        else if (hasTargetString)
+        {
+            // Optimized string comparison using cached hash
+            isTargetObject = IsTargetName(collision.gameObject.name);
         }
 
-        //Debug.Log(gameObject.name + "Colliding with " + collision.gameObject.name);
-        if(collision.gameObject.name.Contains(targetStringContains)){
-            Debug.Log("CollisionEnter");
+        if (isTargetObject)
+        {
             collidingObject = collision.gameObject;
-            collisionEnterEvent?.Invoke();
             lastCollisionTime = Time.time;
-            //call the CollisionEvent that can be overriden by children scripts
+
+            // Invoke events
+            collisionEnterEvent?.Invoke();
             CollisionEvent();
+
+            // Optimized debug logging (only when needed)
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Debug.Log("CollisionEnter", this);
+#endif
         }
-
-    }
-
-    protected virtual void CollisionEvent(){
-        Debug.Log("Collision Event");
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        //Debug.Log(gameObject.name + "Colliding with " + collision.gameObject.name);
-        if(collision.gameObject == collidingObject){
+        // Direct reference comparison is faster than null check + equality
+        if (ReferenceEquals(collision.gameObject, collidingObject))
+        {
             collisionExitEvent?.Invoke();
             collidingObject = null;
         }
+    }
+
+    // Optimized string comparison method
+    private bool IsTargetName(string objectName)
+    {
+        // Fast path: exact match first
+        if (objectName == targetStringContains)
+            return true;
+
+        // Fallback to Contains() if needed
+        return objectName.Contains(targetStringContains);
+    }
+
+    protected virtual void CollisionEvent()
+    {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Log("Collision Event", this);
+#endif
+    }
+
+    // Public methods for runtime switching (optional)
+    public void SetTargetTag(string newTag)
+    {
+        targetTag = newTag;
+        useTagInsteadOfName = true;
+    }
+
+    public void SetTargetString(string newString)
+    {
+        targetStringContains = newString;
+        targetStringHash = newString.GetHashCode();
+        hasTargetString = !string.IsNullOrEmpty(newString);
+        useTagInsteadOfName = false;
     }
 }

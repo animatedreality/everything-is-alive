@@ -11,10 +11,4 @@ public class CreatureMember : MonoBehaviour
     public virtual void OnPlay(){
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -1,41 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager i;
+
+    [Header("Timing")]
     public float bpm = 120f;
-
     private double time;
-
     private double nextEventTime;
-
     public bool globalPlay = false;
 
+    [Header("Audio Management")]
+    public AudioSourcePool audioSourcePool;
+    public SoundLibrary soundLibrary;
+    public AudioMixerGroup masterMixerGroup;
+
+    [Header("Performance")]
+    [SerializeField] private int maxSimultaneousSounds = 10;
+    private List<PlayingSoundInfo> playingSounds = new List<PlayingSoundInfo>();
+
+    // Existing fields...
     public UnityEvent<int> OnEveryStep;
     public List<Sequence> sequences;
     public List<Sequencer> sequencers;
-
-    [HideInInspector]
-    public int beatIndex = 0;
-
-    // public delegate void OnEveryStepDelegate(int x);
-
-    // public event OnEveryStepDelegate OnEveryStepEvent;
-
-    private void Awake()
-    {
-        if (i == null)
-        {
-            i = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    [HideInInspector] public int beatIndex = 0;
+    private AudioSource audioClipsMenuSource;
 
     public float sequencerUIHeight = 108.33f;
     [Header("Prefabs")]
@@ -45,6 +37,162 @@ public class AudioManager : MonoBehaviour
 
     [Header("Audio")]
     public List<AudioClip> audioClips = new List<AudioClip>();
+
+    private struct PlayingSoundInfo
+    {
+        public AudioSource source;
+        public float startTime;
+        public string soundName;
+    }
+
+    private void Awake()
+    {
+        if (i == null)
+        {
+            i = this;
+            DontDestroyOnLoad(gameObject);
+            InitializeAudioSystem();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void InitializeAudioSystem()
+    {
+        if (audioSourcePool == null)
+        {
+            GameObject poolObject = new GameObject("AudioSourcePool");
+            poolObject.transform.SetParent(transform);
+            audioSourcePool = poolObject.AddComponent<AudioSourcePool>();
+        }
+    }
+
+    public AudioSource PlaySound(string soundName, Vector3 position = default)
+    {
+        AudioData audioData = soundLibrary?.GetAudioData(soundName);
+        if (audioData?.clip == null)
+        {
+            Debug.LogWarning($"Could not find audio data for sound: {soundName}");
+            return null;
+        }
+
+        return PlaySound(audioData, position);
+    }
+
+    public AudioSource PlaySound(AudioData audioData, Vector3 position = default)
+    {
+        if (audioData?.clip == null) return null;
+
+        // Limit simultaneous sounds if necessary
+        if (playingSounds.Count >= maxSimultaneousSounds)
+        {
+            StopOldestSound();
+        }
+
+        AudioSource source = audioSourcePool.GetAudioSource();
+        ConfigureAudioSource(source, audioData, position);
+
+        source.Play();
+
+        // Track playing sound
+        PlayingSoundInfo soundInfo = new PlayingSoundInfo
+        {
+            source = source,
+            startTime = Time.time,
+            soundName = audioData.name
+        };
+        playingSounds.Add(soundInfo);
+
+        StartCoroutine(ReturnSourceWhenFinished(source, audioData.clip.length));
+
+        return source;
+    }
+
+    private void ConfigureAudioSource(AudioSource source, AudioData audioData, Vector3 position)
+    {
+        source.clip = audioData.clip;
+        source.volume = audioData.volume;
+        source.pitch = audioData.pitch;
+        source.loop = audioData.loop;
+        source.outputAudioMixerGroup = audioData.mixerGroup ?? masterMixerGroup;
+
+        if (audioData.is3D)
+        {
+            source.spatialBlend = 1f;
+            source.maxDistance = audioData.maxDistance;
+            source.rolloffMode = audioData.rolloffMode;
+            source.transform.position = position;
+        }
+        else
+        {
+            source.spatialBlend = 0f;
+        }
+    }
+
+    private IEnumerator ReturnSourceWhenFinished(AudioSource source, float clipLength)
+    {
+        yield return new WaitForSeconds(clipLength + 0.1f);
+
+        if (source != null && !source.isPlaying)
+        {
+            ReturnAudioSourceToPool(source);
+        }
+    }
+
+    private void ReturnAudioSourceToPool(AudioSource source)
+    {
+        // Remove from playing sounds list
+        for (int i = playingSounds.Count - 1; i >= 0; i--)
+        {
+            if (playingSounds[i].source == source)
+            {
+                playingSounds.RemoveAt(i);
+                break;
+            }
+        }
+
+        audioSourcePool?.ReturnAudioSource(source);
+    }
+
+    private void StopOldestSound()
+    {
+        if (playingSounds.Count > 0)
+        {
+            AudioSource oldestSource = playingSounds[0].source;
+            if (oldestSource != null)
+            {
+                oldestSource.Stop();
+                ReturnAudioSourceToPool(oldestSource);
+            }
+        }
+    }
+
+    public void StopAllSounds()
+    {
+        for (int i = playingSounds.Count - 1; i >= 0; i--)
+        {
+            if (playingSounds[i].source != null)
+            {
+                playingSounds[i].source.Stop();
+                ReturnAudioSourceToPool(playingSounds[i].source);
+            }
+        }
+        playingSounds.Clear();
+    }
+
+    void Start()
+    {
+        audioClipsMenuSource = UIManager.i.audioClipsMenu.GetComponent<AudioSource>();
+        if (audioClipsMenuSource == null)
+            audioClipsMenuSource = UIManager.i.audioClipsMenu.AddComponent<AudioSource>();
+
+        StartCoroutine(AudioTimingCoroutine());
+        StartCoroutine(AudioCleanupCoroutine());
+        StartCoroutine(NonPlayingUpdateCoroutine());
+    }
+
     public void Initialize()
     {
         nextEventTime = AudioSettings.dspTime + 0.4;
@@ -58,46 +206,126 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Update()
+    //public void Update()
+    //{
+    //    time = AudioSettings.dspTime;
+    //    double sixteenthNote = 60.0 / (bpm * 4);
+    //    if (globalPlay)
+    //    {
+    //        if (time + sixteenthNote > nextEventTime)
+    //        {
+    //            foreach (Sequence sequence in sequences)
+    //            {
+    //                int localBeatIndex = beatIndex % sequence.sequenceLengthMultiplier;
+
+    //                // Only schedule for sequences that should trigger on this beat
+    //                if (localBeatIndex == 0)
+    //                {
+    //                    //Debug.Log(sequence.sequencer.creatureFamily.name + " Scheduling sequence Play " + beatIndex);
+    //                    sequence.Schedule(beatIndex, nextEventTime);
+    //                }
+    //            }
+
+    //            nextEventTime += sixteenthNote;
+    //            beatIndex++;
+
+    //            TimeEvent te = new TimeEvent(nextEventTime, EveryStepAction, beatIndex);
+    //            StartCoroutine(CheckEventRoutine(te));
+    //        }
+    //    }
+    //    CleanupFinishedSounds();
+    //}
+
+    private IEnumerator AudioTimingCoroutine()
     {
-        time = AudioSettings.dspTime;
-        double sixteenthNote = 60.0 / (bpm * 4);
-        if (globalPlay)
+        while (true)
         {
-            if (time + sixteenthNote > nextEventTime)
+            if (globalPlay)
             {
-                foreach(Sequence sequence in sequences)
+                time = AudioSettings.dspTime;
+                double sixteenthNote = 60.0 / (bpm * 4);
+
+                if (time + sixteenthNote > nextEventTime)
                 {
-                    int localBeatIndex = beatIndex % sequence.sequenceLengthMultiplier;
-
-                    // Only schedule for sequences that should trigger on this beat
-                    if (localBeatIndex == 0)
+                    foreach (Sequence sequence in sequences)
                     {
-                        //Debug.Log(sequence.sequencer.creatureFamily.name + " Scheduling sequence Play " + beatIndex);
-                        sequence.Schedule(beatIndex, nextEventTime);
+                        int localBeatIndex = beatIndex % sequence.sequenceLengthMultiplier;
+                        if (localBeatIndex == 0)
+                        {
+                            sequence.Schedule(beatIndex, nextEventTime);
+                        }
                     }
-                }
-                
-                nextEventTime += sixteenthNote;
-                beatIndex++;
 
-                TimeEvent te = new TimeEvent(nextEventTime, EveryStepAction, beatIndex);
-                StartCoroutine(CheckEventRoutine(te));
+                    nextEventTime += sixteenthNote;
+                    beatIndex++;
+
+                    TimeEvent te = new TimeEvent(nextEventTime, EveryStepAction, beatIndex);
+                    StartCoroutine(CheckEventRoutine(te));
+                }
+
+                yield return null; // Run every frame when playing
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.1f); // Check less frequently when not playing
+            }
+        }
+    }
+
+    private IEnumerator AudioCleanupCoroutine()
+    {
+        while (true)
+        {
+            CleanupFinishedSounds();
+            yield return new WaitForSeconds(0.1f); // Clean up every 100ms instead of every frame
+        }
+    }
+
+    private void CleanupFinishedSounds()
+    {
+        for (int i = playingSounds.Count - 1; i >= 0; i--)
+        {
+            if (playingSounds[i].source == null || !playingSounds[i].source.isPlaying)
+            {
+                if (playingSounds[i].source != null)
+                {
+                    ReturnAudioSourceToPool(playingSounds[i].source);
+                }
+                else
+                {
+                    playingSounds.RemoveAt(i);
+                }
             }
         }
     }
 
     private int lateUpdateCount = 0;
 
-    private void LateUpdate()
+    //private void LateUpdate()
+    //{
+    //    if (!globalPlay) //occasionally update stuff when globalPlay is false
+    //    {
+    //        if (lateUpdateCount % 64 == 0)
+    //        {
+    //            EveryStepAction(AudioSettings.dspTime, beatIndex);
+    //        }
+    //        lateUpdateCount++;
+    //    }
+    //}
+
+    private IEnumerator NonPlayingUpdateCoroutine()
     {
-        if (!globalPlay) //occasionally update stuff when globalPlay is false
+        while (true)
         {
-            if (lateUpdateCount % 64 == 0)
+            if (!globalPlay)
             {
                 EveryStepAction(AudioSettings.dspTime, beatIndex);
+                yield return new WaitForSeconds(1.0f); // Update every second when not playing
             }
-            lateUpdateCount++;
+            else
+            {
+                yield return new WaitForSeconds(0.1f); // Check state more frequently
+            }
         }
     }
 
@@ -158,12 +386,9 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlayAudioClip(AudioClip _clip){
-        //attach AudioSource to audioClipsMenu if it doesn't have one
-        if(UIManager.i.audioClipsMenu.GetComponent<AudioSource>() == null){
-            UIManager.i.audioClipsMenu.AddComponent<AudioSource>();
-        }
-        UIManager.i.audioClipsMenu.GetComponent<AudioSource>().clip = _clip;
-        UIManager.i.audioClipsMenu.GetComponent<AudioSource>().Play();
+
+        audioClipsMenuSource.clip = _clip;
+        audioClipsMenuSource.Play();
     }
 
 }

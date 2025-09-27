@@ -23,12 +23,6 @@ public class H_AnimateAppearance : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AnimateIn(){
         gameObject.SetActive(true);
         transform.localScale = Vector3.zero;
