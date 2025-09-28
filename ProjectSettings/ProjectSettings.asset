@@ -8,7 +8,7 @@ PlayerSettings:
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 3
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
@@ -17,7 +17,7 @@ PlayerSettings:
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.12156863, g: 0.12156863, b: 0.1254902, a: 1}
-  m_ShowUnitySplashScreen: 1
+  m_ShowUnitySplashScreen: 0
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
@@ -46,8 +46,8 @@ PlayerSettings:
   defaultScreenHeight: 1080
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
-  m_StereoRenderingPath: 0
-  m_ActiveColorSpace: 0
+  m_StereoRenderingPath: 2
+  m_ActiveColorSpace: 1
   unsupportedMSAAFallback: 0
   m_SpriteBatchMaxVertexCount: 65535
   m_SpriteBatchVertexThreshold: 300
@@ -97,8 +97,8 @@ PlayerSettings:
   resizableWindow: 0
   useMacAppStoreValidation: 0
   macAppStoreCategory: public.app-category.games
-  gpuSkinning: 0
-  meshDeformation: 0
+  gpuSkinning: 1
+  meshDeformation: 2
   xboxPIXTextureCapture: 0
   xboxEnableAvatar: 0
   xboxEnableKinect: 0
@@ -141,7 +141,8 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: f52f9d11a73fa8a40807e6cc6eacc47b, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -156,19 +157,23 @@ PlayerSettings:
   useHDRDisplay: 0
   hdrBitDepth: 0
   m_ColorGamuts: 00000000
-  targetPixelDensity: 0
+  targetPixelDensity: 30
   resolutionScalingMode: 0
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.4
   androidMinAspectRatio: 1
   applicationIdentifier: {}
-  buildNumber: {}
+  buildNumber:
+    Standalone: 0
+    VisionOS: 0
+    iPhone: 0
+    tvOS: 0
   overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 23
-  AndroidTargetSdkVersion: 0
-  AndroidPreferredInstallLocation: 1
+  AndroidMinSdkVersion: 32
+  AndroidTargetSdkVersion: 32
+  AndroidPreferredInstallLocation: 0
   aotOptions: 
   stripEngineCode: 1
   iPhoneStrippingLevel: 0
@@ -183,13 +188,13 @@ PlayerSettings:
   VertexChannelCompressionMask: 4054
   iPhoneSdkVersion: 988
   iOSSimulatorArchitecture: 0
-  iOSTargetOSVersionString: 
+  iOSTargetOSVersionString: 13.0
   tvOSSdkVersion: 0
   tvOSSimulatorArchitecture: 0
   tvOSRequireExtendedGameController: 0
-  tvOSTargetOSVersionString: 
+  tvOSTargetOSVersionString: 13.0
   VisionOSSdkVersion: 0
-  VisionOSTargetOSVersionString: 
+  VisionOSTargetOSVersionString: 1.0
   uIPrerenderedIcon: 0
   uIRequiresPersistentWiFi: 0
   uIRequiresFullScreen: 1
@@ -248,7 +253,7 @@ PlayerSettings:
   clonedFromGUID: 00000000000000000000000000000000
   templatePackageId: 
   templateDefaultScene: 
-  useCustomMainManifest: 0
+  useCustomMainManifest: 1
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 0
@@ -259,8 +264,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 2
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: '{inproject}: user.keystore'
+  AndroidKeyaliasName: title in reverse
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidEnableArm64MTE: 0
   AndroidBuildApkPerCpuArchitecture: 0
@@ -269,7 +274,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 0
+  androidUseCustomKeystore: 1
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -282,12 +287,111 @@ PlayerSettings:
   AndroidReportGooglePlayAppDependencies: 1
   androidSymbolsSizeThreshold: 800
   m_BuildTargetIcons: []
-  m_BuildTargetPlatformIcons: []
+  m_BuildTargetPlatformIcons:
+  - m_BuildTarget: Android
+    m_Icons:
+    - m_Textures: []
+      m_Width: 432
+      m_Height: 432
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 324
+      m_Height: 324
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 216
+      m_Height: 216
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 162
+      m_Height: 162
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 108
+      m_Height: 108
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 81
+      m_Height: 81
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 192
+      m_Height: 192
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 144
+      m_Height: 144
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 96
+      m_Height: 96
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 72
+      m_Height: 72
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 48
+      m_Height: 48
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 36
+      m_Height: 36
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 192
+      m_Height: 192
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 144
+      m_Height: 144
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 96
+      m_Height: 96
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 72
+      m_Height: 72
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 48
+      m_Height: 48
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 36
+      m_Height: 36
+      m_Kind: 0
+      m_SubKind: 
   m_BuildTargetBatching: []
   m_BuildTargetShaderSettings: []
-  m_BuildTargetGraphicsJobs: []
-  m_BuildTargetGraphicsJobMode: []
-  m_BuildTargetGraphicsAPIs: []
+  m_BuildTargetGraphicsJobs:
+  - m_BuildTarget: AndroidPlayer
+    m_GraphicsJobs: 1
+  m_BuildTargetGraphicsJobMode:
+  - m_BuildTarget: AndroidPlayer
+    m_GraphicsJobMode: 1
+  m_BuildTargetGraphicsAPIs:
+  - m_BuildTarget: AndroidPlayer
+    m_APIs: 15000000
+    m_Automatic: 0
   m_BuildTargetVRSettings: []
   m_DefaultShaderChunkSizeInMB: 16
   m_DefaultShaderChunkCount: 0
@@ -317,7 +421,7 @@ PlayerSettings:
   locationUsageDescription: 
   microphoneUsageDescription: 
   bluetoothUsageDescription: 
-  macOSTargetOSVersion: 
+  macOSTargetOSVersion: 11.0
   switchNMETAOverride: 
   switchNetLibKey: 
   switchSocketMemoryPoolSize: 6144
@@ -571,7 +675,25 @@ PlayerSettings:
   webGLWebAssemblyBigInt: 0
   webGLCloseOnQuit: 0
   webWasm2023: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: DOTWEEN;ISDK_OPENXR_HAND
+    EmbeddedLinux: DOTWEEN
+    GameCoreScarlett: DOTWEEN
+    GameCoreXboxOne: DOTWEEN
+    Kepler: DOTWEEN
+    LinuxHeadlessSimulation: DOTWEEN
+    Nintendo Switch: DOTWEEN
+    Nintendo Switch 2: DOTWEEN
+    PS4: DOTWEEN
+    PS5: DOTWEEN
+    QNX: DOTWEEN
+    Standalone: DOTWEEN;ISDK_OPENXR_HAND
+    VisionOS: DOTWEEN
+    WebGL: DOTWEEN
+    Windows Store Apps: DOTWEEN
+    XboxOne: DOTWEEN
+    iPhone: DOTWEEN
+    tvOS: DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
@@ -667,7 +789,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
