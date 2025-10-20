@@ -206,36 +206,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    //public void Update()
-    //{
-    //    time = AudioSettings.dspTime;
-    //    double sixteenthNote = 60.0 / (bpm * 4);
-    //    if (globalPlay)
-    //    {
-    //        if (time + sixteenthNote > nextEventTime)
-    //        {
-    //            foreach (Sequence sequence in sequences)
-    //            {
-    //                int localBeatIndex = beatIndex % sequence.sequenceLengthMultiplier;
-
-    //                // Only schedule for sequences that should trigger on this beat
-    //                if (localBeatIndex == 0)
-    //                {
-    //                    //Debug.Log(sequence.sequencer.creatureFamily.name + " Scheduling sequence Play " + beatIndex);
-    //                    sequence.Schedule(beatIndex, nextEventTime);
-    //                }
-    //            }
-
-    //            nextEventTime += sixteenthNote;
-    //            beatIndex++;
-
-    //            TimeEvent te = new TimeEvent(nextEventTime, EveryStepAction, beatIndex);
-    //            StartCoroutine(CheckEventRoutine(te));
-    //        }
-    //    }
-    //    CleanupFinishedSounds();
-    //}
-
     private IEnumerator AudioTimingCoroutine()
     {
         while (true)
@@ -301,18 +271,6 @@ public class AudioManager : MonoBehaviour
 
     private int lateUpdateCount = 0;
 
-    //private void LateUpdate()
-    //{
-    //    if (!globalPlay) //occasionally update stuff when globalPlay is false
-    //    {
-    //        if (lateUpdateCount % 64 == 0)
-    //        {
-    //            EveryStepAction(AudioSettings.dspTime, beatIndex);
-    //        }
-    //        lateUpdateCount++;
-    //    }
-    //}
-
     private IEnumerator NonPlayingUpdateCoroutine()
     {
         while (true)
@@ -341,10 +299,19 @@ public class AudioManager : MonoBehaviour
         {
             return;
         }
+
         OnEveryStep?.Invoke(x);
-        // OnEveryStepEvent?.Invoke(x);
-        foreach(Sequencer sequencer in sequencers){
-            sequencer.OnEveryStep(x);
+
+        for (int i = sequencers.Count - 1; i >= 0; i--)
+        {
+            if (sequencers[i] != null)
+            {
+                sequencers[i].OnEveryStep(x);
+            }
+            else
+            {
+                sequencers.RemoveAt(i);
+            }
         }
     }
 

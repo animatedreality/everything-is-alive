@@ -13,12 +13,6 @@ public class H_Selection : MonoBehaviour
         SetActive(isSelected);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ToggleSelected(){
         isSelected = !isSelected;
         SetActive(isSelected);
@@ -43,6 +37,6 @@ public class H_Selection : MonoBehaviour
     }
 
     public void DebugButtonPressed(){
-        Debug.Log("Button pressed" + gameObject.name);
+        //Debug.Log("Button pressed" + gameObject.name);
     }
 }

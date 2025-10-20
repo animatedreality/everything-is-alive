@@ -39,42 +39,30 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    // Start is called before the first frame update
-    //public void Initialize()
-    //{
-    //    //change this later based on game state
-    //    mainMenu.SetActive(true);
-    //    audioClipsMenu.SetActive(false);
-    //    monaObjectContainer.SetActive(false);
-    //    //virtualKeyboard.SetActive(false);
-    //    InitializeCreatureContainer(defaultCreatureContainer, CreatureManager.i.creatureDataList);
-
-    //MonaModal.OnModalClosed += CloseModal;
-    //}
 
     public void Initialize()
     {
-        Debug.Log("UIManager: Initialize() called");
+        //Debug.Log("UIManager: Initialize() called");
 
         if (defaultCreatureContainer == null)
         {
-            Debug.LogError("UIManager: defaultCreatureContainer is NULL! Cannot create creature buttons.");
+            //Debug.LogError("UIManager: defaultCreatureContainer is NULL! Cannot create creature buttons.");
             return;
         }
 
         if (CreatureManager.i == null)
         {
-            Debug.LogError("UIManager: CreatureManager.i is NULL!");
+            //Debug.LogError("UIManager: CreatureManager.i is NULL!");
             return;
         }
 
         if (CreatureManager.i.creatureDataList == null)
         {
-            Debug.LogError("UIManager: CreatureManager.i.creatureDataList is NULL!");
+            //Debug.LogError("UIManager: CreatureManager.i.creatureDataList is NULL!");
             return;
         }
 
-        Debug.Log($"UIManager: Found {CreatureManager.i.creatureDataList.Count} creature data items");
+        //Debug.Log($"UIManager: Found {CreatureManager.i.creatureDataList.Count} creature data items");
 
         //change this later based on game state
         mainMenu.SetActive(true);
@@ -85,9 +73,8 @@ public class UIManager : MonoBehaviour
 
         MonaModal.OnModalClosed += CloseModal;
 
-        Debug.Log("UIManager: Initialization complete");
+        //Debug.Log("UIManager: Initialization complete");
     }
-
 
     void InitializeCreatureContainer(GameObject _container, List<CreatureData> _creatureDataList){
         if(!_container.GetComponent<UIButtonContainer>())
@@ -146,7 +133,7 @@ public class UIManager : MonoBehaviour
     }
 
     void OnAudioClipButtonPressed(AudioClip _clip){
-        Debug.Log("Audio Clip Button Pressed: " + _clip.name);
+        //Debug.Log("Audio Clip Button Pressed: " + _clip.name);
         //play the audioClip
         AudioManager.i.PlayAudioClip(_clip);
         AudioManager.i.SwapAudioClip(_clip, CreatureManager.i.tempMonaCreatureFamily);
@@ -166,7 +153,6 @@ public class UIManager : MonoBehaviour
 
     public void SetMonaLoginScreens(){
         //isMonaLoggedIn is a public variable that is set by MonaManager
-        //monaLoginScreen.SetActive(true);
         monaObjectContainer.SetActive(true);
         virtualKeyboard.transform.position = monaObject.transform.position + new Vector3(0, -0.25f, 0);
         monaModel3DContainer.transform.position = monaObject.transform.position;
@@ -174,35 +160,12 @@ public class UIManager : MonoBehaviour
     }
 
     public void CloseModal(){
-        Debug.Log("Closing Modal");
-        //monaObject.SetActive(false);
         monaObjectContainer.SetActive(false);
-
-        //if there is a temporary creature family, destroy it
-        // if(CreatureManager.i.tempMonaCreatureFamily != null){
-        //     Destroy(CreatureManager.i.tempMonaCreatureFamily.gameObject);
-        // }
     }
 
     public void AddNewCreatureButton(CreatureData _creatureData)
     {
         GameObject button = Instantiate(buttonPrefab, defaultCreatureUIButtonContainer.transform);
-
-        //code to load custom image, deal with this later
-        // _creatureData.sprite = H_PersistentStorage.CreateSpriteFromBytes(_creatureData.GetSavedImageData());
-        
-        // // Get the Image component from the button
-        // Image buttonImage = button.GetComponent<Image>();
-        
-        // // Set the button's image to the creature's sprite
-        // if (_creatureData.sprite != null)
-        // {
-        //     buttonImage.sprite = _creatureData.sprite;
-        // }
-        // else
-        // {
-        //     Debug.LogWarning("CreatureData sprite is null. Ensure the image is downloaded and assigned.");
-        // }
         
         button.GetComponent<UIButton>().Initialize(_creatureData, defaultCreatureUIButtonContainer);
     }

@@ -99,7 +99,7 @@ public class Sequencer : MonoBehaviour
                 newSequence.transform.localPosition = new Vector3(0, newSequence.transform.localPosition.y, 0 );
                 newSequence.transform.localRotation = Quaternion.identity;
                 newSequence.transform.localScale = new Vector3(1, 1, 1);
-                Debug.Log("PopulateSequences: " + newSequence.name);
+                //Debug.Log("PopulateSequences: " + newSequence.name);
                 sequences.Add(newSequence.GetComponent<Sequence>());
             }
         }
@@ -144,10 +144,13 @@ public class Sequencer : MonoBehaviour
         float padding = newWidth / 2;
         playHeadArea.offsetMin = new Vector2(padding, playHeadArea.offsetMin.y);
         playHeadArea.offsetMax = new Vector2(-padding, playHeadArea.offsetMax.y);
-        Debug.Log("AdjustPlayHead: " + playHeadSlider.maxValue);
+        //Debug.Log("AdjustPlayHead: " + playHeadSlider.maxValue);
     }
 
     public void OnEveryStep(int _beatIndex){
+        if (playHeadSlider == null)
+            return;
+
         int localBeatIndex = ((int)_beatIndex / creatureData.sequenceLengthMultiplier) % sequenceLength;
         playHeadSlider.value = localBeatIndex;
     }
@@ -195,4 +198,11 @@ public class Sequencer : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (AudioManager.i != null && AudioManager.i.sequencers.Contains(this))
+        {
+            AudioManager.i.sequencers.Remove(this);
+        }
+    }
 }

@@ -22,24 +22,24 @@ public class CreatureManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("CreatureManager: Awake() called");
+        //Debug.Log("CreatureManager: Awake() called");
 
         if (i == null)
         {
             i = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("CreatureManager: Singleton instance set");
+            //Debug.Log("CreatureManager: Singleton instance set");
         }
         else
         {
-            Debug.Log("CreatureManager: Duplicate instance destroyed");
+            //Debug.Log("CreatureManager: Duplicate instance destroyed");
             Destroy(gameObject);
             return;
         }
 
         if (!resourcesLoaded)
         {
-            Debug.Log("CreatureManager: Starting resource loading...");
+            //Debug.Log("CreatureManager: Starting resource loading...");
             LoadAllResourcesOnce();
             // Don't set resourcesLoaded = true here!
         }
@@ -237,7 +237,7 @@ public class CreatureManager : MonoBehaviour
             creatureFamilyPool.Release(obj);
         }
 
-        Debug.Log($"Prewarmed creature family pool with {INITIAL_POOL_SIZE} objects");
+        //Debug.Log($"Prewarmed creature family pool with {INITIAL_POOL_SIZE} objects");
     }
 
 
@@ -248,7 +248,7 @@ public class CreatureManager : MonoBehaviour
 
     private System.Collections.IEnumerator LoadAllResourcesCoroutine()
     {
-        Debug.Log("CreatureManager: LoadAllResourcesCoroutine started");
+        //Debug.Log("CreatureManager: LoadAllResourcesCoroutine started");
         yield return null; // Wait one frame before starting
 
         CreatureData[] allCreatureData = null;
@@ -257,14 +257,14 @@ public class CreatureManager : MonoBehaviour
         // Try to load resources outside the yield context
         try
         {
-            Debug.Log("CreatureManager: Attempting to load CreatureData resources...");
+            //Debug.Log("CreatureManager: Attempting to load CreatureData resources...");
             allCreatureData = Resources.LoadAll<CreatureData>("CreatureData");
-            Debug.Log($"CreatureManager: Found {(allCreatureData != null ? allCreatureData.Length : 0)} CreatureData assets");
+            //Debug.Log($"CreatureManager: Found {(allCreatureData != null ? allCreatureData.Length : 0)} CreatureData assets");
             loadingSuccessful = true;
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"Error loading resources: {e.Message}");
+            //Debug.LogError($"Error loading resources: {e.Message}");
             resourcesLoaded = true; // Set to true even on failure to prevent infinite wait
             yield break;
         }
@@ -272,7 +272,7 @@ public class CreatureManager : MonoBehaviour
         // If loading was successful, process the data
         if (loadingSuccessful && allCreatureData != null && allCreatureData.Length > 0)
         {
-            Debug.Log($"CreatureManager: Processing {allCreatureData.Length} creature data assets");
+            //Debug.Log($"CreatureManager: Processing {allCreatureData.Length} creature data assets");
 
             // Process in batches to avoid frame drops
             const int batchSize = 3;
@@ -292,18 +292,18 @@ public class CreatureManager : MonoBehaviour
             }
 
             creatureDataList = new List<CreatureData>(allCreatureData);
-            Debug.Log($"CreatureManager: Loaded {processed} creature data assets across {Mathf.CeilToInt((float)allCreatureData.Length / batchSize)} frames");
-            Debug.Log($"CreatureManager: creatureDataList now has {creatureDataList.Count} items");
+            //Debug.Log($"CreatureManager: Loaded {processed} creature data assets across {Mathf.CeilToInt((float)allCreatureData.Length / batchSize)} frames");
+            //Debug.Log($"CreatureManager: creatureDataList now has {creatureDataList.Count} items");
         }
         else
         {
-            Debug.LogError("CreatureManager: No CreatureData assets found or loading failed!");
+            //Debug.LogError("CreatureManager: No CreatureData assets found or loading failed!");
             creatureDataList = new List<CreatureData>(); // Initialize empty list
         }
 
         //Set resourcesLoaded to true ONLY after loading completes
         resourcesLoaded = true;
-        Debug.Log("CreatureManager: Resource loading complete, setting resourcesLoaded = true");
+        //Debug.Log("CreatureManager: Resource loading complete, setting resourcesLoaded = true");
     }
 
 
@@ -359,7 +359,7 @@ public class CreatureManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"Error spawning creature: {e.Message}");
+           // Debug.LogError($"Error spawning creature: {e.Message}");
         }
     }
 
@@ -399,7 +399,7 @@ public class CreatureManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"Error creating new creature: {e.Message}");
+            //Debug.LogError($"Error creating new creature: {e.Message}");
             return null;
         }
     }
@@ -466,8 +466,27 @@ public class CreatureManager : MonoBehaviour
     //call this with a custom button when Mona object pops up and is selected
     public void SaveTempMonaCreature()
     {
+        if (tempMonaCreatureFamily == null)
+        {
+            //Debug.LogWarning("SaveTempMonaCreature: No temporary creature family to save.");
+            return;
+        }
+
+        if (tempMonaCreatureFamily.creatureData == null)
+        {
+            //Debug.LogWarning("SaveTempMonaCreature: Temporary creature family has no creature data.");
+            return;
+        }
+
         if (selectedCreatureData != tempMonaCreatureFamily.creatureData)
         {
+            //Debug.LogWarning("SaveTempMonaCreature: Selected creature data does not match temporary creature family.");
+            return;
+        }
+
+        if (tempMona3DModel == null)
+        {
+            //Debug.LogWarning("SaveTempMonaCreature: No temporary 3D model to save.");
             return;
         }
 
