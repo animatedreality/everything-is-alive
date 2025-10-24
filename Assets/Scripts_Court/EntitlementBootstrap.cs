@@ -35,6 +35,7 @@ public class EntitlementBootstrap : MonoBehaviour
     {
         bool initializationComplete = false;
         bool initializationFailed = false;
+        string initError = null;
     
         try
         {
@@ -55,7 +56,13 @@ public class EntitlementBootstrap : MonoBehaviour
         catch (System.Exception e)
         {
             Debug.LogError("[EntitlementBootstrap] Platform Core.AsyncInitialize() failed: " + e.Message);
-            yield return FailAndQuit("Initialization failed.");
+            initError = e.Message;
+        }
+
+        // Handle initialization exception outside the catch block
+        if (initError != null)
+        {
+            yield return FailAndQuit("Initialization exception: " + initError);
             yield break;
         }
 
