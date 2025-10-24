@@ -14,7 +14,7 @@ public class EntitlementBootstrap : MonoBehaviour
     public float timeoutSeconds = 10f;
     public bool quitOnFailure = true;
 
-    private bool _completed;
+    private bool _entitlementCompleted;
 
     private void Awake()
     {
@@ -33,53 +33,89 @@ public class EntitlementBootstrap : MonoBehaviour
 #if QUEST_RUNTIME
     private IEnumerator RunEntitlementGate()
     {
+        bool initializationComplete = false;
         bool initializationFailed = false;
+    
         try
         {
-            Core.Initialize();
+            Core.AsyncInitialize().OnComplete(msg =>
+            {
+                initializationComplete = true;
+                if (msg.IsError)
+                {
+                    Debug.LogError($"[EntitlementBootstrap] AsyncInitialize failed: {msg.GetError().Message}");
+                    initializationFailed = true;
+                }
+                else
+                {
+                    Debug.Log("[EntitlementBootstrap] Platform initialized successfully");
+                }
+            });
         }
         catch (System.Exception e)
         {
-            Debug.LogError("[EntitlementBootstrap] Platform Core.Initialize() failed: " + e.Message);
-            initializationFailed = true;
-        }
-
-        if (initializationFailed)
-        {
+            Debug.LogError("[EntitlementBootstrap] Platform Core.AsyncInitialize() failed: " + e.Message);
             yield return FailAndQuit("Initialization failed.");
             yield break;
         }
 
-        var request = Entitlements.IsUserEntitledToApplication();
-        request.OnComplete(OnEntitlementResult);
-
+        // Wait for initialization with timeout
         float elapsed = 0f;
-        while (!_completed && elapsed < timeoutSeconds)
+        while (!initializationComplete && elapsed < timeoutSeconds)
         {
             elapsed += Time.unscaledDeltaTime;
             yield return null;
         }
 
-        if (!_completed)
+        if (!initializationComplete)
         {
-            Debug.LogError("[EntitlementBootstrap] Entitlement timed out.");
-            yield return FailAndQuit("Entitlement timed out.");
+            Debug.LogError("[EntitlementBootstrap] Initialization timed out.");
+            yield return FailAndQuit("Initialization timed out.");
+            yield break;
+        }
+
+        if (initializationFailed)
+        {
+            Debug.LogError("[EntitlementBootstrap] Initialization failed.");
+            yield return FailAndQuit("Initialization failed.");
+            yield break;
+        }
+
+        // Start entitlement check
+        Debug.Log("[EntitlementBootstrap] Starting entitlement check...");
+        _entitlementCompleted = false;
+        
+        var request = Entitlements.IsUserEntitledToApplication();
+        request.OnComplete(OnEntitlementResult);
+
+        // Wait for entitlement check to complete with timeout
+        elapsed = 0f;
+        while (!_entitlementCompleted && elapsed < timeoutSeconds)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        if (!_entitlementCompleted)
+        {
+            Debug.LogError("[EntitlementBootstrap] Entitlement check timed out.");
+            yield return FailAndQuit("Entitlement check timed out.");
         }
     }
 
     private void OnEntitlementResult(Message msg)
     {
-        _completed = true;
+        _entitlementCompleted = true;
 
         if (msg.IsError)
         {
             var error = msg.GetError();
-            Debug.LogError($"[EntitlementBootstrap] Failed: {error?.Message ?? "Unknown error"} ({error?.Code})");
+            Debug.LogError($"[EntitlementBootstrap] Entitlement failed: {error?.Message ?? "Unknown error"} (Code: {error?.Code})");
             StartCoroutine(FailAndQuit("Entitlement failed."));
             return;
         }
 
-        Debug.Log("[EntitlementBootstrap] Entitlement success. Continuing app load.");
+        Debug.Log("[EntitlementBootstrap] Entitlement check passed. User is entitled to use this app.");
     }
 
     private IEnumerator FailAndQuit(string reason)
@@ -99,6 +135,7 @@ public class EntitlementBootstrap : MonoBehaviour
         text.resizeTextForBestFit = true;
         text.resizeTextMinSize = 18;
         text.resizeTextMaxSize = 36;
+        text.color = Color.white;
 
         var rt = text.GetComponent<RectTransform>();
         rt.anchorMin = new Vector2(0.1f, 0.1f);
@@ -107,9 +144,17 @@ public class EntitlementBootstrap : MonoBehaviour
         rt.offsetMax = Vector2.zero;
 
         float t = 0f;
-        while (t < 1.5f) { t += Time.unscaledDeltaTime; yield return null; }
+        while (t < 3.0f) 
+        { 
+            t += Time.unscaledDeltaTime; 
+            yield return null; 
+        }
 
-        if (quitOnFailure) UnityEngine.Application.Quit();
+        if (quitOnFailure) 
+        {
+            Debug.LogError("[EntitlementBootstrap] Quitting application due to entitlement failure.");
+            UnityEngine.Application.Quit();
+        }
     }
 #endif
 }

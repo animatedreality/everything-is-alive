@@ -34,45 +34,28 @@ public class GameSceneManager : MonoBehaviour
 
     void Start()
     {
+        // Move this here instead of Awake
+        if (OVRManager.instance != null)
+        {
+            OVRManager.foveatedRenderingLevel = OVRManager.FoveatedRenderingLevel.High;
+        }
+
         StartCoroutine(InitializeScene());
     }
 
-    //private System.Collections.IEnumerator InitializeScene()
-    //{
-    //    AudioManager.i.Initialize();
-
-    //    // Wait for creature resources to be loaded
-    //    while (!CreatureManager.resourcesLoaded)
-    //    {
-    //        yield return null;
-    //    }
-
-    //    UIManager.i.Initialize();
-    //    Debug.Log("Scene initialization complete - UI should now show creature images");
-    //}
-
     private System.Collections.IEnumerator InitializeScene()
     {
-        Debug.Log("SceneManager: Starting initialization...");
+        //Debug.Log("SceneManager: Starting initialization...");
 
-        // Check if AudioManager exists
-        if (AudioManager.i == null)
+        // Wait for all managers to be ready
+        if (AudioManager.i == null || CreatureManager.i == null || UIManager.i == null)
         {
             Debug.LogError("SceneManager: AudioManager.i is NULL!");
-            yield break;
+            yield return null;
         }
 
-        Debug.Log("SceneManager: Calling AudioManager.Initialize()");
+        //Debug.Log("SceneManager: Calling AudioManager.Initialize()");
         AudioManager.i.Initialize();
-
-        Debug.Log("SceneManager: Waiting for CreatureManager resources...");
-
-        // Check if CreatureManager exists
-        if (CreatureManager.i == null)
-        {
-            Debug.LogError("SceneManager: CreatureManager.i is NULL!");
-            yield break;
-        }
 
         // Wait for creature resources to be loaded
         int waitFrames = 0;
@@ -87,17 +70,8 @@ public class GameSceneManager : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("SceneManager: CreatureManager resources loaded, calling UIManager.Initialize()");
-
-        // Check if UIManager exists
-        if (UIManager.i == null)
-        {
-            Debug.LogError("SceneManager: UIManager.i is NULL!");
-            yield break;
-        }
-
         UIManager.i.Initialize();
-        Debug.Log("Scene initialization complete - UI should now show creature images");
+        //Debug.Log("Scene initialization complete - UI should now show creature images");
     }
 
 }

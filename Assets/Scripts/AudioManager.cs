@@ -184,9 +184,14 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        audioClipsMenuSource = UIManager.i.audioClipsMenu.GetComponent<AudioSource>();
-        if (audioClipsMenuSource == null)
-            audioClipsMenuSource = UIManager.i.audioClipsMenu.AddComponent<AudioSource>();
+        //audioClipsMenuSource = UIManager.i.audioClipsMenu.GetComponent<AudioSource>();
+
+        if (UIManager.i != null && UIManager.i.audioClipsMenu != null) 
+        {
+            audioClipsMenuSource = UIManager.i.audioClipsMenu.GetComponent<AudioSource>();
+            if (audioClipsMenuSource == null)
+                audioClipsMenuSource = UIManager.i.audioClipsMenu.AddComponent<AudioSource>();
+        }
 
         StartCoroutine(AudioTimingCoroutine());
         StartCoroutine(AudioCleanupCoroutine());
