@@ -22,7 +22,7 @@ namespace Audio
 
         public void ToggleSound()
         {
-            Debug.Log("Toggle sound of Long Sample Class in START");
+            //Debug.Log("Toggle sound of Long Sample Class in START");
             isPlaying = !isPlaying;
             if (isPlaying)
             {
@@ -37,8 +37,8 @@ namespace Audio
 
         private void PlaySample()
         {
-            Debug.Log("instrumentGroup is " + instGroup);
-            Debug.Log("first instrumentGroup is " + firstInstGroup);
+            //Debug.Log("instrumentGroup is " + instGroup);
+            //Debug.Log("first instrumentGroup is " + firstInstGroup);
             AudioSource source = GetAvailableSource();
             source.loop = true;
             source.Play();
@@ -73,8 +73,8 @@ namespace Audio
         public float GetSamplePlayTime(){
             if(sampleAudioSource == null) return 0;
             if(sampleAudioSource.clip == null) return 0;
-            Debug.Log("sampleAudioSource.time: " + sampleAudioSource.time);
-            Debug.Log("sampleAudioSource.clip.length: " + sampleAudioSource.clip.length);
+            //Debug.Log("sampleAudioSource.time: " + sampleAudioSource.time);
+            //Debug.Log("sampleAudioSource.clip.length: " + sampleAudioSource.clip.length);
             return (float) sampleAudioSource.time / (float) sampleAudioSource.clip.length;
         }
 

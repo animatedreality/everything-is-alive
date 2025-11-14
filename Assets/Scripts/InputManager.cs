@@ -9,36 +9,61 @@ public class InputManager : MonoBehaviour
     bool rightControllerBButton, rightControllerAButton;
     bool leftControllerXButton;
     bool isSpawningCreature = false;
-    // Start is called before the first frame update
+
+    private bool _inputEnabled = false;
+
     void Start()
     {
-        
+        if (XRSessionValidator.Instance != null)
+        {
+            XRSessionValidator.Instance.WaitForXRReady(OnXRReady);
+        }
+        else
+        {
+            Debug.LogWarning("[InputManager] XRSessionValidator not found. Input may not work correctly.");
+            _inputEnabled = true;
+        }
     }
 
-    // Update is called once per frame
+    private void OnXRReady()
+    {
+        Debug.Log("[InputManager] XR session ready. Enabling input.");
+        _inputEnabled = true;
+    }
+
     void Update()
     {
+        if (!_inputEnabled)
+            return;
+
         rightControllerBButton = OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch);
         rightControllerAButton = OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch);
         leftControllerXButton = OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch);
-        if(rightControllerBButton){
+
+        if (rightControllerBButton)
+        {
             StartCoroutine(RightControllerBButtonCoroutine());
         }
-        if(rightControllerAButton){
+        if (rightControllerAButton)
+        {
             RightControllerAButton();
         }
-        if(leftControllerXButton){
+        if (leftControllerXButton)
+        {
             LeftControllerXButton();
         }
     }
 
-    private IEnumerator RightControllerBButtonCoroutine(){
-        if(isSpawningCreature){
+    private IEnumerator RightControllerBButtonCoroutine()
+    {
+        if (isSpawningCreature)
+        {
             yield break;
         }
         isSpawningCreature = true;
         Debug.Log("RightControllerBButton");
-        if(GameSceneManager.i.currentSceneState == SceneState.INGAME){
+        if (GameSceneManager.i.currentSceneState == SceneState.INGAME)
+        {
             var task = CreatureManager.i.SpawnCreatureAsync();
             while (!task.IsCompleted)
                 yield return null;
@@ -46,13 +71,14 @@ public class InputManager : MonoBehaviour
         isSpawningCreature = false;
     }
 
-    void RightControllerAButton(){
+    void RightControllerAButton()
+    {
         Debug.Log("RightControllerAButton");
-        //Toggle Hint
         UIManager.i.ToggleGameplayHint();
     }
 
-    void LeftControllerXButton(){
+    void LeftControllerXButton()
+    {
         Debug.Log("LeftControllerXButton");
         UIManager.i.ToggleMainMenu();
     }

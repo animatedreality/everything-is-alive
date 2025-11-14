@@ -86,27 +86,43 @@ namespace Monaverse.Examples
         // }
         private async void Load3DModel(string url, string tokenName)
         {
-            gltfComponent.GLTFUri = url;
-            gltfComponent.AppendStreamingAssets = false;
-            gltfComponent.UseStream = true;
-            Debug.Log("NES_Loading model from: " + url);
-            await gltfComponent.Load();
-            //if (gltfComponent.gameObject.transform.childCount == 0)
-            if (gltfComponent.gameObject.transform.childCount == 0)
+            if (string.IsNullOrEmpty(url))
             {
-                Debug.Log("No model found in GLTFComponent");
+                Debug.LogError("[MonaManager] Invalid URL for 3D model.");
                 return;
             }
-            currentModel = gltfComponent.transform.GetChild(0).gameObject;
-            
-            ResizeModelToFit(currentModel);
-            currentModel.name = tokenName;
-            currentModel.name += "_MonaModel";
 
-            CreatureManager.i.CreateTempMonaCreature(currentModel, transform.position);
+            try
+            {
+                gltfComponent.GLTFUri = url;
+                gltfComponent.AppendStreamingAssets = false;
+                gltfComponent.UseStream = true;
+                Debug.Log("NES_Loading model from: " + url);
 
-            UIManager.i.InitializeAudioClipsContainer();
+                await gltfComponent.Load();
+
+                if (gltfComponent.gameObject.transform.childCount == 0)
+                {
+                    Debug.LogError("[MonaManager] No model found in GLTFComponent");
+                    return;
+                }
+
+                currentModel = gltfComponent.transform.GetChild(0).gameObject;
+
+                ResizeModelToFit(currentModel);
+                currentModel.name = tokenName;
+                currentModel.name += "_MonaModel";
+
+                CreatureManager.i.CreateTempMonaCreature(currentModel, transform.position);
+
+                UIManager.i.InitializeAudioClipsContainer();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[MonaManager] Failed to load 3D model: {e.Message}");
+            }
         }
+
 
         public void ResizeModelToFit(GameObject model)
         {
