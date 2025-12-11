@@ -1,11 +1,13 @@
+using Monaverse.Examples;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System.Threading.Tasks;
-using Monaverse.Examples;
-using UnityEngine.Pool;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.Pool;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 
 
@@ -85,7 +87,7 @@ public class CreatureManager : MonoBehaviour
         creatureFamilyPool = new ObjectPool<GameObject>(
             createFunc: () => {
                 GameObject creature = Instantiate(creatureFamilyPrefab);
-                SetupHandGrabInteractable(creature);
+                SetupXRGrabInteractable(creature);
                 return creature;
             },
             actionOnGet: creature => {
@@ -103,90 +105,82 @@ public class CreatureManager : MonoBehaviour
         );
     }
 
-    private void SetupHandGrabInteractable(GameObject creature)
+    private void SetupXRGrabInteractable(GameObject creature)
     {
-        // Find the HandGrabInteractable component
-        var handGrabInteractable = creature.GetComponentInChildren<Oculus.Interaction.HandGrab.HandGrabInteractable>();
+        var xrGrabInteractable = creature.GetComponentInChildren<XRGrabInteractable>();
 
-        if (handGrabInteractable != null)
+        if (xrGrabInteractable != null)
         {
-            // Find or add required components
-            Rigidbody rb = handGrabInteractable.GetComponent<Rigidbody>();
+            Rigidbody rb = xrGrabInteractable.GetComponent<Rigidbody>();
             if (rb == null)
             {
-                rb = handGrabInteractable.gameObject.AddComponent<Rigidbody>();
-                rb.isKinematic = true; // Usually kinematic for hand grab objects
+                rb = xrGrabInteractable.gameObject.AddComponent<Rigidbody>();
+                rb.useGravity = false;
+                rb.isKinematic = false;
             }
 
-            // Find or add a collider
-            Collider col = handGrabInteractable.GetComponent<Collider>();
+            Collider col = xrGrabInteractable.GetComponent<Collider>();
             if (col == null)
             {
-                col = handGrabInteractable.gameObject.AddComponent<BoxCollider>();
-                BoxCollider boxCol = col as BoxCollider;
-                boxCol.size = Vector3.one * 0.2f; // Adjust size as needed
-                boxCol.isTrigger = true; // Usually trigger for hand interactions
+                col = xrGrabInteractable.gameObject.AddComponent<SphereCollider>();
+                SphereCollider sphereCol = col as SphereCollider;
+                sphereCol.radius = 0.1f;
+                sphereCol.isTrigger = false;
             }
 
-            // Assign the collider to the HandGrabInteractable
-            AssignCollidersToHandGrab(handGrabInteractable, col);
+            xrGrabInteractable.throwOnDetach = true;
+            xrGrabInteractable.throwSmoothingDuration = 0.1f;
+            xrGrabInteractable.smoothPosition = true;
+            xrGrabInteractable.smoothRotation = true;
+            xrGrabInteractable.movementType = XRBaseInteractable.MovementType.Instantaneous;
         }
     }
 
-    private void AssignCollidersToHandGrab(Oculus.Interaction.HandGrab.HandGrabInteractable handGrab, Collider collider)
-    {
-        // Create an array instead of a list
-        Collider[] collidersArray = new Collider[] { collider };
 
-        // Use reflection to set the colliders field since it might be private
-        var fieldInfo = handGrab.GetType().GetField("_colliders", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        if (fieldInfo != null)
-        {
-            fieldInfo.SetValue(handGrab, collidersArray);
-            return;
-        }
+    //private void AssignCollidersToHandGrab(Oculus.Interaction.HandGrab.HandGrabInteractable handGrab, Collider collider)
+    //{
+    //    // Create an array instead of a list
+    //    Collider[] collidersArray = new Collider[] { collider };
 
-        // Try alternative approach - look for public property
-        var propertyInfo = handGrab.GetType().GetProperty("Colliders");
-        if (propertyInfo != null && propertyInfo.CanWrite)
-        {
-            propertyInfo.SetValue(handGrab, collidersArray);
-            return;
-        }
+    //    // Use reflection to set the colliders field since it might be private
+    //    var fieldInfo = handGrab.GetType().GetField("_colliders", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+    //    if (fieldInfo != null)
+    //    {
+    //        fieldInfo.SetValue(handGrab, collidersArray);
+    //        return;
+    //    }
 
-        // If neither worked, try common field names
-        var collectorsField = handGrab.GetType().GetField("_collectors", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        if (collectorsField != null)
-        {
-            collectorsField.SetValue(handGrab, collidersArray);
-        }
-    }
+    //    // Try alternative approach - look for public property
+    //    var propertyInfo = handGrab.GetType().GetProperty("Colliders");
+    //    if (propertyInfo != null && propertyInfo.CanWrite)
+    //    {
+    //        propertyInfo.SetValue(handGrab, collidersArray);
+    //        return;
+    //    }
 
+    //    // If neither worked, try common field names
+    //    var collectorsField = handGrab.GetType().GetField("_collectors", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+    //    if (collectorsField != null)
+    //    {
+    //        collectorsField.SetValue(handGrab, collidersArray);
+    //    }
+    //}
 
     private void ResetCreatureForPool(GameObject creature)
     {
-        // Reset the creature's state when retrieved from pool
         CreatureFamily creatureFamily = creature.GetComponent<CreatureFamily>();
         if (creatureFamily != null)
         {
-            // Reset selection state
             creatureFamily.isSelected = false;
 
-            // Ensure HandGrabInteractable is properly set up
-            var handGrabInteractable = creature.GetComponentInChildren<Oculus.Interaction.HandGrab.HandGrabInteractable>();
-            if (handGrabInteractable != null)
+            var xrGrabInteractable = creature.GetComponentInChildren<XRGrabInteractable>();
+            if (xrGrabInteractable != null)
             {
-                handGrabInteractable.enabled = true;
-
-                // Verify colliders are still assigned
-                Collider col = handGrabInteractable.GetComponent<Collider>();
-                if (col != null)
-                {
-                    AssignCollidersToHandGrab(handGrabInteractable, col);
-                }
+                xrGrabInteractable.enabled = true;
             }
         }
     }
+
 
     private void CleanupCreatureForPool(GameObject creature)
     {

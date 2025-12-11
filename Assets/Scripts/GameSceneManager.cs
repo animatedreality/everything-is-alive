@@ -26,7 +26,7 @@ public class GameSceneManager : MonoBehaviour
         }
 
         // Replace your obsolete code with this:
-        OVRManager.foveatedRenderingLevel = OVRManager.FoveatedRenderingLevel.High;
+        //OVRManager.foveatedRenderingLevel = OVRManager.FoveatedRenderingLevel.High;
     }
 
     public SceneState currentSceneState = SceneState.WELCOME;
@@ -35,10 +35,10 @@ public class GameSceneManager : MonoBehaviour
     void Start()
     {
         // Move this here instead of Awake
-        if (OVRManager.instance != null)
-        {
-            OVRManager.foveatedRenderingLevel = OVRManager.FoveatedRenderingLevel.High;
-        }
+        //if (OVRManager.instance != null)
+        //{
+        //    OVRManager.foveatedRenderingLevel = OVRManager.FoveatedRenderingLevel.High;
+        //}
 
         StartCoroutine(InitializeScene());
     }

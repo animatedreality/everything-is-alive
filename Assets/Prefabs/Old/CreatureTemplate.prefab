@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 184461169374361054}
   - component: {fileID: 3109699828844856114}
   - component: {fileID: 2665683056609451236}
+  - component: {fileID: 8520140347307175527}
   m_Layer: 0
   m_Name: DistanceGrabPullAudio
   m_TagString: Untagged
@@ -44,6 +45,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -136,7 +138,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213883381151588175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925ef87c5bafc37469a2f7ec825dee4b, type: 3}
   m_Name: 
@@ -158,6 +160,23 @@ MonoBehaviour:
   _loop: 0
   _chanceToPlay: 100
   _playOnStart: 0
+--- !u!114 &8520140347307175527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213883381151588175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f241e94cb67aa1f4b8f7ed2964106b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRInteractionAudioTrigger
+  hoverEnterClip: {fileID: 8300000, guid: fbedf1b2a14410642b76da03d6d664f7, type: 3}
+  hoverExitClip: {fileID: 0}
+  selectEnterClip: {fileID: 0}
+  selectExitClip: {fileID: 0}
+  volume: 0.3
 --- !u!1 &340304834230354841
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +285,7 @@ GameObject:
   - component: {fileID: 448107551787477110}
   - component: {fileID: 3431591740832423578}
   - component: {fileID: 2325759118962639180}
+  - component: {fileID: 6594911863659745484}
   m_Layer: 0
   m_Name: BasicGrabPickupAudio
   m_TagString: Untagged
@@ -299,6 +319,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -391,7 +412,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454710490585187047}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925ef87c5bafc37469a2f7ec825dee4b, type: 3}
   m_Name: 
@@ -417,6 +438,23 @@ MonoBehaviour:
   _loop: 0
   _chanceToPlay: 100
   _playOnStart: 0
+--- !u!114 &6594911863659745484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454710490585187047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f241e94cb67aa1f4b8f7ed2964106b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRInteractionAudioTrigger
+  hoverEnterClip: {fileID: 8300000, guid: ba24ea69ea5a83349b560a6d0abcef47, type: 3}
+  hoverExitClip: {fileID: 0}
+  selectEnterClip: {fileID: 0}
+  selectExitClip: {fileID: 0}
+  volume: 0.4
 --- !u!1 &1692784535073128005
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,6 +1006,18 @@ MonoBehaviour:
   _whenUnselectedEmpty:
     m_PersistentCalls:
       m_Calls: []
+  _whenBeginHighlightWithObject:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenEndHighlightWithObject:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelectedHoveredWithObject:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenUnselectedHoveredWithObject:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5127433693089550595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1370,6 +1420,7 @@ GameObject:
   - component: {fileID: 3639467148427399167}
   - component: {fileID: 1124720855177314884}
   - component: {fileID: 1805234905000663229}
+  - component: {fileID: 5274737883878509344}
   m_Layer: 0
   m_Name: BasicGrabReleaseAudio
   m_TagString: Untagged
@@ -1403,6 +1454,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1495,7 +1547,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3495024906088377698}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925ef87c5bafc37469a2f7ec825dee4b, type: 3}
   m_Name: 
@@ -1521,6 +1573,23 @@ MonoBehaviour:
   _loop: 0
   _chanceToPlay: 100
   _playOnStart: 0
+--- !u!114 &5274737883878509344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3495024906088377698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f241e94cb67aa1f4b8f7ed2964106b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRInteractionAudioTrigger
+  hoverEnterClip: {fileID: 8300000, guid: 01ee74389d1a6844c9250d4230e734d3, type: 3}
+  hoverExitClip: {fileID: 0}
+  selectEnterClip: {fileID: 0}
+  selectExitClip: {fileID: 0}
+  volume: 0.015
 --- !u!1 &3583143968918713040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,6 +1944,7 @@ GameObject:
   - component: {fileID: 5723519720917518547}
   - component: {fileID: 2346052972286026539}
   - component: {fileID: 3043324743593605118}
+  - component: {fileID: 5302428266940489508}
   m_Layer: 0
   m_Name: BasicGrabPickupAudio
   m_TagString: Untagged
@@ -1908,6 +1978,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2000,7 +2071,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4944463831671295240}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925ef87c5bafc37469a2f7ec825dee4b, type: 3}
   m_Name: 
@@ -2026,6 +2097,23 @@ MonoBehaviour:
   _loop: 0
   _chanceToPlay: 100
   _playOnStart: 0
+--- !u!114 &5302428266940489508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4944463831671295240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f241e94cb67aa1f4b8f7ed2964106b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRInteractionAudioTrigger
+  hoverEnterClip: {fileID: 8300000, guid: ba24ea69ea5a83349b560a6d0abcef47, type: 3}
+  hoverExitClip: {fileID: 0}
+  selectEnterClip: {fileID: 0}
+  selectExitClip: {fileID: 0}
+  volume: 0.4
 --- !u!1 &5038978359876071621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,6 +2201,7 @@ GameObject:
   - component: {fileID: 5106989133155365929}
   - component: {fileID: 8031926391216538309}
   - component: {fileID: 6966669939211230483}
+  - component: {fileID: 1486625576022040176}
   m_Layer: 0
   m_Name: BasicGrabReleaseAudio
   m_TagString: Untagged
@@ -2146,6 +2235,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2238,7 +2328,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5091073322315046584}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925ef87c5bafc37469a2f7ec825dee4b, type: 3}
   m_Name: 
@@ -2264,6 +2354,23 @@ MonoBehaviour:
   _loop: 0
   _chanceToPlay: 100
   _playOnStart: 0
+--- !u!114 &1486625576022040176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091073322315046584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f241e94cb67aa1f4b8f7ed2964106b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRInteractionAudioTrigger
+  hoverEnterClip: {fileID: 8300000, guid: 01ee74389d1a6844c9250d4230e734d3, type: 3}
+  hoverExitClip: {fileID: 0}
+  selectEnterClip: {fileID: 0}
+  selectExitClip: {fileID: 0}
+  volume: 0.015
 --- !u!1 &5329032218571529416
 GameObject:
   m_ObjectHideFlags: 0
@@ -2275,6 +2382,7 @@ GameObject:
   - component: {fileID: 5299625327077520985}
   - component: {fileID: 6927808191997870261}
   - component: {fileID: 8069663011684278115}
+  - component: {fileID: 4814794069937036406}
   m_Layer: 0
   m_Name: DistanceGrabHoverAudio
   m_TagString: Untagged
@@ -2308,6 +2416,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2400,7 +2509,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5329032218571529416}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925ef87c5bafc37469a2f7ec825dee4b, type: 3}
   m_Name: 
@@ -2422,6 +2531,23 @@ MonoBehaviour:
   _loop: 0
   _chanceToPlay: 100
   _playOnStart: 0
+--- !u!114 &4814794069937036406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329032218571529416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f241e94cb67aa1f4b8f7ed2964106b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRInteractionAudioTrigger
+  hoverEnterClip: {fileID: 8300000, guid: 1ec345b9b29f7be4a9844256d11985e0, type: 3}
+  hoverExitClip: {fileID: 0}
+  selectEnterClip: {fileID: 0}
+  selectExitClip: {fileID: 0}
+  volume: 0.3
 --- !u!1 &5547923320453057694
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,10 +2963,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7044558186830603409}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0.1
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0.1
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
