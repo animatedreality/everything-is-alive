@@ -15,6 +15,7 @@ public class EntitlementBootstrap : MonoBehaviour
     public bool quitOnFailure = true;
 
     private bool _completed;
+    private bool _timedOut;
 
     private void Awake()
     {
@@ -36,11 +37,11 @@ public class EntitlementBootstrap : MonoBehaviour
         bool initializationFailed = false;
         try
         {
-            Core.Initialize();
+            Core.AsyncInitialize();
         }
         catch (System.Exception e)
         {
-            Debug.LogError("[EntitlementBootstrap] Platform Core.Initialize() failed: " + e.Message);
+            Debug.LogError("[EntitlementBootstrap] Platform Core.AsyncInitialize() failed: " + e.Message);
             initializationFailed = true;
         }
 
@@ -62,6 +63,7 @@ public class EntitlementBootstrap : MonoBehaviour
 
         if (!_completed)
         {
+            _timedOut = true;
             Debug.LogError("[EntitlementBootstrap] Entitlement timed out.");
             yield return FailAndQuit("Entitlement timed out.");
         }
@@ -69,6 +71,12 @@ public class EntitlementBootstrap : MonoBehaviour
 
     private void OnEntitlementResult(Message msg)
     {
+        if (_timedOut)
+        {
+            Debug.LogWarning("[EntitlementBootstrap] Received entitlement result after timeout. Ignoring.");
+            return;
+        }
+
         _completed = true;
 
         if (msg.IsError)
@@ -99,6 +107,7 @@ public class EntitlementBootstrap : MonoBehaviour
         text.resizeTextForBestFit = true;
         text.resizeTextMinSize = 18;
         text.resizeTextMaxSize = 36;
+        text.color = Color.white;
 
         var rt = text.GetComponent<RectTransform>();
         rt.anchorMin = new Vector2(0.1f, 0.1f);
@@ -107,9 +116,13 @@ public class EntitlementBootstrap : MonoBehaviour
         rt.offsetMax = Vector2.zero;
 
         float t = 0f;
-        while (t < 1.5f) { t += Time.unscaledDeltaTime; yield return null; }
+        while (t < 2f) { t += Time.unscaledDeltaTime; yield return null; }
 
-        if (quitOnFailure) UnityEngine.Application.Quit();
+        if (quitOnFailure)
+        {
+            Debug.LogError($"[EntitlementBootstrap] Quitting application due to: {reason}");
+            UnityEngine.Application.Quit();
+        }
     }
 #endif
 }
